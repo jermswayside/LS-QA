@@ -13,6 +13,8 @@ import java.util.Objects;
 public class CreateCourse {
     public static void createCourse() throws InterruptedException{
 
+        System.out.println("Checking creating course functionality...");
+
         CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorNewCourse)).click();
         System.out.println("Clicked \"New Course\".");
         Thread.sleep(2000);

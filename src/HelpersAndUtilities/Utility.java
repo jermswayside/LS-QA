@@ -19,6 +19,8 @@ import java.util.Objects;
 public class Utility {
 
     public static void courseCount() throws InterruptedException {
+        System.out.println("Checking course book count...");
+
         WebElement newCourse = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorNewCourse));
         newCourse.click();
         System.out.println("Clicked \"New Course\".");
@@ -81,28 +83,30 @@ public class Utility {
 
 
     public static void simpleDeleteAssignments() throws InterruptedException {
+        System.out.println("Now deleting assignment(s)...");
+
         Thread.sleep(4000);
+
         List<WebElement> existingAssignments = CommonResources.browserDriver.findElements(By.cssSelector(CommonResources.cssSelectorAssignments));
+
         if (existingAssignments.isEmpty()){
             System.out.println("There are no assignments created.  Exiting.");
             return;
         }
-        WebElement trashCan = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorTrashCan));
-        trashCan.click();
 
-        WebElement checkAll = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorCheckAllBox));
-        checkAll.click();
+        UINavigation.clickTrashcan();
 
-        WebElement removeSelected = CommonResources.browserDriver.findElement(By.linkText(CommonResources.cssLinkedTextRemove));
-        removeSelected.click();
+        UINavigation.clickCheckAll();
+
+        UINavigation.clickRemoveSelected();
 
         Thread.sleep(2000);
 
-        WebElement removeConfirm = getRemoveConfirm();
-        removeConfirm.click();
+        UINavigation.clickRemoveConfirm();
     }
 
     public static void simpleSelectAssignment() throws InterruptedException {
+        System.out.println("Now selecting assignment...");
 
         System.out.println("Waiting for course content to load...");
 
@@ -130,6 +134,8 @@ public class Utility {
     }
 
     public static void createAssignment() throws InterruptedException {
+        System.out.println("Now creating assignment...");
+
         UINavigation.clickNextStep();
         Thread.sleep(1000);
 
@@ -147,6 +153,8 @@ public class Utility {
     }
 
     public static void createAssignmentSelectedStudents() throws InterruptedException {
+        System.out.println("Now creating assignment for one student only...");
+
         UINavigation.clickNextStep();
         Thread.sleep(1000);
 
@@ -167,7 +175,10 @@ public class Utility {
     }
 
     public static void confirmAssignmentSelectedStudents() throws InterruptedException {
+        System.out.println("Now confirming assignments for assigned students...");
+
         CommonResources.assignedAssignments = getAssignments(CommonResources.cssSelectorAssignmentTitle);
+
         WebDriver qastudentBrowser = startBrowser(CommonResources.chromeDriver, CommonResources.pathChromeDriver);
         WebDriver qastudent1Browser = startBrowser(CommonResources.chromeDriver, CommonResources.pathChromeDriver);
 

@@ -7,12 +7,13 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 
 public class AssignmentTests {
     public static void selectEachAssignments() throws InterruptedException{
+        System.out.println("Now selecting each assignment...");
+
         ArrayList<String> copyOfIcons = new ArrayList<>(CommonResources.icons);
 
         while(!copyOfIcons.isEmpty()){
@@ -179,8 +180,12 @@ public class AssignmentTests {
     }
 
     public static void confirmAssignments() throws InterruptedException {
+        System.out.println("Now confirming assigning in \"qastudent\"");
+
+        System.out.println("Now logging out...");
         Utility.logout();
 
+        System.out.println("Now logging into \"qastudent\"");
         Utility.login(CommonResources.usernameStudent, CommonResources.passwordStudent, CommonResources.browserDriver);
 
         UINavigation.accessCourse();
@@ -205,6 +210,8 @@ public class AssignmentTests {
     }
 
     public static void deleteAssignments() throws InterruptedException{
+        System.out.println("Now deleting assignments...");
+
         Thread.sleep(2000);
 
         WebDriver studentBrowser = Utility.startBrowser(CommonResources.chromeDriver, CommonResources.pathChromeDriver);
@@ -244,22 +251,15 @@ public class AssignmentTests {
             teacherAssignments.forEach((assignments)-> System.out.println(assignments));
             System.out.println();
 
-            WebElement trashCan = CommonResources.browserDriver.findElement(By.cssSelector(
-                    CommonResources.cssSelectorTrashCan));
-            trashCan.click();
+            UINavigation.clickTrashcan();
 
-            WebElement checkAll = CommonResources.browserDriver.findElement(By.cssSelector(
-                    CommonResources.cssSelectorCheckAllBox));
-            checkAll.click();
+            UINavigation.clickCheckAll();
 
-            WebElement removeSelected = CommonResources.browserDriver.findElement(By.linkText(
-                    CommonResources.cssLinkedTextRemove));
-            removeSelected.click();
+            UINavigation.clickRemoveSelected();
 
             Thread.sleep(2000);
 
-            WebElement removeConfirm = Utility.getRemoveConfirm();
-            removeConfirm.click();
+            UINavigation.clickRemoveConfirm();
 
             System.out.println("Assignments have been deleted.");
 
@@ -271,7 +271,7 @@ public class AssignmentTests {
 
             studentAssignments = Utility.getAssignments(CommonResources.cssSelectorStudentAssignmentTitle, studentBrowser);
 
-            if(studentAssignments==null){
+            if(studentAssignments == null){
                 System.out.println("Assignments have been successfully removed from the student account.");
                 studentBrowser.quit();
                 return;
@@ -286,6 +286,8 @@ public class AssignmentTests {
     }
 
     public static void editAssignments() throws InterruptedException{
+        System.out.println("Now editing assignments...");
+
         UINavigation.clickCompletedAssigned();
         Thread.sleep(1000);
 
@@ -329,13 +331,38 @@ public class AssignmentTests {
 
     }
 
+    public static void archiveAssignment() throws InterruptedException {
+        System.out.println("Now archiving assignment...");
+
+        UINavigation.clickArchive();
+        Thread.sleep(1000);
+
+        UINavigation.clickArchiveYes();
+        Thread.sleep(1000);
+
+        confirmMessageBox();
+        Thread.sleep(1000);
+
+        UINavigation.clickShowArchived();
+        Thread.sleep(1000);
+
+        ArrayList<String> allArchiveAssignments = getArchivedAssignments();
+
+        if (allArchiveAssignments.isEmpty()){
+            System.out.println("There are no archived assignments.");
+            return;
+        }
+        System.out.println(String.format("There are %s assignment(s) that have been archived named:",
+                allArchiveAssignments.size()));
+        allArchiveAssignments.forEach((assignment -> System.out.println(assignment)));
+    }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
     private static ArrayList<String> getStudents() {
         List<WebElement> students = CommonResources.browserDriver.findElements(
-                By.cssSelector(CommonResources.cssSelectorAllAssigned));
+                By.cssSelector(CommonResources.cssSelectorAllAssigned)
+        );
         if (students.isEmpty()){
             return new ArrayList<>();
         }
@@ -345,5 +372,44 @@ public class AssignmentTests {
             studentNames.add(currStudentName);
         }));
         return studentNames;
+    }
+
+    private static ArrayList<String> getArchivedAssignments() {
+        List<WebElement> archivedAssignments = CommonResources.browserDriver.findElements(
+                By.cssSelector(CommonResources.cssSelectorArchivedAssignments)
+        );
+        if (archivedAssignments.isEmpty()){
+            return new ArrayList<>();
+        }
+        ArrayList<String> archivedAssignmentNames = new ArrayList<>();
+
+        archivedAssignments.forEach((assignment -> {
+            String currAssignmentName = assignment.getText().split("\n")[0];
+            System.out.println(currAssignmentName);
+            archivedAssignmentNames.add(currAssignmentName);
+        }));
+        return archivedAssignmentNames;
+    }
+
+    private static void confirmMessageBox() {
+        List<WebElement> messageBox = CommonResources.browserDriver.findElements(
+                By.cssSelector(CommonResources.cssSelectorArchiveMessageBox));
+
+        if (messageBox.isEmpty()){
+            System.out.println("Message Box did not appear after archiving; Please contact administrator.");
+            return;
+        }
+
+        String messageBoxText = messageBox.get(0).getText();
+
+        if(Objects.equals(messageBoxText, CommonResources.archiveSuccessMessage)){
+            System.out.println(String.format(
+                    "Message Box appeared with text: %s", CommonResources.archiveSuccessMessage));
+        }
+
+        else {
+            System.out.println(String.format(
+                    "MessageBox appeared, but with different success text: %s", messageBoxText));
+        }
     }
 }

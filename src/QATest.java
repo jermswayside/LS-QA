@@ -68,12 +68,10 @@ public class QATest {
                 }
 
                 else if (choiceEntry == 1){
-                    System.out.println("Checking creating course functionality...");
                     CreateCourse.createCourse();
                 }
 
                 else if (choiceEntry == 2){
-                   System.out.println("Checking course book count...");
                    Utility.courseCount();
                 }
 
@@ -86,10 +84,11 @@ public class QATest {
                                 "\"3\" - Confirm assignments for students\n" +
                                 "\"4\" - Delete assignments\n" +
                                 "\"5\" - Edit/Assign assignment to new student\n" +
-                                "\"6\" - Back"
+                                "\"6\" - Archive assignment\n" +
+                                "\"7\" - Back"
                         );
                         int assignmentChoiceEntry = assignmentChoice.nextInt();
-                        if (assignmentChoiceEntry > 6) {
+                        if (assignmentChoiceEntry > 7) {
                             System.out.println("Please input a valid number");
                             return;
                         }
@@ -100,15 +99,13 @@ public class QATest {
                             UINavigation.navToAssignment();
 
                             Thread.sleep(1000);
+
                             UINavigation.clickAddAssignments();
 
-                            System.out.println("Now selecting all assignments...");
                             AssignmentTests.selectAllAssignments();
 
-                            System.out.println("Now creating assignments");
                             Utility.createAssignment();
 
-                            System.out.println("Now deleting assignments...");
                             Utility.simpleDeleteAssignments();
                         }
 
@@ -119,12 +116,11 @@ public class QATest {
                             UINavigation.navToAssignment();
 
                             Thread.sleep(1000);
+
                             UINavigation.clickAddAssignments();
 
-                            System.out.println("Now selecting each assignment...");
                             AssignmentTests.selectEachAssignments();
 
-                            System.out.println("Now deleting assignments(s)...");
                             Utility.simpleDeleteAssignments();
                         }
 
@@ -134,18 +130,16 @@ public class QATest {
                             UINavigation.navToAssignment();
 
                             Thread.sleep(1000);
+
                             UINavigation.clickAddAssignments();
 
-                            System.out.println("Now selecting assignment...");
                             Utility.simpleSelectAssignment();
 
-                            System.out.println("Now creating assignment...");
                             Utility.createAssignment();
 
-                            System.out.println("Now confirming assigning in qastudent");
+
                             AssignmentTests.confirmAssignments();
 
-                            System.out.println("Now deleting assignments...");
                             Utility.simpleDeleteAssignments();
                         }
 
@@ -155,44 +149,53 @@ public class QATest {
                             UINavigation.navToAssignment();
 
                             Thread.sleep(1000);
+
                             UINavigation.clickAddAssignments();
 
-                            System.out.println("Now selecting assignment...");
                             Utility.simpleSelectAssignment();
 
-                            System.out.println("Now creating assignment...");
                             Utility.createAssignment();
 
-                            System.out.println("Now deleting assignments...");
                             AssignmentTests.deleteAssignments();
                         }
                         if(assignmentChoiceEntry == 5){
                             System.out.println("Testing editing assignments...");
+                            UINavigation.navToAssignment();
+
+                            Thread.sleep(1000);
+
+                            UINavigation.clickAddAssignments();
+
+                            Utility.simpleSelectAssignment();
+
+                            Utility.createAssignmentSelectedStudents();
+
+                            AssignmentTests.editAssignments();
+
+                            Utility.confirmAssignmentSelectedStudents();
+
+                            Utility.simpleDeleteAssignments();
+                        }
+                        if (assignmentChoiceEntry == 6) {
+                            System.out.println("Testing archiving assignments...");
 
                             UINavigation.navToAssignment();
 
                             Thread.sleep(1000);
+
                             UINavigation.clickAddAssignments();
 
-                            System.out.println("Now selecting assignment...");
                             Utility.simpleSelectAssignment();
 
-                            System.out.println("Now creating assignment for one student only...");
-                            Utility.createAssignmentSelectedStudents();
+                            Utility.createAssignment();
 
-                            System.out.println("Now editing assignments...");
-                            AssignmentTests.editAssignments();
+                            AssignmentTests.archiveAssignment();
 
-                            System.out.println("Now confirming assignments for assigned students...");
-                            Utility.confirmAssignmentSelectedStudents();
-
-                            System.out.println("Now deleting assignment(s)...");
                             Utility.simpleDeleteAssignments();
                         }
-                        if (assignmentChoiceEntry == 6) {
+                        if (assignmentChoiceEntry == 7) {
                             continue;
                         }
-
                     }
 
                     catch (InputMismatchException i) {

@@ -23,6 +23,7 @@ public class UINavigation {
     }
 
     public static void navToAssignment() throws InterruptedException{
+
         accessCourse();
         clickSkip();
 
@@ -195,6 +196,61 @@ public class UINavigation {
         WebElement next = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorEditNextStep));
         next.click();
 
-        System.out.println("Clicked \"NEXT STEP\"");
+        System.out.println("Clicked \"NEXT STEP\".");
+    }
+
+    public static void clickTrashcan() {
+        WebElement trashCan = CommonResources.browserDriver.findElement(By.cssSelector(
+                CommonResources.cssSelectorTrashCan));
+        trashCan.click();
+
+        System.out.println("Clicked trashcan icon.");
+    }
+
+    public static void clickCheckAll() {
+        WebElement checkAll = CommonResources.browserDriver.findElement(By.cssSelector(
+                CommonResources.cssSelectorCheckAllBox));
+        checkAll.click();
+
+        System.out.println("Clicked check all box.");
+    }
+
+    public static void clickRemoveSelected(){
+        WebElement removeSelected = CommonResources.browserDriver.findElement(
+                By.linkText(CommonResources.cssLinkedTextRemove));
+        removeSelected.click();
+
+        System.out.println("Clicked \"Remove Selected\".");
+    }
+
+    public static void clickRemoveConfirm() throws InterruptedException{
+        WebElement removeConfirm = Utility.getRemoveConfirm();
+        removeConfirm.click();
+
+        System.out.println("Clicked \"CONFIRM\".");
+    }
+
+    public static void clickArchive() {
+        WebElement archive = CommonResources.browserDriver.findElement(
+                By.cssSelector(CommonResources.cssSelectorArchive));
+        archive.click();
+
+        System.out.println("Clicked Archive icon.");
+    }
+
+    public static void clickArchiveYes() {
+        WebElement yes = CommonResources.browserDriver.findElement(
+                By.cssSelector(CommonResources.cssSelectorArchiveYes));
+        yes.click();
+
+        System.out.println("Clicked \"YES\".");
+    }
+
+    public static void clickShowArchived(){
+        WebElement showArchived = CommonResources.browserDriver.findElement(
+                By.cssSelector(CommonResources.cssSelectorShowArchived));
+        showArchived.click();
+
+        System.out.println("Clicked \"Show archived\".");
     }
 }
