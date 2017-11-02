@@ -3,11 +3,13 @@ import HelpersAndUtilities.UINavigation;
 import HelpersAndUtilities.Utility;
 import Tests.AssignmentTests;
 import Tests.CreateCourse;
+import Tests.FlexTextTests;
 
+import java.io.IOException;
 import java.util.*;
 
 public class QATest {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException{
         Scanner scanBrowserChoice = new Scanner(System.in);
         int choiceEntry = 0;
         String browser = "";
@@ -48,7 +50,10 @@ public class QATest {
         CommonResources.browserDriver = Utility.startBrowser(driver, browser);
         Utility.login(CommonResources.usernameTeacher, CommonResources.passwordTeacher, CommonResources.browserDriver);
 
+        UINavigation.clickSkip();
         Thread.sleep(10000);
+        UINavigation.clickSkip();
+        Thread.sleep(1000);
         UINavigation.clickSkip();
 
         Scanner scanChoice = new Scanner(System.in);
@@ -58,11 +63,12 @@ public class QATest {
                     "\"1\" - Create Courses\n" +
                     "\"2\" - Check Book Selection Count in New Course Page\n" +
                     "\"3\" - Assignments\n" +
-                    "\"4\" - Exit program.");
+                    "\"4\" - FlexText\n" +
+                    "\"5\" - Exit program.");
             try {
                 choiceEntry = scanChoice.nextInt();
 
-                if(choiceEntry>4){
+                if(choiceEntry>5){
                     System.out.println("Please input a valid number.");
                     continue;
                 }
@@ -137,7 +143,6 @@ public class QATest {
 
                             Utility.createAssignment();
 
-
                             AssignmentTests.confirmAssignments();
 
                             Utility.simpleDeleteAssignments();
@@ -203,7 +208,17 @@ public class QATest {
                     }
                 }
 
-                else if (choiceEntry == 4) {
+                if (choiceEntry == 4) {
+                    Scanner flextextChoice = new Scanner(System.in);
+                    System.out.println("Select a FlexText functionality:\n" +
+                            "\"1\" - Jump to page");
+                    int choice = flextextChoice.nextInt();
+
+                    if (choice == 1){
+                        FlexTextTests.checkJumpToPage();
+                    }
+                }
+                if (choiceEntry == 5) {
                     System.out.println("Now exiting.");
                     CommonResources.browserDriver.quit();
                     System.exit(0);

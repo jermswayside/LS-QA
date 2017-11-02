@@ -9,10 +9,13 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 // This class is used for testing functionality that are one-off/uncommonly used.
 
@@ -255,6 +258,18 @@ public class Utility {
         }
         return createdAssignmentsText;
     }
+
+    public static void writeToErrorLog(String fn, String msg) throws IOException{
+        File fileName = new File(fn);
+        FileWriter fw = new FileWriter(fileName, true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(msg);
+        bw.close();
+    }
+
+    public static String getCurrDate(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
 }
-
-

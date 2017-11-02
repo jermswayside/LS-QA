@@ -14,9 +14,9 @@ public class AssignmentTests {
     public static void selectEachAssignments() throws InterruptedException{
         System.out.println("Now selecting each assignment...");
 
-        ArrayList<String> copyOfIcons = new ArrayList<>(CommonResources.icons);
+        ArrayList<String> icons = CommonResources.getIcons();
 
-        while(!copyOfIcons.isEmpty()){
+        while(!icons.isEmpty()){
             WebElement addAssignment = (new WebDriverWait(CommonResources.browserDriver, 20))
                     .until(ExpectedConditions.elementToBeClickable(By.cssSelector(CommonResources.cssSelectorAddAssignment)));
             addAssignment.click();
@@ -72,10 +72,10 @@ public class AssignmentTests {
                             catch (org.openqa.selenium.NoSuchElementException n){
                                 continue;
                             }
-                            if (copyOfIcons.contains(currIcon)) {
+                            if (icons.contains(currIcon)) {
                                 Actions actions = new Actions(CommonResources.browserDriver);
                                 actions.dragAndDrop(foldersLvl3.get(k), target).build().perform();
-                                copyOfIcons.remove(currIcon);
+                                icons.remove(currIcon);
                                 break folder_loop;
                             }
                         }
@@ -92,7 +92,7 @@ public class AssignmentTests {
 
 
     public static void selectAllAssignments() throws InterruptedException {
-        ArrayList<String> copyOfIcons = new ArrayList<>(CommonResources.icons);
+        ArrayList<String> copyOfIcons = CommonResources.getIcons();
 
         Thread.sleep(3000);
         WebElement addAssignment = (new WebDriverWait(CommonResources.browserDriver, 20))
@@ -188,7 +188,7 @@ public class AssignmentTests {
         System.out.println("Now logging into \"qastudent\"");
         Utility.login(CommonResources.usernameStudent, CommonResources.passwordStudent, CommonResources.browserDriver);
 
-        UINavigation.accessCourse();
+        UINavigation.accessCourse(CommonResources.courseForAssignmentTest);
         UINavigation.clickSkip();
 
         UINavigation.accessAssignments();
@@ -221,7 +221,7 @@ public class AssignmentTests {
         Thread.sleep(10000);
         UINavigation.clickSkip(studentBrowser);
 
-        UINavigation.accessCourse(studentBrowser);
+        UINavigation.accessCourse(CommonResources.courseForAssignmentTest, studentBrowser);
         UINavigation.clickSkip(studentBrowser);
 
         UINavigation.accessAssignments(studentBrowser);

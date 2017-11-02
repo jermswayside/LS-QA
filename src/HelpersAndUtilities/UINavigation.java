@@ -1,7 +1,11 @@
 package HelpersAndUtilities;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
+import java.util.Objects;
 
 
 // This class is used for helper methods that don't relate to testing functions
@@ -12,6 +16,7 @@ public class UINavigation {
             Thread.sleep(3000);
             WebElement dash = (new WebDriverWait(CommonResources.browserDriver, 30))
                     .until(ExpectedConditions.elementToBeClickable(By.cssSelector("nav > div.ws-layout-wrapper >  a.ws-main-menu-item:nth-child(1)")));
+            scrollTo(dash);
             dash.click();
             System.out.println("Redirecting back to dashboard...");
         }
@@ -23,8 +28,10 @@ public class UINavigation {
     }
 
     public static void navToAssignment() throws InterruptedException{
+        Thread.sleep(3000);
+        accessCourse(CommonResources.courseForAssignmentTest);
 
-        accessCourse();
+        Thread.sleep(5000);
         clickSkip();
 
         Thread.sleep(1000);
@@ -34,7 +41,10 @@ public class UINavigation {
     }
 
     public static void navToAssignment(WebDriver driver) throws InterruptedException{
-        accessCourse(driver);
+        Thread.sleep(3000);
+        accessCourse(CommonResources.courseForAssignmentTest, driver);
+
+        Thread.sleep(5000);
         clickSkip(driver);
 
         Thread.sleep(1000);
@@ -47,7 +57,8 @@ public class UINavigation {
         System.out.println("Waiting for tutorial box to appear...");
         try {
             WebElement skip = (new WebDriverWait(CommonResources.browserDriver, 10))
-                    .until(ExpectedConditions.elementToBeClickable(By.cssSelector(CommonResources.cssSelectorPopupSkip)));
+                    .until(ExpectedConditions.elementToBeClickable(
+                            By.cssSelector(CommonResources.cssSelectorPopupSkip)));
             skip.click();
             System.out.println("Clicked \"Skip\".");
         }
@@ -60,7 +71,8 @@ public class UINavigation {
         System.out.println("Waiting for tutorial box to appear...");
         try {
             WebElement skip = (new WebDriverWait(driver, 20))
-                    .until(ExpectedConditions.elementToBeClickable(By.cssSelector(CommonResources.cssSelectorPopupSkip)));
+                    .until(ExpectedConditions.elementToBeClickable(
+                            By.cssSelector(CommonResources.cssSelectorPopupSkip)));
             skip.click();
             System.out.println("Clicked \"Skip\".");
         }
@@ -69,36 +81,56 @@ public class UINavigation {
         }
     }
 
-    public static void accessCourse() throws InterruptedException{
-        WebElement course = (new WebDriverWait(CommonResources.browserDriver, 20))
-                .until(ExpectedConditions.elementToBeClickable(By.cssSelector(CommonResources.cssSelectorCourse)));
-        System.out.println(("Now accessing course \"asd\""));
-        course.click();
+    public static void accessCourse(String course) throws InterruptedException{
+        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 20);
 
-        Thread.sleep(5000);
+        ExpectedCondition<List<WebElement>> condition = ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                By.cssSelector(CommonResources.cssSelectorCourse));
+
+        List<WebElement> courses = wait.until(condition);
+
+        courses.forEach((c) -> {
+            if (Objects.equals(c.getText(), course)){
+                scrollTo(c);
+                c.click();
+                System.out.println(String.format("Now accessing course: %s", course));
+
+                return;
+            }
+        });
     }
 
-    public static void accessCourse(WebDriver driver) throws InterruptedException{
-        WebElement course;
+    public static void accessCourse(String course, WebDriver driver) throws InterruptedException{
         try {
-            course = (new WebDriverWait(driver, 20))
-                    .until(ExpectedConditions.elementToBeClickable(By.cssSelector(CommonResources.cssSelectorCourseStudent)));
+            WebDriverWait wait = new WebDriverWait(driver, 20);
+
+            ExpectedCondition<List<WebElement>> condition = ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                    By.cssSelector(CommonResources.cssSelectorCourseStudent));
+
+            List<WebElement> courses = wait.until(condition);
+
+            courses.forEach((c) -> {
+                if (Objects.equals(c.getText(), course)){
+                    scrollTo(c, driver);
+                    c.click();
+                    System.out.println(String.format(
+                            "Now accessing course: %s", course));
+
+                    return;
+                }
+            });
         }
-        catch (TimeoutException e){
+        catch (TimeoutException e) {
             System.out.println("There are no courses for qastudent.  Exiting.");
             return;
         }
-        System.out.println(("Now accessing course \"asd\""));
-        course.click();
-
-        Thread.sleep(5000);
     }
 
     public static void accessAssignments() throws InterruptedException{
         WebElement assignment = (new WebDriverWait(CommonResources.browserDriver, 20))
                 .until(ExpectedConditions.elementToBeClickable(By.xpath(CommonResources.cssXpathAssignmentTab)));
 
-        System.out.println(String.format("Now accessing assignments tab..."));
+        System.out.println("Now accessing assignments tab...");
         assignment.click();
 
         Thread.sleep(5000);
@@ -108,7 +140,7 @@ public class UINavigation {
         WebElement assignment = (new WebDriverWait(driver, 20))
                 .until(ExpectedConditions.elementToBeClickable(By.xpath(CommonResources.cssXpathAssignmentTab)));
 
-        System.out.println(String.format("Now accessing assignments tab..."));
+        System.out.println("Now accessing assignments tab...");
         assignment.click();
 
         Thread.sleep(5000);
@@ -252,5 +284,31 @@ public class UINavigation {
         showArchived.click();
 
         System.out.println("Clicked \"Show archived\".");
+    }
+
+    public static void scrollTo(WebElement we){
+        JavascriptExecutor je = (JavascriptExecutor) CommonResources.browserDriver;
+        je.executeScript("arguments[0].scrollIntoView(true);", we);
+    }
+
+    public static void scrollTo(WebElement we, WebDriver d){
+        JavascriptExecutor je = (JavascriptExecutor) d;
+        je.executeScript("arguments[0].scrollIntoView(true);", we);
+    }
+
+    public static void clickFlexTextTab() throws InterruptedException{
+        WebElement ft = CommonResources.browserDriver.findElement(By.linkText("FlexText"));
+        scrollTo(ft);
+        ft.click();
+        System.out.println("Clicked FlexText tab.");
+    }
+
+    public static void clickJumpToPage(){
+        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
+        WebElement jumpToPageIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.cssSelector(CommonResources.cssSelectorJumpToPage)));
+        jumpToPageIcon.click();
+
+        System.out.println("Clicked Jump To Page icon.");
     }
 }
