@@ -1,8 +1,5 @@
 package HelpersAndUtilities;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -271,5 +268,17 @@ public class Utility {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+    public static void browserBack(){
+        JavascriptExecutor js = (JavascriptExecutor) CommonResources.browserDriver;
+        js.executeScript("window.history.go(-1)");
+    }
+
+    public static void nanoToReadableTime(long start, long end){
+        double elapsedTime = end-start/1000000000.0;
+        int minutes = (int) (elapsedTime/60)%60;
+        int seconds = (int) (elapsedTime%60);
+        System.out.println(String.format("%s minutes and %s seconds", minutes, seconds));
     }
 }

@@ -59,16 +59,16 @@ public class QATest {
         Scanner scanChoice = new Scanner(System.in);
 
         while(true) {
-            System.out.println("Which test would you like to run?:\n" +
-                    "\"1\" - Create Courses\n" +
-                    "\"2\" - Check Book Selection Count in New Course Page\n" +
-                    "\"3\" - Assignments\n" +
-                    "\"4\" - FlexText\n" +
-                    "\"5\" - Exit program.");
+            System.out.println("Which test would you like to run?:");
+            int num = 0;
+            for(String test: CommonResources.getAllTests()){
+                System.out.println(String.format("\"%s\" - %s", num+1, test));
+                num++;
+            }
             try {
                 choiceEntry = scanChoice.nextInt();
 
-                if(choiceEntry>5){
+                if(choiceEntry>CommonResources.getAllTests().length){
                     System.out.println("Please input a valid number.");
                     continue;
                 }
@@ -84,17 +84,14 @@ public class QATest {
                 else if (choiceEntry == 3) {
                     try {
                         Scanner assignmentChoice = new Scanner(System.in);
-                        System.out.println("Select assignment functionality:\n" +
-                                "\"1\" - Create all assignments\n" +
-                                "\"2\" - Create each assignment individually\n" +
-                                "\"3\" - Confirm assignments for students\n" +
-                                "\"4\" - Delete assignments\n" +
-                                "\"5\" - Edit/Assign assignment to new student\n" +
-                                "\"6\" - Archive assignment\n" +
-                                "\"7\" - Back"
-                        );
+                        System.out.println("Select assignment functionality:");
+                        num = 0;
+                        for(String test: CommonResources.getAllAssignmentTests()){
+                            System.out.println(String.format("\"%s\" - %s", num+1, test));
+                            num++;
+                        }
                         int assignmentChoiceEntry = assignmentChoice.nextInt();
-                        if (assignmentChoiceEntry > 7) {
+                        if (assignmentChoiceEntry > CommonResources.getAllAssignmentTests().length) {
                             System.out.println("Please input a valid number");
                             return;
                         }
@@ -209,14 +206,25 @@ public class QATest {
                 }
 
                 if (choiceEntry == 4) {
-                    Scanner flextextChoice = new Scanner(System.in);
-                    System.out.println("Select a FlexText functionality:\n" +
-                            "\"1\" - Jump to page");
-                    int choice = flextextChoice.nextInt();
+                    Scanner flexTextChoice = new Scanner(System.in);
+                    System.out.println("Select a FlexText functionality:");
+
+                    num = 0;
+                    for(String test: CommonResources.getAllFlexTextTests()){
+                        System.out.println(String.format("\"%s\" - %s", num+1, test));
+                        num++;
+                    }
+
+                    int choice = flexTextChoice.nextInt();
 
                     if (choice == 1){
                         FlexTextTests.checkJumpToPage();
                     }
+
+                    if (choice == 2){
+                        FlexTextTests.checkExplorerLinks();
+                    }
+
                 }
                 if (choiceEntry == 5) {
                     System.out.println("Now exiting.");

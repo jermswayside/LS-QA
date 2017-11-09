@@ -138,9 +138,18 @@ public class CommonResources {
     public static final String cssSelectorJumpToPage = "div.tab.wsi-icon-jumptopage";
     public static final String cssSelectorPageInput = "div.content-b > div.tab-content.active >" +
             "div.goto-b > form.Flextext_Goto_Form > input";
+    public static final String cssSelectorExplorerImg = "img.explorer-margin";
+    public static final String cssSelectorNextPage = "div.btn-next-exhibit";
+    public static final String cssSelectorActiveChapter = "a.toc-exhibit-epub-link.active";
+    public static final String cssSelectorExplorerLinkBox = "div.popover.relations-block" +
+            ".relations-popover.fade.top.in.visible-important";
+    public static final String cssSelectorExplorerLink = "div.popover.relations-block.relations-popover.fade.top.in.visible-important > " +
+            "div.popover-content.relations-block__content > div.relations-block__list >" +
+            " div.relations-block__list-item > a.navigate";
 
     //Error Log Names
     public static final String errorLogFlexText = "logs/FlexTextError.txt";
+
 
 
     //Helper methods
@@ -166,11 +175,40 @@ public class CommonResources {
         allBooks.add("EntreCulturas (1)");
         allBooks.add("EntreCulturas (3)");
         allBooks.add("EntreCulturas 0");
-        allBooks.add( "Neue Blickwinkel, 1st Edition");
-        allBooks.add(     "Neue Blickwinkel, 2nd Edition");
-        allBooks.add(  "Scandite Muros");
-        allBooks.add(   "Tejidos (0)");
-        allBooks.add(   "Triángulo Aprobado (0)");
+        allBooks.add("Neue Blickwinkel, 1st Edition");
+        allBooks.add("Neue Blickwinkel, 2nd Edition");
+        allBooks.add("Scandite Muros");
+        allBooks.add("Tejidos (0)");
+        allBooks.add("Triángulo Aprobado (0)");
         return allBooks;
+    }
+
+    public static String[] getAllTests(){
+        return new String[] {
+                "Create Courses",
+                "Check Book Selection Count in New Course Page",
+                "Assignments",
+                "FlexText",
+                "Exit program.",
+        };
+    }
+
+    public static String[] getAllAssignmentTests(){
+        return new String[] {
+                "Create all assignments",
+                "Create each assignment individually",
+                "Confirm assignments for students",
+                "Delete assignments",
+                "Edit/Assign assignment to new student",
+                "Archive assignment",
+                "Back",
+        };
+    }
+
+    public static String[] getAllFlexTextTests(){
+        return new String[] {
+                "Jump to page",
+                "heck Explorer Links",
+        };
     }
 }

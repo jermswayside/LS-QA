@@ -1,0 +1,1 @@
+2017/11/09 14:10:02: The FlexText [[ChromeDriver: chrome on XP (b65d233300bbfd13b4ac7da99245bb36)] -> css selector: div.Content.explorer-flextext-items > div.ws-courses-item >div.ws-courses-item-title > a.app-navigation] did not redirect to page 405 correctly.
