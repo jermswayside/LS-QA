@@ -50,10 +50,9 @@ public class QATest {
         CommonResources.browserDriver = Utility.startBrowser(driver, browser);
         Utility.login(CommonResources.usernameTeacher, CommonResources.passwordTeacher, CommonResources.browserDriver);
 
-        UINavigation.clickSkip();
+
         Thread.sleep(10000);
         UINavigation.clickSkip();
-        Thread.sleep(1000);
         UINavigation.clickSkip();
 
         Scanner scanChoice = new Scanner(System.in);
@@ -107,7 +106,7 @@ public class QATest {
 
                             AssignmentTests.selectAllAssignments();
 
-                            Utility.createAssignment();
+
 
                             Utility.simpleDeleteAssignments();
                         }
@@ -119,8 +118,6 @@ public class QATest {
                             UINavigation.navToAssignment();
 
                             Thread.sleep(1000);
-
-                            UINavigation.clickAddAssignments();
 
                             AssignmentTests.selectEachAssignments();
 
@@ -141,6 +138,8 @@ public class QATest {
                             Utility.createAssignment();
 
                             AssignmentTests.confirmAssignments();
+
+                            UINavigation.navToAssignment();
 
                             Utility.simpleDeleteAssignments();
                         }
@@ -223,6 +222,10 @@ public class QATest {
 
                     if (choice == 2){
                         FlexTextTests.checkExplorerLinks();
+                    }
+
+                    if(choice == 3){
+                        FlexTextTests.search();
                     }
 
                 }

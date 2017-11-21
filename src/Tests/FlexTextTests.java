@@ -14,6 +14,81 @@ import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class FlexTextTests {
+    public static void search() throws InterruptedException {
+        long startTime = System.nanoTime();
+        List<WebElement> allCourses = getAllCourses();
+        ArrayList<String> allBooks = CommonResources.getAllBooks();
+        for (WebElement course : allCourses) {
+            String courseTitle = course.getText();
+            if (allBooks.contains(courseTitle)) {
+                UINavigation.scrollTo(course);
+
+                UINavigation.accessCourse(courseTitle);
+
+                UINavigation.clickSkip();
+
+                if (!navContainsFlexTextTab()) {
+                    System.out.println(String.format("FlexText is not available for: %s", courseTitle));
+                    UINavigation.navToDash();
+                    continue;
+                }
+
+                UINavigation.clickFlexTextTab();
+                int ftCount = getAllFlexText().size();
+                for (int i=0;i<ftCount; i++) {
+                    List<WebElement> allFT = getAllFlexText();
+                    WebElement currFT = allFT.get(i);
+                    System.out.println(String.format("Accessing flextext: %s", currFT.getText()));
+                    Utility.waitForVisible(currFT);
+                    UINavigation.scrollTo(currFT);
+                    Thread.sleep(1000);
+                    currFT.click();
+
+                    UINavigation.clickSkip();
+                    Thread.sleep(1000);
+
+                    UINavigation.clickSearch();
+                    WebElement searchInput = CommonResources.browserDriver.findElement(
+                            By.cssSelector(CommonResources.cssSelectorSearchInput));
+                    for(String word: CommonResources.getSearchWords()) {
+                        enterWord(word, searchInput);
+                        Thread.sleep(500);
+
+                        UINavigation.clickSearchGo();
+                        Thread.sleep(1000);
+
+                        checkCorrectReturns(word);
+                        Thread.sleep(500);
+
+                        UINavigation.scrollTo(searchInput);
+                        Thread.sleep(500);
+
+                        searchInput.clear();
+                        Thread.sleep(500);
+                    }
+                    UINavigation.clickFlexTextTab();
+                }
+            }
+            UINavigation.navToDash();
+        }
+    }
+
+    private static void checkCorrectReturns(String w) {
+        if(Objects.equals(w,"un")){
+            WebElement total = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorHitCount));
+            Utility.waitForVisible(total);
+            int totalNum = Integer.parseInt(total.getText());
+            if(totalNum != 100){
+                System.out.println("Incorrect return.");
+            }
+        }
+        if(Objects.equals(w, "notaword")){
+            if(!hasNoneReturnErrorMessage()){
+                System.out.println("Incorrect return.");
+            }
+        }
+    }
+
     public static void checkJumpToPage() throws InterruptedException, IOException{
         long startTime = System.nanoTime();
         List<WebElement> allCourses = getAllCourses();
@@ -59,13 +134,11 @@ public class FlexTextTests {
 
                     switchToFT();
 
-                    boolean correctPage  = checkCorrectPage(randNum);
-                    if(correctPage){
+                    if(checkCorrectPage(randNum) || (!checkCorrectPage(randNum) && !hasLink(randNum))){
                         System.out.println("Redirected to the correct page.");
-                        System.out.println(Utility.getCurrDate());
+                        //System.out.println(Utility.getCurrDate());
                     }
-
-                    else{
+                    else if(hasLink(randNum)){
                         String error = String.format(
                                 "%s: The FlexText %s did not redirect to page %s correctly.",
                                 Utility.getCurrDate(), currFT.getText(), randNum);
@@ -331,6 +404,31 @@ public class FlexTextTests {
 
     private static int explorerCompassSize(){
         return getExplorerLink().size();
+    }
+
+    private static boolean hasLink(int page) {
+        String pageNum = "article#p" + page;
+        try {
+            WebElement p = CommonResources.browserDriver.findElement(By.cssSelector(pageNum));
+            return true;
+        } catch (NoSuchElementException n) {
+            return false;
+        }
+    }
+
+    private static void enterWord(String w, WebElement we){
+        we.sendKeys(w);
+    }
+
+    private static boolean hasNoneReturnErrorMessage(){
+        try{
+            WebElement e = CommonResources.browserDriver.findElement(By.xpath(CommonResources.cssXpathNoMatch));
+            Utility.waitForVisible(e);
+            return true;
+        }
+        catch (NoSuchElementException n){
+            return false;
+        }
     }
 }
 

@@ -281,4 +281,14 @@ public class Utility {
         int seconds = (int) (elapsedTime%60);
         System.out.println(String.format("%s minutes and %s seconds", minutes, seconds));
     }
+
+    public static WebElement waitForVisible(WebElement w){
+        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
+        return wait.until(ExpectedConditions.visibilityOf(w));
+    }
+
+    public static boolean waitForNotVisible(WebElement w){
+        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
+        return wait.until(ExpectedConditions.invisibilityOf(w));
+    }
 }

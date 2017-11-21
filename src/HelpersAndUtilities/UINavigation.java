@@ -106,9 +106,8 @@ public class UINavigation {
 
             ExpectedCondition<List<WebElement>> condition = ExpectedConditions.visibilityOfAllElementsLocatedBy(
                     By.cssSelector(CommonResources.cssSelectorCourseStudent));
-
+            clickSkip();
             List<WebElement> courses = wait.until(condition);
-
             courses.forEach((c) -> {
                 if (Objects.equals(c.getText(), course)){
                     scrollTo(c, driver);
@@ -164,6 +163,7 @@ public class UINavigation {
 
     public static void clickActiveNextStep() throws InterruptedException {
         WebElement nextNextStep = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorNextNextStep));
+        Utility.waitForVisible(nextNextStep);
         nextNextStep.click();
 
         System.out.println("Clicked \"NEXT STEP\".");
@@ -212,6 +212,7 @@ public class UINavigation {
 
     public static void clickCompletedAssigned() {
         WebElement students = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorAssignees));
+        Utility.waitForVisible(students);
         students.click();
 
         System.out.println("Clicked \"Completed/Assigned\".");
@@ -299,6 +300,7 @@ public class UINavigation {
     public static void clickFlexTextTab() throws InterruptedException{
         WebElement ft = CommonResources.browserDriver.findElement(By.linkText("FlexText"));
         scrollTo(ft);
+        Thread.sleep(500);
         ft.click();
         System.out.println("Clicked FlexText tab.");
     }
@@ -310,5 +312,19 @@ public class UINavigation {
         jumpToPageIcon.click();
 
         System.out.println("Clicked Jump To Page icon.");
+    }
+
+    public static void clickSearch(){
+        WebElement search = CommonResources.browserDriver.findElement(
+                By.cssSelector(CommonResources.cssSelectorSearch));
+        search.click();
+    }
+    public static void clickSearchGo() throws InterruptedException{
+        WebElement searchGo = CommonResources.browserDriver.findElement(
+                By.cssSelector(CommonResources.cssSelectorSearchGo));
+        Utility.waitForVisible(searchGo);
+        Thread.sleep(1000);
+        scrollTo(searchGo);
+        searchGo.click();
     }
 }

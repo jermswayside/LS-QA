@@ -3,6 +3,7 @@ import HelpersAndUtilities.CommonResources;
 import HelpersAndUtilities.UINavigation;
 import HelpersAndUtilities.Utility;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -15,12 +16,9 @@ public class AssignmentTests {
         System.out.println("Now selecting each assignment...");
 
         ArrayList<String> icons = CommonResources.getIcons();
-
+        UINavigation.clickSkip();
         while(!icons.isEmpty()){
-            WebElement addAssignment = (new WebDriverWait(CommonResources.browserDriver, 20))
-                    .until(ExpectedConditions.elementToBeClickable(By.cssSelector(CommonResources.cssSelectorAddAssignment)));
-            addAssignment.click();
-            System.out.println("Clicked \"ADD ASSIGNMENT\"");
+            UINavigation.clickAddAssignments();
 
             System.out.println("Waiting for course content to load...");
 
@@ -35,6 +33,7 @@ public class AssignmentTests {
 
             folder_loop:
             for(int i = 1; i<folders.size(); i++){
+                Thread.sleep(500);
                 WebElement currFolder = folders.get(i);
                 je.executeScript("arguments[0].scrollIntoView(true);", currFolder);
 
@@ -49,6 +48,7 @@ public class AssignmentTests {
                 List<WebElement> foldersLvl2Closer = currFolder.findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl2Closer));
 
                 for(int j = 0; j<foldersLvl2.size(); j++){
+                    Thread.sleep(500);
                     WebElement currInnerFolder = foldersLvl2.get(j);
 
                     WebElement currInnerFolderCloser = foldersLvl2Closer.get(j);
@@ -85,8 +85,13 @@ public class AssignmentTests {
                 foldersCloser.get(i).click();
                 }
             Utility.createAssignment();
-                Thread.sleep(2000);
+            Thread.sleep(2000);
             }
+        try {
+            WebElement popup = CommonResources.browserDriver.findElement(By.cssSelector("#Popup_Create_Assignment > div.ws-assignment-popup-wrapper.Popup_Body"));
+            Utility.waitForNotVisible(popup);
+        }
+        catch (NoSuchElementException n){}
         System.out.println("Assignments creation complete.");
         }
 
@@ -95,11 +100,6 @@ public class AssignmentTests {
         ArrayList<String> copyOfIcons = CommonResources.getIcons();
 
         Thread.sleep(3000);
-        WebElement addAssignment = (new WebDriverWait(CommonResources.browserDriver, 20))
-                .until(ExpectedConditions.elementToBeClickable(By.cssSelector(CommonResources.cssSelectorAddAssignment)));
-        addAssignment.click();
-        System.out.println("Clicked \"ADD ASSIGNMENT\"");
-
         System.out.println("Waiting for course content to load...");
 
         WebElement f = (new WebDriverWait(CommonResources.browserDriver, 60))
@@ -114,8 +114,8 @@ public class AssignmentTests {
 
         ArrayList<String> assignments = new ArrayList<>();
         folder_loop:
-        for(int i = 1; i<folders.size()-1; i++){
-
+        for (int i = 1; i < folders.size() - 1; i++) {
+            Thread.sleep(500);
             WebElement currFolder = folders.get(i);
             je.executeScript("arguments[0].scrollIntoView(true);", currFolder);
             String folderTitle = currFolder.getText();
@@ -123,9 +123,10 @@ public class AssignmentTests {
             currFolder.click();
             List<WebElement> foldersLvl2 = folders.get(i).findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl2));
             List<WebElement> foldersLvl2Closer = folders.get(i).findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl2Closer));
-            System.out.println(String.format("There are %s folders within \"%s\"",foldersLvl2.size(),folderTitle));
+            System.out.println(String.format("There are %s folders within \"%s\"", foldersLvl2.size(), folderTitle));
 
-            for (int j = 0; j<foldersLvl2.size(); j++) {
+            for (int j = 0; j < foldersLvl2.size(); j++) {
+                Thread.sleep(500);
                 WebElement currInnerFolder = foldersLvl2.get(j);
                 WebElement currInnerFolderCloser = foldersLvl2Closer.get(j);
                 String currInnerFolderTitle = foldersLvl2.get(j).getText();
@@ -136,16 +137,15 @@ public class AssignmentTests {
                 currInnerFolder.click();
 
                 List<WebElement> foldersLvl3 = currInnerFolder.findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl3));
-                System.out.println(String.format("There are %s items in inner folder \"%s\"", foldersLvl3.size(),currInnerFolderTitle));
+                System.out.println(String.format("There are %s items in inner folder \"%s\"", foldersLvl3.size(), currInnerFolderTitle));
 
-                for (int k = 0; k<foldersLvl3.size(); k++){
+                for (int k = 0; k < foldersLvl3.size(); k++) {
                     if (!copyOfIcons.isEmpty()) {
                         String currIcon;
                         try {
                             currIcon = foldersLvl3.get(k).findElement(By.cssSelector(CommonResources.cssSelectorIcons)).getAttribute("class");
                             je.executeScript("arguments[0].scrollIntoView(true);", foldersLvl3.get(k));
-                        }
-                        catch (org.openqa.selenium.NoSuchElementException n){
+                        } catch (org.openqa.selenium.NoSuchElementException n) {
                             continue;
                         }
                         if (copyOfIcons.contains(currIcon)) {
@@ -154,8 +154,7 @@ public class AssignmentTests {
                             assignments.add(foldersLvl3.get(k).getText());
                             copyOfIcons.remove(currIcon);
                         }
-                    }
-                    else{
+                    } else {
                         break folder_loop;
                     }
                 }
@@ -165,16 +164,29 @@ public class AssignmentTests {
             je.executeScript("arguments[0].scrollIntoView(true);", currFolder);
             foldersCloser.get(i).click();
         }
-
-
+        Utility.createAssignment();
+        try {
+            WebElement popup = CommonResources.browserDriver.findElement(By.cssSelector("#Popup_Create_Assignment > div.ws-assignment-popup-wrapper.Popup_Body"));
+            Utility.waitForNotVisible(popup);
+        }
+        catch (NoSuchElementException n){
+            ArrayList<String> allAssignments = Utility.getAssignments(CommonResources.cssSelectorAssignmentTitle);
+            assignments.removeAll(allAssignments);
+            if (assignments.isEmpty()) {
+                System.out.println("All assignments have been added successfully!");
+            } else {
+                for (Iterator<String> i = assignments.iterator(); i.hasNext(); ) {
+                    System.out.println(String.format("%s was not added successfully.", i.next()));
+                }
+            }
+        }
         ArrayList<String> allAssignments = Utility.getAssignments(CommonResources.cssSelectorAssignmentTitle);
         assignments.removeAll(allAssignments);
-        if (assignments.isEmpty()){
+        if (assignments.isEmpty()) {
             System.out.println("All assignments have been added successfully!");
-        }
-        else{
-            for(Iterator<String> i = assignments.iterator(); i.hasNext();){
-                System.out.println(String.format("%s was not added successfully.",i.next()));
+        } else {
+            for (Iterator<String> i = assignments.iterator(); i.hasNext(); ) {
+                System.out.println(String.format("%s was not added successfully.", i.next()));
             }
         }
     }
@@ -283,6 +295,7 @@ public class AssignmentTests {
         else {
             System.out.println("No assignments created yet.");
         }
+        studentBrowser.close();
     }
 
     public static void editAssignments() throws InterruptedException{
