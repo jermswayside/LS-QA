@@ -1,9 +1,7 @@
 import HelpersAndUtilities.CommonResources;
 import HelpersAndUtilities.UINavigation;
 import HelpersAndUtilities.Utility;
-import Tests.AssignmentTests;
-import Tests.CreateCourse;
-import Tests.FlexTextTests;
+import Tests.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -105,8 +103,6 @@ public class QATest {
                             UINavigation.clickAddAssignments();
 
                             AssignmentTests.selectAllAssignments();
-
-
 
                             Utility.simpleDeleteAssignments();
                         }
@@ -229,7 +225,63 @@ public class QATest {
                     }
 
                 }
-                if (choiceEntry == 5) {
+                if(choiceEntry == 5){
+                    scanChoice = new Scanner(System.in);
+                    num = 0;
+                    for(String test: CommonResources.getAllContentTests()){
+                        System.out.println(String.format("\"%s\" - %s", num+1, test));
+                        num++;
+                    }
+                    int contentChoice = scanChoice.nextInt();
+                    if(contentChoice == 1) {
+                        UINavigation.accessCourse("EntreCulturas 0");
+                        UINavigation.clickSkip();
+                        ContentManagerTests.checkContentIcons();
+                    }
+                    if(contentChoice == 2) {
+                        UINavigation.accessCourse("EntreCulturas 0");
+                        UINavigation.clickSkip();
+                        ContentManagerTests.checkViewAssignGradesAttemptLinks();
+                    }
+                    if(contentChoice == 3) {
+                        UINavigation.accessCourse("asdasdasd");
+                        UINavigation.clickSkip();
+                        ContentManagerTests.checkAssigning();
+                    }
+                }
+                if(choiceEntry == 6){
+
+                    scanChoice = new Scanner(System.in);
+                    num = 0;
+                    for(String test: CommonResources.getAllLanguagePortfolioTests()){
+                        System.out.println(String.format("\"%s\" - %s", num+1, test));
+                        num++;
+                    }
+                    int portfolioChoice = scanChoice.nextInt();
+                    Utility.logout();
+                    Utility.login("qastudent", "1234", CommonResources.browserDriver);
+                    if(portfolioChoice == 1) {
+                        LanguagePortfolio.checkViewButton();
+                    }
+                    if(portfolioChoice == 2) {
+                        LanguagePortfolio.checkAddQuizAttemptButton();
+                    }
+                    if(portfolioChoice == 3) {
+                        LanguagePortfolio.checkAddRecordingButton();
+                    }
+                    if(portfolioChoice == 4) {
+                        LanguagePortfolio.checkAddVideoRecordingButton();
+                    }
+                    if(portfolioChoice == 5) {
+                        LanguagePortfolio.checkChangeProgressLink();
+                    }
+                    if(portfolioChoice == 6) {
+                        LanguagePortfolio.checkAddingComment();
+                    }
+                    Utility.logout();
+                    Utility.login("qateacher", "1234", CommonResources.browserDriver);
+                }
+                if (choiceEntry == CommonResources.getAllTests().length) {
                     System.out.println("Now exiting.");
                     CommonResources.browserDriver.quit();
                     System.exit(0);

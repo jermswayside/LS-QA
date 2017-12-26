@@ -6,6 +6,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CommonResources {
     //Usernames and passwords
@@ -163,6 +165,73 @@ public class CommonResources {
     public static final String cssSelectorSearchGo = "div.ws-input-group-2 > button.Flextext_Search_Btn.ws-btn-1";
     public static final String cssSelectorHitCount = "div.hits-stat-b > span.total";
     public static final String cssXpathNoMatch = "//*[contains(text(), 'Sorry, no matches found.')]";
+    public static final String cssSelectorSearchResults = "div.tab-content.active > div.search-results-b >" +
+            " div.items-b > div.item-b";
+
+    //Content Manager CSS Selectors and Xpaths
+    public static final String cssSelectorContentFolders = "div.Course_Toc > ul.jqtree_common.jqtree-tree" +
+            " > li.jqtree_common";
+    public static final String cssSelectorCurrFolderToggler = "div.jqtree-element.jqtree_common >" +
+            " a.jqtree-toggler.jqtree_common.jqtree-toggler-left";
+    public static final String cssSelectorNavigationItems = "div.ws-course-content__bottom_wrapper__item >" +
+            " div.ws-content-navigation > div.ws-content-navigation-item";
+    public static final String cssSelectorSubLinks = "div.ws-content-navigation-item-title >" +
+            " div.ws-content-navigation-item-title-bottom > a";
+    public static final String cssSelectorAssignmentPopup = "div#Popup_Create_Assignment >" +
+            " div.ws-assignment-popup-wrapper.Popup_Body";
+    public static final String cssSelectorAssignmentX = "div.ws-popup-btn-close.fa.fa-remove.white";
+    public static final String cssSelectorSelectAll = "div.ws-user-index > span.ws-checkbox.Btn_Check_All";
+    public static final String cssSelectorActiveStudents = "div.step-b.active > div.bottom-b >" +
+            " div.Btn_Next_Step ws-button__positive";
+    public static final String cssSelectorQuizTitle = "div.quiz-component__title";
+    public static final String cssSelectorQuizStartButton = "div.ws-btn-1.quiz-component__action.quiz-component__action--green";
+
+
+    //Language Porfolio CSS Selectors and Xpaths
+    public static final String cssSelectorProfile = "div.ws-layout-wrapper > a#Btn_Profile";
+    public static final String cssSelectorPortfolioButton = "div.ws-page-navigation-menu > a";
+    public static final String cssSelectorCanDoStatements = "div.ws-table-wrapper >" +
+            " div.Candos > div.Questions_Table_Question";
+    public static final String cssSelectorPostAComment = "div.Questions_Table_Question.active > " +
+            "div.Questions_Table_Question_Content > div.cando-b > div.Cando_Result > div.message-form-b >" +
+            " div.ws-btn-1.Btn_Add_Comment";
+    public static final String cssSelectorAllCanDoButtons = "div.Questions_Table_Question_Content > div.cando-b > " +
+            "div.Cando_Result > div.message-form-b > form.Create_Message_Form > div.ws-btn-3";
+    public static final String cssSelectorAudioRecordingBar = "div.Questions_Table_Question.active >" +
+            " div.Questions_Table_Question_Content > div.cando-b > div.Cando_Result > " +
+            "div.message-form-b > form.Create_Message_Form > div.Message_Recording_Preview";
+    public static final String cssSelectorSaveButton = "div.Questions_Table_Question_Content > div.cando-b > " +
+            "div.Cando_Result > div.message-form-b > form.Create_Message_Form > button.Btn_Save_Result.ws-btn-1 >" +
+            " div.ws-btn-loader";
+    public static final String cssSelectorLoadingSaveButton = "div.Questions_Table_Question_Content > div.cando-b > " +
+            "div.Cando_Result > div.message-form-b > form.Create_Message_Form > button.Btn_Save_Result.ws-btn-1.loading >" +
+            "div.ws-btn-loader";
+    public static final String cssSelectorCommentBox = "div.Questions_Table_Question_Content > div.cando-b > " +
+            "div.Cando_Result > div.Comments > div.ws-forum-message-wrapper";
+    public static final String cssSelectorCommentBoxAudioRecording = "div.ws-forum-message > div >" +
+            " div.ws-forum-message-content > div.ws-forum-message-content-recordings";
+    public static final String cssSelectorCommentBoxRemove = "div.ws-forum-message > div >" +
+            " div.ws-forum-message-content > div > div.ws-forum-message-content-date > span.link-remove.Btn_Message_Remove";
+    public static final String cssSelectorCommentBoxEvidenceRemovedText = "div.no-data-b";
+    public static final String cssSelectorVideo = "div.Questions_Table_Question.active >" +
+            " div.Questions_Table_Question_Content > div.cando-b > div.Cando_Result >" +
+            "div.message-form-b > form.Create_Message_Form > video";
+    public static final String cssSelectorCommentBoxVideo = "div.ws-forum-message > div > div.ws-forum-message-content >" +
+            "div.ws-forum-message-content-attachments > a";
+    public static final String cssSelectorChangeProgressLink = "div.Questions_Table_Question.active >" +
+            " div.Questions_Table_Question_Content > div.cando-b > div.Cando_Result > div.cando-grade-b.edit-mode >" +
+            " div";
+    public static final String cssSelectorProgressResourcesEdit = "div.Questions_Table_Question.active >" +
+            " div.Questions_Table_Question_Content > div.cando-b > div.Cando_Result >" +
+            " div.cando-grade-b.edit-mode.edit-mode-on > div";
+    public static final String cssSelectorProgressResourceEditSaveButton = "div.ws-btn-1.Btn_Update_Grade >" +
+            " div.ws-btn-loader";
+    public static final String cssSelectorProgressResourceEditLoadingSaveButton = "div.ws-btn-1.Btn_Update_Grade.loading >" +
+            " div.ws-btn-loader";
+    public static final String cssSelectorTextArea = "div.Questions_Table_Question_Content > div.cando-b > " +
+            "div.Cando_Result > div.message-form-b > form.Create_Message_Form > textarea";
+    public static final String cssSelectorCommentBoxText = "div.ws-forum-message > div > div.ws-forum-message-content >" +
+            "div.ws-forum-message-content-text > span";
 
     //Error Log Names
     public static final String errorLogFlexText = "logs/FlexTextError.txt";
@@ -182,21 +251,32 @@ public class CommonResources {
         return icons;
     }
 
+    public static ArrayList<String> getIconsClass(){
+        ArrayList<String> icons = new ArrayList<>();
+        icons.add("fa fa-file-text-o");
+        icons.add("fa fa-file-audio-o");
+        icons.add("wsi-icon-quiz");
+        icons.add("fa fa-file-video-o");
+        icons.add("wsi-icon-flashcard");
+        icons.add("fa fa-file-code-o");
+        icons.add("fa fa-comments-o");
+        return icons;
+    }
     public static ArrayList<String> getAllBooks() {
         ArrayList<String> allBooks = new ArrayList<>();
         allBooks.add("APprenons, 1st Edition");
         allBooks.add("APprenons, 2nd Edition");
-        allBooks.add("Azulejo (0)");
-        allBooks.add("Chiarissimo Due (0)");
-        allBooks.add("Chiarissimo Uno (0)");
-        allBooks.add("EntreCulturas (1)");
-        allBooks.add("EntreCulturas (3)");
-        allBooks.add("EntreCulturas 0");
-        allBooks.add("Neue Blickwinkel, 1st Edition");
-        allBooks.add("Neue Blickwinkel, 2nd Edition");
-        allBooks.add("Scandite Muros");
-        allBooks.add("Tejidos (0)");
-        allBooks.add("Triángulo Aprobado (0)");
+//        allBooks.add("Azulejo (0)");
+//        allBooks.add("Chiarissimo Due (0)");
+//        allBooks.add("Chiarissimo Uno (0)");
+//        allBooks.add("EntreCulturas (1)");
+//        allBooks.add("EntreCulturas (3)");
+//        allBooks.add("EntreCulturas 0");
+//        allBooks.add("Neue Blickwinkel, 1st Edition");
+//        allBooks.add("Neue Blickwinkel, 2nd Edition");
+//        allBooks.add("Scandite Muros");
+//        allBooks.add("Tejidos (0)");
+//        allBooks.add("Triángulo Aprobado (0)");
         return allBooks;
     }
 
@@ -206,6 +286,8 @@ public class CommonResources {
                 "Check Book Selection Count in New Course Page",
                 "Assignments",
                 "FlexText",
+                "Content Manager",
+                "Language Portfolio",
                 "Exit program.",
         };
     }
@@ -222,6 +304,25 @@ public class CommonResources {
         };
     }
 
+    public static String[] getAllLanguagePortfolioTests() {
+        return new String[] {
+                "Check View Button",
+                "Check \"ADD QUIZ ATTEMPT\" Button",
+                "Check \"ADD RECORDING\" Button",
+                "Check \"ADD VIDEO RECORDING\" Button",
+                "Check \"Change Progress\" Link",
+                "Check Adding Comment"
+        };
+    }
+
+    public static String[] getAllContentTests(){
+        return new String[] {
+                "Check Icon Links",
+                "Check View/Assign/Grades/Attempt Links",
+                "Check Assigning Assignments From Content",
+        };
+    }
+
     public static String[] getAllFlexTextTests(){
         return new String[] {
                 "Jump to page",
@@ -232,9 +333,15 @@ public class CommonResources {
 
     public static String[] getSearchWords(){
         return new String[] {
-                "un",
+                "pomme",
                 "notaword",
-                "$"
         };
+    }
+
+    public static Map<String, String> getIconTypes(){
+        return Map.ofEntries(
+                Map.entry("wsi-icon-quiz", "quiz"),
+                Map.entry("wsi-icon-flashcard", "flashcards")
+        );
     }
 }

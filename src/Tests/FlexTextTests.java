@@ -50,6 +50,7 @@ public class FlexTextTests {
                     UINavigation.clickSearch();
                     WebElement searchInput = CommonResources.browserDriver.findElement(
                             By.cssSelector(CommonResources.cssSelectorSearchInput));
+                    Utility.waitForVisible(searchInput);
                     for(String word: CommonResources.getSearchWords()) {
                         enterWord(word, searchInput);
                         Thread.sleep(500);
@@ -57,22 +58,44 @@ public class FlexTextTests {
                         UINavigation.clickSearchGo();
                         Thread.sleep(1000);
 
-                        checkCorrectReturns(word);
-                        Thread.sleep(500);
-
                         UINavigation.scrollTo(searchInput);
                         Thread.sleep(500);
 
+                        List<WebElement> results = CommonResources.browserDriver.findElements(
+                                By.cssSelector(CommonResources.cssSelectorSearchResults));
+
+                        String titlePageNumber = results.get(0).findElement(By.cssSelector("div.page-b")).getText().split( " ")[1];
+                        results.get(0).click();
+                        switchToFT();
+                        String text = CommonResources.browserDriver.findElement(By.tagName("body")).getAttribute("innerHTML");
+                        int indBeg = text.indexOf("p. " + titlePageNumber);
+                        int pageNumberNum = Integer.parseInt(titlePageNumber) + 1;
+                        int indEnd = text.indexOf("p. " + pageNumberNum);
+
+                        if(!getIndexOfWithin(word, text, indBeg, indEnd)){
+                            System.out.println("Did not return correct page.");
+                        }
+                        switchToMain();
                         searchInput.clear();
                         Thread.sleep(500);
                     }
                     UINavigation.clickFlexTextTab();
                 }
             }
+            else{
+                continue;
+            }
             UINavigation.navToDash();
         }
     }
 
+    private static boolean getIndexOfWithin(String word, String page, int beginning, int end){
+        String between = page.substring(beginning, end);
+        if(between.indexOf(word) > 0){
+            return true;
+        }
+        return false;
+    }
     private static void checkCorrectReturns(String w) {
         if(Objects.equals(w,"un")){
             WebElement total = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorHitCount));
@@ -287,7 +310,7 @@ public class FlexTextTests {
     }
 
 
-    private static boolean navContainsFlexTextTab(){
+    private static boolean navContainsFlexTextTab() throws InterruptedException{
         List<WebElement> nav = CommonResources.browserDriver.findElements(
                 By.cssSelector(CommonResources.cssSelectorCourseNav));
         for(WebElement navTitle : nav){

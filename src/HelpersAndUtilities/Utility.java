@@ -1,6 +1,7 @@
 package HelpersAndUtilities;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -42,7 +43,9 @@ public class Utility {
         System.setProperty(driver, path);
         WebDriver currDriver = null;
         if (path.contains("chromedriver.exe")){
-            currDriver = new ChromeDriver();
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--use-fake-ui-for-media-stream=1");
+            currDriver = new ChromeDriver(options);
             currDriver.manage().window().maximize();
         }
         else if(path.contains("geckodriver.exe")){
@@ -290,5 +293,10 @@ public class Utility {
     public static boolean waitForNotVisible(WebElement w){
         WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
         return wait.until(ExpectedConditions.invisibilityOf(w));
+    }
+
+    public static void waitForVisible(List<WebElement> w){
+        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
+        wait.until(ExpectedConditions.visibilityOfAllElements(w));
     }
 }

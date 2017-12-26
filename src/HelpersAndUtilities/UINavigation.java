@@ -100,6 +100,12 @@ public class UINavigation {
         });
     }
 
+    public static void clickX() {
+        WebElement X = CommonResources.browserDriver.findElement(
+                By.cssSelector(CommonResources.cssSelectorAssignmentX));
+        Utility.waitForVisible(X);
+        X.click();
+    }
     public static void accessCourse(String course, WebDriver driver) throws InterruptedException{
         try {
             WebDriverWait wait = new WebDriverWait(driver, 20);
@@ -162,6 +168,7 @@ public class UINavigation {
     }
 
     public static void clickActiveNextStep() throws InterruptedException {
+        Thread.sleep(500);
         WebElement nextNextStep = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorNextNextStep));
         Utility.waitForVisible(nextNextStep);
         nextNextStep.click();
@@ -263,7 +270,8 @@ public class UINavigation {
         System.out.println("Clicked \"CONFIRM\".");
     }
 
-    public static void clickArchive() {
+    public static void clickArchive() throws InterruptedException{
+        Thread.sleep(500);
         WebElement archive = CommonResources.browserDriver.findElement(
                 By.cssSelector(CommonResources.cssSelectorArchive));
         archive.click();
@@ -317,6 +325,7 @@ public class UINavigation {
     public static void clickSearch(){
         WebElement search = CommonResources.browserDriver.findElement(
                 By.cssSelector(CommonResources.cssSelectorSearch));
+        Utility.waitForVisible(search);
         search.click();
     }
     public static void clickSearchGo() throws InterruptedException{
@@ -326,5 +335,16 @@ public class UINavigation {
         Thread.sleep(1000);
         scrollTo(searchGo);
         searchGo.click();
+    }
+
+    public static void clickProfile() throws InterruptedException {
+        Thread.sleep(500);
+        WebElement profile = CommonResources.browserDriver.findElement(
+                By.cssSelector(CommonResources.cssSelectorProfile)
+        );
+        Utility.waitForVisible(profile);
+        scrollTo(profile);
+        Thread.sleep(500);
+        profile.click();
     }
 }
