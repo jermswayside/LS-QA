@@ -45,7 +45,12 @@ public class ContentManagerTests {
                 }
                 else{
                     List<WebElement> subfolders = getSubFolders(f);
-                    for(WebElement subfolder: subfolders){
+                    for(int y=0; y<subfolders.size(); y++){
+                        allFolders = getFolders();
+                        foldersLvl2 = getSubFolders(allFolders.get(i));
+                        f = foldersLvl2.get(folderCnt);
+                        subfolders = getSubFolders(f);
+                        WebElement subfolder = subfolders.get(y);
                         Thread.sleep(1000);
                         UINavigation.scrollTo(subfolder);
                         Thread.sleep(1000);
@@ -318,7 +323,7 @@ public class ContentManagerTests {
     }
 
     private static List<WebElement> getCourseItems() throws InterruptedException{
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         List<WebElement> list = CommonResources.browserDriver.findElements(
                 By.cssSelector(CommonResources.cssSelectorNavigationItems));
         Utility.waitForVisible(list);

@@ -100,6 +100,7 @@ public class CommonResources {
             "div.ws-assignment-popup-wrapper.Popup_Body > div.ws-popup-content >" +
             " div.step-b.active > div.bottom-b > div.Btn_Next_Step.ws-button__positive";
     public static String cssSelectorAssign = "div.step-b.active > div.bottom-b > div.Btn_Assign";
+    public static String cssSelectorAssignLoading = "div.step-b.active > div.bottom-b > div.Btn_Assign.loading";
     public static String cssXpathChooseDate = "//input[@placeholder='Choose date']";
     public static String cssSelectorAssignments = "div.Assignments > div.ws-table-wrapper.ws-assignments-table >" +
             " table.ws-table > tbody > tr.ws-table-row";
@@ -232,6 +233,13 @@ public class CommonResources {
             "div.Cando_Result > div.message-form-b > form.Create_Message_Form > textarea";
     public static final String cssSelectorCommentBoxText = "div.ws-forum-message > div > div.ws-forum-message-content >" +
             "div.ws-forum-message-content-text > span";
+    public static final String cssSelectorCommentBoxUploadText = "div.ws-forum-message > div >" +
+            " div.ws-forum-message-content > div.ws-forum-message-content-attachments > a";
+    public static final String cssSelectorAddQuizAttemptPopupQuizzes = "div.ws-popup-wrapper.medium > " +
+            "div.ws-popup-content.ws-popup-wrapper__content.ws-popup-wrapper__content--vertical-center > " +
+            "div.Popup_Confirm_Content > div.cando-quiz-b > div.item > span.Quiz_Checkbox.ws-checkbox";
+    public static final String cssSelectorAddQuizAttemptPopupProceed = "div.ws-popup-wrapper.medium > " +
+            "div.ws-popup-wrapper__footer > div.Btn_Popup_Confirm.ws-button__positive";
 
     //Error Log Names
     public static final String errorLogFlexText = "logs/FlexTextError.txt";
@@ -311,7 +319,8 @@ public class CommonResources {
                 "Check \"ADD RECORDING\" Button",
                 "Check \"ADD VIDEO RECORDING\" Button",
                 "Check \"Change Progress\" Link",
-                "Check Adding Comment"
+                "Check Adding Comment",
+                "Check File Upload"
         };
     }
 

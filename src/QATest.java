@@ -278,6 +278,9 @@ public class QATest {
                     if(portfolioChoice == 6) {
                         LanguagePortfolio.checkAddingComment();
                     }
+                    if(portfolioChoice == 7) {
+                        LanguagePortfolio.checkFileUpload();
+                    }
                     Utility.logout();
                     Utility.login("qateacher", "1234", CommonResources.browserDriver);
                 }

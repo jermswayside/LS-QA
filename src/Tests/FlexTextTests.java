@@ -244,7 +244,7 @@ public class FlexTextTests {
                         int size = getAllExplorerCompass().size();
                         for(int i=0; i<size; i++) {
                             List<WebElement> allExplorerCompass = getAllExplorerCompass();
-
+                            Thread.sleep(2000);
                             WebElement currCompass = allExplorerCompass.get(i);
                             UINavigation.scrollTo(currCompass);
 
@@ -321,11 +321,11 @@ public class FlexTextTests {
         return false;
     }
 
-    private static int randomInt(int from, int to){
+    private static int randomInt(int from, int to) {
         return ThreadLocalRandom.current().nextInt(from, to);
     }
 
-    private static boolean checkCorrectPage(int pn){
+    private static boolean checkCorrectPage(int pn) {
         try {
             String pageNum = "article#p" + pn;
             WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 30);

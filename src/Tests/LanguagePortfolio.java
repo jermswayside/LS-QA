@@ -32,6 +32,27 @@ public class LanguagePortfolio {
         UINavigation.scrollTo(firstCanDo);
         firstCanDo.click();
         clickPostAComment(firstCanDo);
+        List<WebElement> allCanDoButtons = getAllCanDoButtons();
+        clickAddQuizAttemptButton(allCanDoButtons);
+        String quizName = getFirstQuizText();
+        clickFirstQuiz();
+        clickAddQuizAttemptPopupProceedButton();
+        clickSaveButton();
+        Utility.waitForNotVisible(getLoadingSaveButton());
+        WebElement commentBox = getCommentBox();
+        if(commentBox == null){
+            System.out.println("Error");
+            return;
+        }
+        if(!commentBox.getText().contains(quizName)){
+            System.out.println("Error");
+            return;
+        }
+        cleanUp(commentBox);
+//        if(!commentBoxAudioRecording.isDisplayed()){
+//                System.out.println("Error");
+//                return;
+//        }
     }
 
     public static void checkAddRecordingButton() throws InterruptedException {
@@ -147,6 +168,81 @@ public class LanguagePortfolio {
         cleanUp(commentBox);
     }
 
+    public static void checkFileUpload() throws InterruptedException {
+        UINavigation.clickSkip();
+        UINavigation.clickProfile();
+        clickPortfolio();
+        clickView();
+        List<WebElement> canDoStatements = getCanDoStatements();
+        WebElement firstCanDo = canDoStatements.get(0);
+        UINavigation.scrollTo(firstCanDo);
+        firstCanDo.click();
+        clickPostAComment(firstCanDo);
+        List<WebElement> allCanDoButtons = getAllCanDoButtons();
+        WebElement addFileButton = getAddFileButton(allCanDoButtons);
+        fileUpload(addFileButton);
+        Thread.sleep(5000);
+        clickSaveButton();
+        Utility.waitForNotVisible(getLoadingSaveButton());
+        WebElement commentBox = getCommentBox();
+        if(!commentBox.isDisplayed()) {
+            System.out.println("Error");
+            return;
+        }
+        if(!getCommentUploadText().contains("wednesday")){
+            System.out.println("Error");
+            return;
+        }
+        cleanUp(commentBox);
+    }
+
+    private static WebElement getAddQuizAttemptPopupProceedButton() {
+        try {
+            return CommonResources.browserDriver.findElement(
+                    By.cssSelector(CommonResources.cssSelectorAddQuizAttemptPopupProceed));
+        }
+        catch (NoSuchElementException n) {
+            return null;
+        }
+    }
+
+    private static void clickAddQuizAttemptPopupProceedButton() throws InterruptedException {
+        Thread.sleep(1000);
+        getAddQuizAttemptPopupProceedButton().click();
+        Thread.sleep(1000);
+    }
+    private static List<WebElement> getAddQuizAttemptPopupQuizzes() {
+        try{
+            return CommonResources.browserDriver.findElements(By.cssSelector(
+                    CommonResources.cssSelectorAddQuizAttemptPopupQuizzes));
+        }
+        catch (NoSuchElementException n){
+            return null;
+        }
+    }
+
+    private static void clickFirstQuiz() throws InterruptedException {
+        Thread.sleep(1000);
+        getAddQuizAttemptPopupQuizzes().get(0).click();
+    }
+
+    private static String getFirstQuizText() {
+        return getAddQuizAttemptPopupQuizzes().get(0).getText();
+    }
+
+    private static void fileUpload(WebElement addFileButton) {
+        addFileButton.findElement(By.cssSelector("input")).sendKeys("C:\\Users\\Mike\\Desktop\\Memes\\wednesday.jpg");
+    }
+
+    private static String getCommentUploadText(){
+        try{
+            return CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorCommentBoxUploadText)).getText();
+        }
+        catch (NoSuchElementException n){
+            return "";
+        }
+    }
+
     private static String getCommentText(WebElement cb){
         return cb.findElement(By.cssSelector(CommonResources.cssSelectorCommentBoxText)).getText();
     }
@@ -214,6 +310,34 @@ public class LanguagePortfolio {
     private static void clickStopVideoRecordingButton(List<WebElement> buttons) throws InterruptedException {
         Thread.sleep(1000);
         getStopVideoRecordingButton(buttons).click();
+    }
+
+    private static WebElement getAddQuizAttemptButton(List<WebElement> buttons) {
+        try{
+            return buttons.get(4);
+        }
+        catch (IndexOutOfBoundsException i){
+            return null;
+        }
+    }
+
+    private static void clickAddQuizAttemptButton(List<WebElement> buttons) throws InterruptedException {
+        Thread.sleep(1000);
+        getAddQuizAttemptButton(buttons).click();
+    }
+
+    private static WebElement getAddFileButton(List<WebElement> buttons){
+        try{
+            return buttons.get(0);
+        }
+        catch (IndexOutOfBoundsException i){
+            return null;
+        }
+    }
+
+    private static void clickAddFileButton(WebElement button) throws InterruptedException{
+        Thread.sleep(1000);
+        button.click();
     }
 
     private static WebElement getStopVideoRecordingButton(List<WebElement> buttons) {
@@ -302,7 +426,7 @@ public class LanguagePortfolio {
         }
     }
     private static List<WebElement> getCanDoStatements() throws InterruptedException{
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         List<WebElement> statements = CommonResources.browserDriver.findElements(
                 By.cssSelector(CommonResources.cssSelectorCanDoStatements));
         Utility.waitForVisible(statements.get(0));

@@ -85,7 +85,7 @@ public class AssignmentTests {
                 foldersCloser.get(i).click();
                 }
             Utility.createAssignment();
-            Thread.sleep(2000);
+            Utility.waitForNotVisible(getLoadingAssignButton());
             }
         try {
             WebElement popup = CommonResources.browserDriver.findElement(By.cssSelector("#Popup_Create_Assignment > div.ws-assignment-popup-wrapper.Popup_Body"));
@@ -371,6 +371,14 @@ public class AssignmentTests {
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private static WebElement getLoadingAssignButton() {
+        try{
+            return CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorAssignLoading));
+        }
+        catch (NoSuchElementException n){
+            return null;
+        }
+    }
 
     private static ArrayList<String> getStudents() {
         List<WebElement> students = CommonResources.browserDriver.findElements(

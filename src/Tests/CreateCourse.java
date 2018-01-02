@@ -11,83 +11,136 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class CreateCourse {
-    public static void createCourse() throws InterruptedException{
+    public static void createCourse() throws InterruptedException {
+        clickNewCourseButton();
+        clickCreateCourseButton();
 
-        System.out.println("Checking creating course functionality...");
-
-        CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorNewCourse)).click();
-        System.out.println("Clicked \"New Course\".");
+        WebElement createCoursePopup = getCreateCoursePopup();
         Thread.sleep(2000);
+        checkMessageBox(createCoursePopup, null, null, null);
 
-        CommonResources.browserDriver.findElement(By.cssSelector(
-                CommonResources.cssSelectorCreateCourse)).click();
-        System.out.println("Clicked \"Create Course\" for \"Azulejo\".");
-
-        System.out.println("Testing empty input...");
-        WebElement createCourse = CommonResources.browserDriver.findElement(
-                By.cssSelector(CommonResources.cssSelectorCreateCoursePopUp));
+        WebElement courseTitle = getCourseTitle();
         Thread.sleep(2000);
-        checkMessageBox(createCourse, null, null, null);
+        checkMessageBox(createCoursePopup, courseTitle,null,null);
 
-
-        System.out.println(String.format("Testing inputting only course title \"%s\"...",CommonResources.courseTitle));
-        WebElement courseTitle = CommonResources.browserDriver.findElement(
-                By.cssSelector(CommonResources.cssSelectorCourseTitle));
+        WebElement startDate = getStartDate();
         Thread.sleep(2000);
-        checkMessageBox(createCourse, courseTitle,null,null);
+        checkMessageBox(createCoursePopup, null, startDate, null);
 
-
-        System.out.println("Testing inputting only current day");
-
-        WebElement startDate = CommonResources.browserDriver.findElement(By.xpath(CommonResources.cssXpathStartDate));
+        WebElement termsBox = getTermsBox();
         Thread.sleep(2000);
-        checkMessageBox(createCourse, null, startDate, null);
+        checkMessageBox(createCoursePopup, null, null, termsBox);
 
 
-        System.out.println("Testing only checking the T&C box...");
-        WebElement termsBox = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorTermsBox));
         Thread.sleep(2000);
-        checkMessageBox(createCourse, null, null, termsBox);
+        checkMessageBox(createCoursePopup, courseTitle, startDate, null);
 
 
-        System.out.println("Testing inputting course title and current day only...");
         Thread.sleep(2000);
-        checkMessageBox(createCourse, courseTitle, startDate, null);
+        checkMessageBox(createCoursePopup,courseTitle,null,termsBox);
 
-
-        System.out.println(String.format("Testing inputting course title \"%s\" and checking T&C box...",CommonResources.courseTitle));
         Thread.sleep(2000);
-        checkMessageBox(createCourse,courseTitle,null,termsBox);
+        checkMessageBox(createCoursePopup,null,startDate,termsBox);
 
-        System.out.println("Testing inputting current day and checking the T&C box only...");
         Thread.sleep(2000);
-        checkMessageBox(createCourse,null,startDate,termsBox);
-
-        System.out.println(String.format("Testing inputting course title \"%s\", current day, and checking T&C box...",
-                CommonResources.courseTitle));
-        Thread.sleep(2000);
-        checkMessageBox(createCourse,courseTitle,startDate,termsBox);
+        checkMessageBox(createCoursePopup,courseTitle,startDate,termsBox);
         UINavigation.clickSkip();
 
         try {
-            WebElement cog = (new WebDriverWait(CommonResources.browserDriver, 10))
-                    .until(ExpectedConditions.elementToBeClickable(By.xpath(CommonResources.cssSelectorCogWheel)));
-
+//            WebElement cog = (new WebDriverWait(CommonResources.browserDriver, 10))
+//                    .until(ExpectedConditions.elementToBeClickable(By.xpath(CommonResources.cssSelectorCogWheel)));
+            WebElement cog = getCog();
+            Utility.waitForVisible(cog);
             System.out.println("Course creation finished.");
 
         }
 
-        catch (NoSuchElementException e){
+        catch (NoSuchElementException e) {
             System.out.println("Course creation finished, but it did not redirect to expected page.  Contact administrator.");
         }
     }
 
+    private static WebElement getCog() {
+        try {
+            return CommonResources.browserDriver.findElement(By.xpath(CommonResources.cssSelectorCogWheel));
+        }
+        catch (NoSuchElementException n) {
+            return null;
+        }
+    }
+
+    private static WebElement getTermsBox() {
+        try{
+            return CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorTermsBox));
+        }
+        catch (NoSuchElementException n) {
+            return null;
+        }
+    }
+
+    private static WebElement getStartDate() {
+        try{
+            return CommonResources.browserDriver.findElement(By.xpath(CommonResources.cssXpathStartDate));
+        }
+        catch (NoSuchElementException n){
+            return null;
+        }
+    }
+    private static WebElement getCourseTitle() {
+        try {
+            return CommonResources.browserDriver.findElement(
+                    By.cssSelector(CommonResources.cssSelectorCourseTitle));
+        }
+        catch (NoSuchElementException n) {
+            return null;
+        }
+    }
+    private static WebElement getCreateCoursePopup() {
+        try {
+            return CommonResources.browserDriver.findElement(
+                    By.cssSelector(CommonResources.cssSelectorCreateCoursePopUp));
+        }
+        catch(NoSuchElementException n) {
+            return null;
+        }
+    }
+    private static WebElement getCreateCourseButton() {
+        try {
+            return CommonResources.browserDriver.findElement(By.cssSelector(
+                    CommonResources.cssSelectorCreateCourse));
+        }
+        catch (NoSuchElementException n) {
+            return null;
+        }
+    }
+
+    private static void clickCreateCourseButton() throws InterruptedException{
+        WebElement createCourseButton = getCreateCourseButton();
+        createCourseButton.click();
+        Thread.sleep(2000);
+    }
+
+    private static WebElement getNewCourseButton() {
+        try {
+            return CommonResources.browserDriver.findElement(
+                    By.cssSelector(CommonResources.cssSelectorNewCourse));
+        }
+        catch (NoSuchElementException n){
+            return null;
+        }
+    }
+
+    private static void clickNewCourseButton() throws InterruptedException{
+        WebElement newCourseButton = getNewCourseButton();
+        newCourseButton.click();
+        Thread.sleep(2000);
+    }
 
     private static void checkMessageBox(WebElement create, WebElement title, WebElement date, WebElement terms) throws InterruptedException{
         WebElement box = null;
-        WebElement t = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorCourseTitle));
-        WebElement d = CommonResources.browserDriver.findElement(By.xpath(CommonResources.cssXpathStartDate));
-        WebElement tm = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorTermsBox));
+        WebElement t = getCourseTitle();
+        WebElement d = getStartDate();
+        WebElement tm = getTermsBox();
 
         if (title == null && date == null && terms == null) {
             create.click();
