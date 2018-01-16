@@ -1,10 +1,12 @@
 package HelpersAndUtilities;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.BufferedWriter;
@@ -14,11 +16,14 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 // This class is used for testing functionality that are one-off/uncommonly used.
 
 public class Utility {
-
+    public static int randomInt(int from, int to) {
+        return ThreadLocalRandom.current().nextInt(from, to);
+    }
     public static void courseCount() throws InterruptedException {
         System.out.println("Checking course book count...");
 
@@ -285,9 +290,101 @@ public class Utility {
         System.out.println(String.format("%s minutes and %s seconds", minutes, seconds));
     }
 
-    public static WebElement waitForVisible(WebElement w){
-        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
-        return wait.until(ExpectedConditions.visibilityOf(w));
+    public static WebElement waitForElementToExistByCssSelector(String cssSelector) throws InterruptedException{
+        int waitTime = 5;
+        int waitCount = 0;
+        while(waitCount <= 3){
+            try {
+                return CommonResources.browserDriver.findElement(By.cssSelector(cssSelector));
+            }
+            catch (NoSuchElementException n) {
+                waitCount++;
+                System.out.println(String.format("Now waiting %s seconds at wait count %s.", waitTime, waitCount));
+                Thread.sleep(waitTime*1000);
+            }
+        }
+        return null;
+    }
+
+    public static Select waitForSelectElementToExistByCssSelector(String cssSelector) throws InterruptedException{
+        int waitTime = 5;
+        int waitCount = 0;
+        while(waitCount <= 3){
+            try {
+                return new Select(CommonResources.browserDriver.findElement(By.cssSelector(cssSelector)));
+            }
+            catch (NoSuchElementException n) {
+                waitCount++;
+                System.out.println(String.format("Now waiting %s seconds at wait count %s.", waitTime, waitCount));
+                Thread.sleep(waitTime*1000);
+            }
+        }
+        return null;
+    }
+
+    public static List<WebElement> waitForElementsToExistByCssSelector(String cssSelector) throws InterruptedException{
+        int waitTime = 5;
+        int waitCount = 0;
+        List<WebElement> currList = CommonResources.browserDriver.findElements(By.cssSelector(cssSelector));
+        while(waitCount <= 3 && currList.size() == 0){
+            waitCount++;
+            System.out.println(String.format("Now waiting %s seconds at wait count %s.", waitTime, waitCount));
+            Thread.sleep(waitTime*1000);
+            currList = CommonResources.browserDriver.findElements(By.cssSelector(cssSelector));
+
+        }
+        if(currList.size() > 0) {
+            return currList;
+        }
+        return null;
+    }
+
+    public static WebElement waitForElementToExistByLinkText(String linkText) throws InterruptedException {
+        int waitTime = 7;
+        int waitCount = 0;
+        while(waitCount <= 3){
+            try {
+                return CommonResources.browserDriver.findElement(By.linkText(linkText));
+            }
+            catch (NoSuchElementException n) {
+                waitCount++;
+                System.out.println(String.format("Now waiting %s seconds at wait count %s.", waitTime, waitCount));
+                Thread.sleep(waitTime*1000);
+            }
+        }
+        return null;
+    }
+
+    public static List<WebElement> waitForElementsToExistByLinkText(String linkText) throws InterruptedException {
+        int waitTime = 10;
+        int waitCount = 0;
+        while(waitCount <= 3){
+            try {
+                return CommonResources.browserDriver.findElements(By.linkText(linkText));
+            }
+            catch (NoSuchElementException n) {
+                waitCount++;
+                Thread.sleep(waitTime*1000);
+                System.out.println(String.format("Now waiting %s seconds at wait count %s.", waitTime, waitCount));
+            }
+        }
+        return null;
+    }
+
+    public static WebElement waitForElementToExistByXpath(String xpath) throws InterruptedException {
+        int waitTime = 7;
+        int waitCount = 0;
+        while(waitCount <= 3){
+            try {
+                return CommonResources.browserDriver.findElement(By.xpath(xpath));
+            }
+            catch (NoSuchElementException n) {
+                waitCount++;
+                System.out.println(String.format("Now waiting %s seconds at wait count %s.", waitTime, waitCount));
+                Thread.sleep(waitTime*1000);
+            }
+        }
+        return null;
     }
 
     public static boolean waitForNotVisible(WebElement w){
@@ -298,5 +395,10 @@ public class Utility {
     public static void waitForVisible(List<WebElement> w){
         WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
         wait.until(ExpectedConditions.visibilityOfAllElements(w));
+    }
+
+    public static void waitForVisible(WebElement w){
+        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
+        wait.until(ExpectedConditions.visibilityOf(w));
     }
 }

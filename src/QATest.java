@@ -234,17 +234,17 @@ public class QATest {
                     }
                     int contentChoice = scanChoice.nextInt();
                     if(contentChoice == 1) {
-                        UINavigation.accessCourse("EntreCulturas 0");
+                        UINavigation.accessCourse("asd");
                         UINavigation.clickSkip();
                         ContentManagerTests.checkContentIcons();
                     }
                     if(contentChoice == 2) {
-                        UINavigation.accessCourse("EntreCulturas 0");
+                        UINavigation.accessCourse("asd");
                         UINavigation.clickSkip();
                         ContentManagerTests.checkViewAssignGradesAttemptLinks();
                     }
                     if(contentChoice == 3) {
-                        UINavigation.accessCourse("asdasdasd");
+                        UINavigation.accessCourse("asd");
                         UINavigation.clickSkip();
                         ContentManagerTests.checkAssigning();
                     }
@@ -283,6 +283,40 @@ public class QATest {
                     }
                     Utility.logout();
                     Utility.login("qateacher", "1234", CommonResources.browserDriver);
+                }
+
+                if (choiceEntry == 7) {
+                    scanChoice = new Scanner(System.in);
+                    num = 0;
+                    for(String test: CommonResources.getAllProfileSettingsTests()){
+                        System.out.println(String.format("\"%s\" - %s", num+1, test));
+                        num++;
+                    }
+                    int profileSettingsChoice = scanChoice.nextInt();
+
+                    if(profileSettingsChoice == 1) {
+                        ProfileSettingsTests.editFirstName();
+                    }
+
+                    if(profileSettingsChoice == 2) {
+                        ProfileSettingsTests.editLastName();
+                    }
+
+                    if(profileSettingsChoice == 3) {
+                        ProfileSettingsTests.editPassword();
+                    }
+
+                    if(profileSettingsChoice == 4) {
+                        ProfileSettingsTests.editEmail();
+                    }
+
+                    if(profileSettingsChoice == 5) {
+                        ProfileSettingsTests.editTimezone();
+                    }
+
+                    if(profileSettingsChoice == 6) {
+                        ProfileSettingsTests.editImage();
+                    }
                 }
                 if (choiceEntry == CommonResources.getAllTests().length) {
                     System.out.println("Now exiting.");

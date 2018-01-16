@@ -16,6 +16,7 @@ public class LanguagePortfolio {
         UINavigation.clickProfile();
         clickPortfolio();
         clickView();
+        Thread.sleep(25000);
         List<WebElement> canDoStatements = getCanDoStatements();
         if(canDoStatements.size() == 0){
             System.out.println("Error");
@@ -27,6 +28,7 @@ public class LanguagePortfolio {
         UINavigation.clickProfile();
         clickPortfolio();
         clickView();
+        Thread.sleep(25000);
         List<WebElement> canDoStatements = getCanDoStatements();
         WebElement firstCanDo = canDoStatements.get(0);
         UINavigation.scrollTo(firstCanDo);
@@ -49,10 +51,6 @@ public class LanguagePortfolio {
             return;
         }
         cleanUp(commentBox);
-//        if(!commentBoxAudioRecording.isDisplayed()){
-//                System.out.println("Error");
-//                return;
-//        }
     }
 
     public static void checkAddRecordingButton() throws InterruptedException {
@@ -60,6 +58,7 @@ public class LanguagePortfolio {
         UINavigation.clickProfile();
         clickPortfolio();
         clickView();
+        Thread.sleep(25000);
         List<WebElement> canDoStatements = getCanDoStatements();
         WebElement firstCanDo = canDoStatements.get(0);
         UINavigation.scrollTo(firstCanDo);
@@ -94,6 +93,7 @@ public class LanguagePortfolio {
         UINavigation.clickProfile();
         clickPortfolio();
         clickView();
+        Thread.sleep(25000);
         List<WebElement> canDoStatements = getCanDoStatements();
         WebElement firstCanDo = canDoStatements.get(0);
         UINavigation.scrollTo(firstCanDo);
@@ -126,6 +126,7 @@ public class LanguagePortfolio {
         UINavigation.clickProfile();
         clickPortfolio();
         clickView();
+        Thread.sleep(25000);
         List<WebElement> canDoStatements = getCanDoStatements();
         WebElement firstCanDo = canDoStatements.get(0);
         UINavigation.scrollTo(firstCanDo);
@@ -147,12 +148,14 @@ public class LanguagePortfolio {
         UINavigation.clickProfile();
         clickPortfolio();
         clickView();
+        Thread.sleep(25000);
         List<WebElement> canDoStatements = getCanDoStatements();
         WebElement firstCanDo = canDoStatements.get(0);
         UINavigation.scrollTo(firstCanDo);
         firstCanDo.click();
         clickPostAComment(firstCanDo);
         String text = "Testing Testing Testing";
+        Thread.sleep(1000);
         enterTextInComment(text);
         clickSaveButton();
 //        Utility.waitForNotVisible(getLoadingProgressSaveButton());
@@ -173,6 +176,7 @@ public class LanguagePortfolio {
         UINavigation.clickProfile();
         clickPortfolio();
         clickView();
+        Thread.sleep(25000);
         List<WebElement> canDoStatements = getCanDoStatements();
         WebElement firstCanDo = canDoStatements.get(0);
         UINavigation.scrollTo(firstCanDo);
@@ -400,19 +404,14 @@ public class LanguagePortfolio {
         }
     }
     private static void clickPortfolio() throws InterruptedException {
-        Thread.sleep(1000);
-        WebElement portfolio = CommonResources.browserDriver.findElement(
-                By.linkText("Portfolio"));
-        Utility.waitForVisible(portfolio);
+        Thread.sleep(2000);
+        WebElement portfolio = Utility.waitForElementToExistByLinkText("Portfolio");
         portfolio.click();
     }
 
     private static void clickView() throws InterruptedException {
-        Thread.sleep(1000);
-        WebElement viewButtonCourse = CommonResources.browserDriver.findElement(
-                By.linkText("VIEW")
-        );
-        Utility.waitForVisible(viewButtonCourse);
+        Thread.sleep(3000);
+        WebElement viewButtonCourse = Utility.waitForElementToExistByLinkText("VIEW");
         viewButtonCourse.click();
     }
 
@@ -427,9 +426,7 @@ public class LanguagePortfolio {
     }
     private static List<WebElement> getCanDoStatements() throws InterruptedException{
         Thread.sleep(5000);
-        List<WebElement> statements = CommonResources.browserDriver.findElements(
-                By.cssSelector(CommonResources.cssSelectorCanDoStatements));
-        Utility.waitForVisible(statements.get(0));
+        List<WebElement> statements = Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorCanDoStatements);
         return statements;
     }
 

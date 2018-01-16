@@ -47,10 +47,7 @@ public class CreateCourse {
         UINavigation.clickSkip();
 
         try {
-//            WebElement cog = (new WebDriverWait(CommonResources.browserDriver, 10))
-//                    .until(ExpectedConditions.elementToBeClickable(By.xpath(CommonResources.cssSelectorCogWheel)));
             WebElement cog = getCog();
-            Utility.waitForVisible(cog);
             System.out.println("Course creation finished.");
 
         }
@@ -60,13 +57,8 @@ public class CreateCourse {
         }
     }
 
-    private static WebElement getCog() {
-        try {
-            return CommonResources.browserDriver.findElement(By.xpath(CommonResources.cssSelectorCogWheel));
-        }
-        catch (NoSuchElementException n) {
-            return null;
-        }
+    private static WebElement getCog() throws InterruptedException {
+        return Utility.waitForElementToExistByXpath(CommonResources.cssSelectorCogWheel);
     }
 
     private static WebElement getTermsBox() {

@@ -5,8 +5,6 @@ import HelpersAndUtilities.Utility;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.*;
 
@@ -17,25 +15,28 @@ public class AssignmentTests {
 
         ArrayList<String> icons = CommonResources.getIcons();
         UINavigation.clickSkip();
+        boolean cached = false;
         while(!icons.isEmpty()){
             UINavigation.clickAddAssignments();
 
             System.out.println("Waiting for course content to load...");
 
-            WebElement f = (new WebDriverWait(CommonResources.browserDriver, 60))
-                    .until(ExpectedConditions.elementToBeClickable(By.cssSelector(CommonResources.cssSelectorFolders)));
+            if(!cached) {
+                Thread.sleep(20000);
+                cached = true;
+            }
 
-            List<WebElement> folders = CommonResources.browserDriver.findElements(By.cssSelector(CommonResources.cssSelectorFolders));
-            List<WebElement> foldersCloser = CommonResources.browserDriver.findElements(By.cssSelector(CommonResources.cssSelectorFoldersCloser));
-            WebElement target = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorDropContainer));
+            WebElement firstSelectorFolder = getFolders().get(0);
 
-            JavascriptExecutor je = (JavascriptExecutor) CommonResources.browserDriver;
+            List<WebElement> folders = getFolders();
+            List<WebElement> foldersCloser = getFoldersCloser();
+            WebElement dropLocation = getDropLocation();
 
             folder_loop:
             for(int i = 1; i<folders.size(); i++){
                 Thread.sleep(500);
                 WebElement currFolder = folders.get(i);
-                je.executeScript("arguments[0].scrollIntoView(true);", currFolder);
+                UINavigation.scrollTo(currFolder);
 
                 String folderTitle = currFolder.getText();
 
@@ -43,9 +44,9 @@ public class AssignmentTests {
 
                 currFolder.click();
 
-                List<WebElement> foldersLvl2 = currFolder.findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl2));
+                List<WebElement> foldersLvl2 = getFoldersLvl2(currFolder);
 
-                List<WebElement> foldersLvl2Closer = currFolder.findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl2Closer));
+                List<WebElement> foldersLvl2Closer = getFoldersLvl2Closer(currFolder);
 
                 for(int j = 0; j<foldersLvl2.size(); j++){
                     Thread.sleep(500);
@@ -57,43 +58,43 @@ public class AssignmentTests {
 
                     System.out.println(String.format("Expanding folder in folder \"%s\": \"%s\".", folderTitle, currInnerFolder.getText()));
 
-                    je.executeScript("arguments[0].scrollIntoView(true);", currInnerFolder);
-
+                    UINavigation.scrollTo(currInnerFolder);
                     currInnerFolder.click();
 
-                    List<WebElement> foldersLvl3 = currInnerFolder.findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl3));
+                    List<WebElement> foldersLvl3 = getFoldersLvl3(currInnerFolder);
                     System.out.println(String.format("There are %s items in inner folder \"%s\"", foldersLvl3.size(),folderLvl2Title));
                     for (int k = 0; k<foldersLvl3.size(); k++){
                         String currIcon;
+                        WebElement currLvl3Element = foldersLvl3.get(k);
                             try {
-                                currIcon = foldersLvl3.get(k).findElement(By.cssSelector(CommonResources.cssSelectorIcons)).getAttribute("class");
-                                je.executeScript("arguments[0].scrollIntoView(true);", foldersLvl3.get(k));
+                                System.out.println(currLvl3Element.getText());
+                                currIcon = getCurrLvl3FolderIcon(currLvl3Element).getAttribute("class");
+                                UINavigation.scrollTo(currLvl3Element);
                             }
-                            catch (org.openqa.selenium.NoSuchElementException n){
+                            catch (NoSuchElementException | NullPointerException n){
                                 continue;
                             }
                             if (icons.contains(currIcon)) {
-                                Actions actions = new Actions(CommonResources.browserDriver);
-                                actions.dragAndDrop(foldersLvl3.get(k), target).build().perform();
+                                dragAndDrop(currLvl3Element, dropLocation);
                                 icons.remove(currIcon);
                                 break folder_loop;
                             }
                         }
                     currInnerFolderCloser.click();
                     }
-                je.executeScript("arguments[0].scrollIntoView(true);", currFolder);
-                foldersCloser.get(i).click();
+                    UINavigation.scrollTo(currFolder);
+                    foldersCloser.get(i).click();
                 }
-            Utility.createAssignment();
-            Utility.waitForNotVisible(getLoadingAssignButton());
-            }
+                Utility.createAssignment();
+                Utility.waitForNotVisible(getLoadingAssignButton());
+        }
         try {
-            WebElement popup = CommonResources.browserDriver.findElement(By.cssSelector("#Popup_Create_Assignment > div.ws-assignment-popup-wrapper.Popup_Body"));
+            WebElement popup = getCreateAssignmentPopup();
             Utility.waitForNotVisible(popup);
         }
         catch (NoSuchElementException n){}
         System.out.println("Assignments creation complete.");
-        }
+    }
 
 
     public static void selectAllAssignments() throws InterruptedException {
@@ -102,27 +103,22 @@ public class AssignmentTests {
         Thread.sleep(3000);
         System.out.println("Waiting for course content to load...");
 
-        WebElement f = (new WebDriverWait(CommonResources.browserDriver, 60))
-                .until(ExpectedConditions.elementToBeClickable(By.cssSelector(CommonResources.cssSelectorFolders)));
+        List<WebElement> folders = getFolders();
+        List<WebElement> foldersCloser = getFoldersCloser();
 
-        List<WebElement> folders = CommonResources.browserDriver.findElements(By.cssSelector(CommonResources.cssSelectorFolders));
-        List<WebElement> foldersCloser = CommonResources.browserDriver.findElements(By.cssSelector(CommonResources.cssSelectorFoldersCloser));
-
-        JavascriptExecutor je = (JavascriptExecutor) CommonResources.browserDriver;
-
-        WebElement target = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorDropContainer));
+        WebElement dropLocation = getDropLocation();
 
         ArrayList<String> assignments = new ArrayList<>();
         folder_loop:
         for (int i = 1; i < folders.size() - 1; i++) {
             Thread.sleep(500);
             WebElement currFolder = folders.get(i);
-            je.executeScript("arguments[0].scrollIntoView(true);", currFolder);
+            UINavigation.scrollTo(currFolder);
             String folderTitle = currFolder.getText();
             System.out.println(String.format("Expanding folder \"%s\".", folderTitle));
             currFolder.click();
-            List<WebElement> foldersLvl2 = folders.get(i).findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl2));
-            List<WebElement> foldersLvl2Closer = folders.get(i).findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl2Closer));
+            List<WebElement> foldersLvl2 = getFoldersLvl2(currFolder);
+            List<WebElement> foldersLvl2Closer = getFoldersLvl2Closer(currFolder);
             System.out.println(String.format("There are %s folders within \"%s\"", foldersLvl2.size(), folderTitle));
 
             for (int j = 0; j < foldersLvl2.size(); j++) {
@@ -133,25 +129,25 @@ public class AssignmentTests {
 
                 System.out.println(String.format("Expanding folder in folder \"%s\": \"%s\".", folderTitle, currInnerFolder.getText()));
 
-                je.executeScript("arguments[0].scrollIntoView(true);", currInnerFolder);
+                UINavigation.scrollTo(currInnerFolder);
                 currInnerFolder.click();
 
-                List<WebElement> foldersLvl3 = currInnerFolder.findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl3));
+                List<WebElement> foldersLvl3 = getFoldersLvl3(currInnerFolder);
                 System.out.println(String.format("There are %s items in inner folder \"%s\"", foldersLvl3.size(), currInnerFolderTitle));
 
                 for (int k = 0; k < foldersLvl3.size(); k++) {
                     if (!copyOfIcons.isEmpty()) {
                         String currIcon;
+                        WebElement currLvl3FolderElement = foldersLvl3.get(k);
                         try {
-                            currIcon = foldersLvl3.get(k).findElement(By.cssSelector(CommonResources.cssSelectorIcons)).getAttribute("class");
-                            je.executeScript("arguments[0].scrollIntoView(true);", foldersLvl3.get(k));
-                        } catch (org.openqa.selenium.NoSuchElementException n) {
+                            currIcon = getCurrLvl3FolderIcon(currLvl3FolderElement).getAttribute("class");
+                            UINavigation.scrollTo(currLvl3FolderElement);
+                        } catch (NoSuchElementException | NullPointerException n) {
                             continue;
                         }
                         if (copyOfIcons.contains(currIcon)) {
-                            Actions actions = new Actions(CommonResources.browserDriver);
-                            actions.dragAndDrop(foldersLvl3.get(k), target).build().perform();
-                            assignments.add(foldersLvl3.get(k).getText());
+                            dragAndDrop(currLvl3FolderElement, dropLocation);
+                            assignments.add(currLvl3FolderElement.getText());
                             copyOfIcons.remove(currIcon);
                         }
                     } else {
@@ -161,12 +157,12 @@ public class AssignmentTests {
                 currInnerFolderCloser.click();
             }
 
-            je.executeScript("arguments[0].scrollIntoView(true);", currFolder);
+            UINavigation.scrollTo(currFolder);
             foldersCloser.get(i).click();
         }
         Utility.createAssignment();
         try {
-            WebElement popup = CommonResources.browserDriver.findElement(By.cssSelector("#Popup_Create_Assignment > div.ws-assignment-popup-wrapper.Popup_Body"));
+            WebElement popup = getCreateAssignmentPopup();
             Utility.waitForNotVisible(popup);
         }
         catch (NoSuchElementException n){
@@ -195,6 +191,8 @@ public class AssignmentTests {
         System.out.println("Now confirming assigning in \"qastudent\"");
 
         System.out.println("Now logging out...");
+        Thread.sleep(2000);
+
         Utility.logout();
 
         System.out.println("Now logging into \"qastudent\"");
@@ -253,12 +251,12 @@ public class AssignmentTests {
         studentAssignments.forEach((assignment)-> System.out.println(assignment));
         System.out.println();
 
-        List<WebElement> existingAssignments = CommonResources.browserDriver.findElements(By.cssSelector(
-                CommonResources.cssSelectorAssignments));
+        List<WebElement> existingAssignments = getExistingAssignments();
 
         if (existingAssignments.size() > 0) {
             ArrayList<String> teacherAssignments = Utility.getAssignments(
                     CommonResources.cssSelectorAssignmentTitle);
+
             System.out.println("Teacher currently has assignments:");
             teacherAssignments.forEach((assignments)-> System.out.println(assignments));
             System.out.println();
@@ -298,9 +296,20 @@ public class AssignmentTests {
         studentBrowser.close();
     }
 
+    private static List<WebElement> getExistingAssignments() {
+        try {
+            return  CommonResources.browserDriver.findElements(By.cssSelector(
+                    CommonResources.cssSelectorAssignments));
+        }
+        catch (NoSuchElementException n) {
+            return null;
+        }
+    }
+
     public static void editAssignments() throws InterruptedException{
         System.out.println("Now editing assignments...");
 
+        Thread.sleep(2000);
         UINavigation.clickCompletedAssigned();
         Thread.sleep(1000);
 
@@ -329,7 +338,7 @@ public class AssignmentTests {
         Thread.sleep(1000);
 
         UINavigation.clickSave();
-        Thread.sleep(1000);
+        Thread.sleep(3000);
 
         UINavigation.clickCompletedAssigned();
         Thread.sleep(1000);
@@ -370,7 +379,73 @@ public class AssignmentTests {
         allArchiveAssignments.forEach((assignment -> System.out.println(assignment)));
     }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private static WebElement getCreateAssignmentPopup() throws InterruptedException{
+        return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorCreateAssignmentPopup);
+    }
+
+    private static void dragAndDrop(WebElement object, WebElement to) {
+        Actions actions = new Actions(CommonResources.browserDriver);
+        actions.dragAndDrop(object, to).build().perform();
+    }
+
+    private static WebElement getCurrLvl3FolderIcon(WebElement currLvl3Folder) {
+        try {
+            return currLvl3Folder.findElement(By.cssSelector(CommonResources.cssSelectorIcons));
+        }
+        catch (NoSuchElementException n) {
+            return null;
+        }
+    }
+
+    private static List<WebElement> getFoldersLvl3(WebElement currInnerFolder) {
+        try {
+            return currInnerFolder.findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl3));
+        }
+        catch (NoSuchElementException n) {
+            return null;
+        }
+    }
+
+    private static List<WebElement> getFoldersLvl2Closer(WebElement currFolder) {
+        try {
+            return currFolder.findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl2Closer));
+        }
+        catch (NoSuchElementException n) {
+            return null;
+        }
+    }
+
+    private static List<WebElement> getFoldersLvl2(WebElement currFolder) {
+        try {
+            return currFolder.findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl2));
+        }
+        catch (NoSuchElementException n) {
+            return null;
+        }
+    }
+    private static WebElement getDropLocation() {
+        try {
+            return CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorDropContainer));
+        }
+        catch (NoSuchElementException n) {
+            return null;
+        }
+    }
+
+    private static List<WebElement> getFoldersCloser() {
+        try {
+            return CommonResources.browserDriver.findElements(By.cssSelector(CommonResources.cssSelectorFoldersCloser));
+        }
+        catch (NoSuchElementException n) {
+            return null;
+        }
+    }
+
+    private static List<WebElement> getFolders() throws InterruptedException{
+        return Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorFolders);
+    }
+
     private static WebElement getLoadingAssignButton() {
         try{
             return CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorAssignLoading));

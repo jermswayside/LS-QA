@@ -27,6 +27,8 @@ public class FlexTextTests {
 
                 UINavigation.clickSkip();
 
+                Thread.sleep(8000);
+
                 if (!navContainsFlexTextTab()) {
                     System.out.println(String.format("FlexText is not available for: %s", courseTitle));
                     UINavigation.navToDash();
@@ -39,7 +41,6 @@ public class FlexTextTests {
                     List<WebElement> allFT = getAllFlexText();
                     WebElement currFT = allFT.get(i);
                     System.out.println(String.format("Accessing flextext: %s", currFT.getText()));
-                    Utility.waitForVisible(currFT);
                     UINavigation.scrollTo(currFT);
                     Thread.sleep(1000);
                     currFT.click();
@@ -48,9 +49,7 @@ public class FlexTextTests {
                     Thread.sleep(1000);
 
                     UINavigation.clickSearch();
-                    WebElement searchInput = CommonResources.browserDriver.findElement(
-                            By.cssSelector(CommonResources.cssSelectorSearchInput));
-                    Utility.waitForVisible(searchInput);
+                    WebElement searchInput = getSearchInput();
                     for(String word: CommonResources.getSearchWords()) {
                         enterWord(word, searchInput);
                         Thread.sleep(500);
@@ -61,23 +60,34 @@ public class FlexTextTests {
                         UINavigation.scrollTo(searchInput);
                         Thread.sleep(500);
 
-                        List<WebElement> results = CommonResources.browserDriver.findElements(
-                                By.cssSelector(CommonResources.cssSelectorSearchResults));
+                        List<WebElement> results = getResults();
 
-                        String titlePageNumber = results.get(0).findElement(By.cssSelector("div.page-b")).getText().split( " ")[1];
-                        results.get(0).click();
-                        switchToFT();
-                        String text = CommonResources.browserDriver.findElement(By.tagName("body")).getAttribute("innerHTML");
-                        int indBeg = text.indexOf("p. " + titlePageNumber);
-                        int pageNumberNum = Integer.parseInt(titlePageNumber) + 1;
-                        int indEnd = text.indexOf("p. " + pageNumberNum);
-
-                        if(!getIndexOfWithin(word, text, indBeg, indEnd)){
-                            System.out.println("Did not return correct page.");
+                        System.out.println(word);
+                        if(Objects.equals("pomme", word) || Objects.equals("notaword", word)){
+                            if(results.size() > 0) {
+                                System.out.println("Error");
+                                return;
+                            }
+                            searchInput.clear();
                         }
-                        switchToMain();
-                        searchInput.clear();
-                        Thread.sleep(500);
+                        else {
+                            WebElement firstResult = results.get(0);
+                            String titlePageNumber = getTitlePageNumberOfFirstResult(firstResult);
+                            Thread.sleep(4000);
+                            firstResult.click();
+                            switchToFT();
+                            String textBody = getTextBody();
+                            int indBeg = textBody.indexOf("p. " + titlePageNumber);
+                            int pageNumberNum = Integer.parseInt(titlePageNumber) + 1;
+                            int indEnd = textBody.indexOf("p. " + pageNumberNum);
+
+                            if (!getIndexOfWithin(word, textBody, indBeg, indEnd)) {
+                                System.out.println("Did not return correct page.");
+                            }
+                            switchToMain();
+                            searchInput.clear();
+                            Thread.sleep(500);
+                        }
                     }
                     UINavigation.clickFlexTextTab();
                 }
@@ -89,26 +99,38 @@ public class FlexTextTests {
         }
     }
 
-    private static boolean getIndexOfWithin(String word, String page, int beginning, int end){
-        String between = page.substring(beginning, end);
-        if(between.indexOf(word) > 0){
-            return true;
+    private static String getTextBody() {
+        try {
+            return CommonResources.browserDriver.findElement(By.tagName("body")).getAttribute("innerHTML");
         }
-        return false;
+        catch (NoSuchElementException n) {
+            return null;
+        }
     }
-    private static void checkCorrectReturns(String w) {
-        if(Objects.equals(w,"un")){
-            WebElement total = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorHitCount));
-            Utility.waitForVisible(total);
-            int totalNum = Integer.parseInt(total.getText());
-            if(totalNum != 100){
-                System.out.println("Incorrect return.");
-            }
+    private static String getTitlePageNumberOfFirstResult(WebElement firstResult) {
+        try {
+            return firstResult.findElement(By.cssSelector("div.page-b")).getText().split( " ")[1];
         }
-        if(Objects.equals(w, "notaword")){
-            if(!hasNoneReturnErrorMessage()){
-                System.out.println("Incorrect return.");
-            }
+        catch(NoSuchElementException n){
+            return "";
+        }
+    }
+    private static WebElement getSearchInput() throws InterruptedException{
+        try {
+            return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorSearchInput);
+        }
+        catch (NoSuchElementException n) {
+            return null;
+        }
+    }
+
+    private static List<WebElement> getResults() {
+        try {
+            return CommonResources.browserDriver.findElements(
+                    By.cssSelector(CommonResources.cssSelectorSearchResults));
+        }
+        catch (NoSuchElementException n) {
+            return null;
         }
     }
 
@@ -124,6 +146,9 @@ public class FlexTextTests {
                 UINavigation.accessCourse(courseTitle);
 
                 UINavigation.clickSkip();
+
+
+                Thread.sleep(8000);
 
                 if(!navContainsFlexTextTab()){
                     System.out.println(String.format("FlexText is not available for: %s", courseTitle));
@@ -147,8 +172,7 @@ public class FlexTextTests {
 
                     UINavigation.clickJumpToPage();
 
-                    WebElement page = CommonResources.browserDriver.findElement(
-                            By.cssSelector(CommonResources.cssSelectorPageInput));
+                    WebElement page = getPageNumberInput();
 
                     int max = Integer.parseInt(page.getAttribute("max"));
                     int randNum = getRandNum(max);
@@ -182,6 +206,16 @@ public class FlexTextTests {
         long endTime = System.nanoTime();
 
         Utility.nanoToReadableTime(startTime, endTime);
+    }
+
+    private static WebElement getPageNumberInput() {
+        try {
+            return CommonResources.browserDriver.findElement(
+                    By.cssSelector(CommonResources.cssSelectorPageInput));
+        }
+        catch (NoSuchElementException n) {
+            return null;
+        }
     }
 
     public static void checkExplorerLinks() throws InterruptedException, IOException {
@@ -249,7 +283,7 @@ public class FlexTextTests {
                             UINavigation.scrollTo(currCompass);
 
                             currCompass.click();
-                            Thread.sleep(1500);
+                            Thread.sleep(2000);
 
                             if (hasExplorerBox()) {
                                 if (!hasExplorerLink()) {
@@ -321,9 +355,7 @@ public class FlexTextTests {
         return false;
     }
 
-    private static int randomInt(int from, int to) {
-        return ThreadLocalRandom.current().nextInt(from, to);
-    }
+
 
     private static boolean checkCorrectPage(int pn) {
         try {
@@ -348,7 +380,7 @@ public class FlexTextTests {
     }
 
     private static int getRandNum(int max){
-        return randomInt(10, max+1);
+        return Utility.randomInt(10, max+1);
     }
 
     private static void enterRandNum(int num, WebElement pageInput) throws InterruptedException {
@@ -370,10 +402,8 @@ public class FlexTextTests {
                         CommonResources.cssSelectorExplorerImg));
     }
 
-    private static List<WebElement> getAllFlexText() {
-        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
-        return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
-                By.cssSelector(CommonResources.cssSelectorAllFlexText)));
+    private static List<WebElement> getAllFlexText() throws InterruptedException{
+        return Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorAllFlexText);
     }
 
     private static List<WebElement> getAllCourses(){
@@ -444,13 +474,30 @@ public class FlexTextTests {
     }
 
     private static boolean hasNoneReturnErrorMessage(){
-        try{
-            WebElement e = CommonResources.browserDriver.findElement(By.xpath(CommonResources.cssXpathNoMatch));
-            Utility.waitForVisible(e);
+        WebElement e = CommonResources.browserDriver.findElement(By.xpath(CommonResources.cssXpathNoMatch));
+        return true;
+    }
+
+    private static boolean getIndexOfWithin(String word, String page, int beginning, int end){
+        String between = page.substring(beginning, end);
+        if(between.indexOf(word) > 0){
             return true;
         }
-        catch (NoSuchElementException n){
-            return false;
+        return false;
+    }
+
+    private static void checkCorrectReturns(String w) throws InterruptedException {
+        if(Objects.equals(w,"un")){
+            WebElement total = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorHitCount);
+            int totalNum = Integer.parseInt(total.getText());
+            if(totalNum != 100){
+                System.out.println("Incorrect return.");
+            }
+        }
+        if(Objects.equals(w, "notaword")){
+            if(!hasNoneReturnErrorMessage()){
+                System.out.println("Incorrect return.");
+            }
         }
     }
 }

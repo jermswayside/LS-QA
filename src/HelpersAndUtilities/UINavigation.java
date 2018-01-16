@@ -100,10 +100,9 @@ public class UINavigation {
         });
     }
 
-    public static void clickX() {
-        WebElement X = CommonResources.browserDriver.findElement(
-                By.cssSelector(CommonResources.cssSelectorAssignmentX));
-        Utility.waitForVisible(X);
+    public static void clickX() throws InterruptedException{
+        Thread.sleep(500);
+        WebElement X = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorAssignmentX);
         X.click();
     }
     public static void accessCourse(String course, WebDriver driver) throws InterruptedException{
@@ -169,16 +168,14 @@ public class UINavigation {
 
     public static void clickActiveNextStep() throws InterruptedException {
         Thread.sleep(500);
-        WebElement nextNextStep = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorNextNextStep));
-        Utility.waitForVisible(nextNextStep);
+        WebElement nextNextStep = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorNextNextStep);
         nextNextStep.click();
 
         System.out.println("Clicked \"NEXT STEP\".");
     }
 
     public static void clickChooseDate() throws InterruptedException {
-        WebElement datePick = (new WebDriverWait(CommonResources.browserDriver, 10))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath(CommonResources.cssXpathChooseDate)));
+        WebElement datePick = Utility.waitForElementToExistByXpath(CommonResources.cssXpathChooseDate);
         datePick.click();
     }
 
@@ -217,9 +214,8 @@ public class UINavigation {
         System.out.println("Clicked \"SAVE\".");
     }
 
-    public static void clickCompletedAssigned() {
-        WebElement students = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorAssignees));
-        Utility.waitForVisible(students);
+    public static void clickCompletedAssigned() throws InterruptedException {
+        WebElement students = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorAssignees);
         students.click();
 
         System.out.println("Clicked \"Completed/Assigned\".");
@@ -322,16 +318,12 @@ public class UINavigation {
         System.out.println("Clicked Jump To Page icon.");
     }
 
-    public static void clickSearch(){
-        WebElement search = CommonResources.browserDriver.findElement(
-                By.cssSelector(CommonResources.cssSelectorSearch));
-        Utility.waitForVisible(search);
+    public static void clickSearch() throws InterruptedException{
+        WebElement search = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorSearch);
         search.click();
     }
     public static void clickSearchGo() throws InterruptedException{
-        WebElement searchGo = CommonResources.browserDriver.findElement(
-                By.cssSelector(CommonResources.cssSelectorSearchGo));
-        Utility.waitForVisible(searchGo);
+        WebElement searchGo = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorSearchGo);
         Thread.sleep(1000);
         scrollTo(searchGo);
         searchGo.click();
@@ -339,10 +331,7 @@ public class UINavigation {
 
     public static void clickProfile() throws InterruptedException {
         Thread.sleep(500);
-        WebElement profile = CommonResources.browserDriver.findElement(
-                By.cssSelector(CommonResources.cssSelectorProfile)
-        );
-        Utility.waitForVisible(profile);
+        WebElement profile = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorProfile);
         scrollTo(profile);
         Thread.sleep(500);
         profile.click();

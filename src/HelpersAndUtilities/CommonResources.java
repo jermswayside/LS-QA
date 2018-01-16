@@ -15,7 +15,7 @@ public class CommonResources {
     public static final String passwordStudent = "1234";
 
     public static final String usernameTeacher = "qateacher";
-    public static final String passwordTeacher = "1234";
+    public static final String passwordTeacher = "1234567";
 
     public static final String usernameFail = "helloworld";
     public static final String passwordFail = "helloworld";
@@ -33,7 +33,7 @@ public class CommonResources {
     public static final String pathChromeDriver = "C:\\Users\\Mike\\IdeaProjects\\Test\\drivers\\chromedriver.exe";
 
     //URL
-    public static String urlDevLS = "https://devlearningsite.waysidepublishing.com/";
+    public static String urlDevLS = "https://stagelearningsite.waysidepublishing.com/";
 
     //Login Page CSS classes and selectors
     public static String cssClassButtonLogin = "Login_Form";
@@ -111,14 +111,11 @@ public class CommonResources {
             " div.ws-assignment-popup-wrapper.Popup_Body > div.ws-popup-content > div.step-b.active >" +
             " div.left-b.full-width > div.content-b > div > div:nth-child(3) > div.ws-user-index > span";
 
-    public static String cssSelectorEdit = "#CourseAssignment > div.ws-page >" +
-            " div.ws-page-content.ws-layout-wrapper >" +
-            " div.Assignments > div > table > tbody > tr.ws-table-row > td:nth-child(6) >" +
-            " a.icon-link.Btn_Edit_Assignment";
+    public static String cssSelectorEdit = "div.ws-table-wrapper.ws-assignments-table > table.ws-table > tbody > " +
+            "tr.ws-table-row > td:nth-child(6) > a.icon-link.Btn_Edit_Assignment";
 
-    public static String cssSelectorAssignees = "#CourseAssignment > div.ws-page >" +
-            " div.ws-page-content.ws-layout-wrapper > div.Assignments >" +
-            " div > table > tbody > tr.ws-table-row > td:nth-child(5) > a";
+    public static String cssSelectorAssignees = "div.ws-table-wrapper.ws-assignments-table > table.ws-table > tbody >" +
+            " tr.ws-table-row > td:nth-child(5) > a";
 
     public static String cssSelectorSave = "#Popup_Create_Assignment > div.ws-assignment-popup-wrapper.Popup_Body >" +
             " div.ws-popup-content > div.step-b.active > div.bottom-b >" +
@@ -131,12 +128,11 @@ public class CommonResources {
             " div.ws-popup-content > div.bottom-b > div.Btn_Close.ws-button__negative";
 
     public static ArrayList<String> assignedAssignments = new ArrayList<>();
-    public static String cssSelectorArchive = "#CourseAssignment > div.ws-page >" +
-            " div.ws-page-content.ws-layout-wrapper > div.Assignments > div > table > tbody > tr.ws-table-row >" +
-            " td:nth-child(6) > a.icon-link.Btn_Archive_Assignment";
+    public static String cssSelectorArchive = "div.ws-table-wrapper.ws-assignments-table > table.ws-table > tbody > " +
+            "tr.ws-table-row > td:nth-child(6) > a.icon-link.Btn_Archive_Assignment";
 
-    public static String cssSelectorArchiveYes = "div:nth-child(13) > div.ws-popup-wrapper >" +
-            " div.ws-popup-wrapper__footer > div.Btn_Popup_Confirm.ws-button__positive > div";
+    public static String cssSelectorArchiveYes = "div:nth-child(12) > div.ws-popup-wrapper >" +
+            " div.ws-popup-wrapper__footer> div.Btn_Popup_Confirm.ws-button__positive";
 
     public static String cssSelectorArchiveMessageBox = "div.visible.success";
     public static String archiveSuccessMessage = "Assignment archived";
@@ -146,7 +142,8 @@ public class CommonResources {
     public static String cssSelectorArchivedAssignments = "#CourseAssignment > div.ws-page >" +
             " div.ws-page-content.ws-layout-wrapper > div.Assignments > div >" +
             " table > tbody > tr.ws-table-row.assignment-archived";
-
+    public static String cssSelectorCreateAssignmentPopup = "#Popup_Create_Assignment >" +
+            " div.ws-assignment-popup-wrapper.Popup_Body";
     //FlexText
     public static final String cssSelectorAllFlexText = "div.Content.explorer-flextext-items > div.ws-courses-item >" +
             "div.ws-courses-item-title > a.app-navigation";
@@ -184,7 +181,7 @@ public class CommonResources {
     public static final String cssSelectorSelectAll = "div.ws-user-index > span.ws-checkbox.Btn_Check_All";
     public static final String cssSelectorActiveStudents = "div.step-b.active > div.bottom-b >" +
             " div.Btn_Next_Step ws-button__positive";
-    public static final String cssSelectorQuizTitle = "div.quiz-component__title";
+    public static final String cssSelectorQuizTitle = "article > h1";
     public static final String cssSelectorQuizStartButton = "div.ws-btn-1.quiz-component__action.quiz-component__action--green";
 
 
@@ -241,6 +238,14 @@ public class CommonResources {
     public static final String cssSelectorAddQuizAttemptPopupProceed = "div.ws-popup-wrapper.medium > " +
             "div.ws-popup-wrapper__footer > div.Btn_Popup_Confirm.ws-button__positive";
 
+    //Profile Settings CSS Selectors and Xpaths
+    public static final String cssSelectorAllInputs = "form > div.ws-input-group-1";
+    public static final String cssSelectorInputField = "input.ws-input-1";
+    public static final String cssSelectorSaveProfileButton = "button.Btn_Save_Profile.ws-btn-1";
+    public static final String cssSelectorPasswordErrorMessage = "div.input-error-b";
+    public static final String cssSelectorTimezoneSelectField = "div.ws-input-group-1 > select.ws-select-1";
+    public static final String cssSelectorTimezoneOptions = "option";
+
     //Error Log Names
     public static final String errorLogFlexText = "logs/FlexTextError.txt";
 
@@ -272,8 +277,9 @@ public class CommonResources {
     }
     public static ArrayList<String> getAllBooks() {
         ArrayList<String> allBooks = new ArrayList<>();
-        allBooks.add("APprenons, 1st Edition");
-        allBooks.add("APprenons, 2nd Edition");
+        allBooks.add("asd");
+        allBooks.add("asd1");
+        allBooks.add("Triángulo Aprobado (0)");
 //        allBooks.add("Azulejo (0)");
 //        allBooks.add("Chiarissimo Due (0)");
 //        allBooks.add("Chiarissimo Uno (0)");
@@ -296,10 +302,21 @@ public class CommonResources {
                 "FlexText",
                 "Content Manager",
                 "Language Portfolio",
+                "Profile Settings",
                 "Exit program.",
         };
     }
 
+    public static String[] getAllProfileSettingsTests() {
+        return new String[] {
+                "Edit First Name",
+                "Edit Last Name",
+                "Edit Password",
+                "Edit Email",
+                "Edit Timezone",
+                "Edit Image"
+        };
+    }
     public static String[] getAllAssignmentTests(){
         return new String[] {
                 "Create all assignments",
@@ -344,6 +361,7 @@ public class CommonResources {
         return new String[] {
                 "pomme",
                 "notaword",
+                "une",
         };
     }
 

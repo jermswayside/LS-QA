@@ -6,6 +6,7 @@ import HelpersAndUtilities.Utility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.support.events.WebDriverEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class ContentManagerTests {
             List<WebElement> foldersLvl2 = getSubFolders(folder);
             int folderCnt = 0;
             for(WebElement f: foldersLvl2) {
+                Thread.sleep(5000);
                 allFolders = getFolders();
                 foldersLvl2 = getSubFolders(allFolders.get(i));
                 f = foldersLvl2.get(folderCnt);
@@ -193,9 +195,9 @@ public class ContentManagerTests {
             items = getCourseItems();
             item = items.get(i);
             UINavigation.scrollTo(item);
-            List<WebElement> links = item.findElements(By.cssSelector(CommonResources.cssSelectorSubLinks));
-            for(int j=0; j<links.size(); j++){
-                WebElement currLink = links.get(j);
+            List<WebElement> subLinks = getSubLinks(item);
+            for(int j=0; j<subLinks.size(); j++){
+                WebElement currLink = subLinks.get(j);
                 if(currLink.getText().equals("Assign")){
                     currLink.click();
                     Thread.sleep(500);
@@ -203,9 +205,7 @@ public class ContentManagerTests {
 
                         Thread.sleep(500);
 
-                        WebElement selectAll = CommonResources.browserDriver.findElement(
-                                By.cssSelector(CommonResources.cssSelectorSelectAll));
-                        Utility.waitForVisible(selectAll);
+                        WebElement selectAll = getSelectAll();
 
                         selectAll.click();
 
@@ -226,6 +226,10 @@ public class ContentManagerTests {
         }
     }
 
+    private static WebElement getSelectAll() throws InterruptedException {
+        return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorSelectAll);
+    }
+
     /*TODO: Audio and Video assignments are bugged*/
     private static void checkSubLinks(ArrayList icons) throws InterruptedException {
         List<WebElement> items = getCourseItems();
@@ -234,18 +238,17 @@ public class ContentManagerTests {
             Thread.sleep(500);
             items = getCourseItems();
             WebElement icon = getIcon(items.get(i));
-            Utility.waitForVisible(icon);
             UINavigation.scrollTo(icon);
             String iconName = getIconString(icon, icons);
             if (!iconName.equals("")) {
                 items = getCourseItems();
                 item = items.get(i);
-                List<WebElement> links = item.findElements(By.cssSelector(CommonResources.cssSelectorSubLinks));
+                List<WebElement> links = getSubLinks(item);
                 for (int j = 0; j < links.size(); j++) {
                     Thread.sleep(500);
                     items = getCourseItems();
                     item = items.get(i);
-                    links = item.findElements(By.cssSelector(CommonResources.cssSelectorSubLinks));
+                    links = getSubLinks(item);
                     WebElement currLink = links.get(j);
                     UINavigation.scrollTo(item);
                     String currUrl = CommonResources.browserDriver.getCurrentUrl();
@@ -260,20 +263,16 @@ public class ContentManagerTests {
                         if (!correctRedirect(newUrl, iconType)) {
                             System.out.println("Error");
                         }
-                        if(iconType.equals("quiz")) {
-                            try {
-                                Thread.sleep(500);
-                                WebElement title = CommonResources.browserDriver.findElement(
-                                        By.cssSelector(CommonResources.cssSelectorQuizTitle));
-                                WebElement startButton = CommonResources.browserDriver.findElement(
-                                        By.cssSelector(CommonResources.cssSelectorQuizStartButton));
-                                Utility.waitForVisible(title);
-                                Utility.waitForVisible(startButton);
-                            }
-                            catch (NoSuchElementException n){
-                                System.out.println("Error");
-                            }
-                        }
+//                        if(iconType.equals("quiz")) {
+////                            try {
+////                                Thread.sleep(2000);
+////                                WebElement title = getTitle();
+////                                Utility.waitForVisible(title);
+////                            }
+////                            catch (NoSuchElementException n){
+////                                System.out.println("Error");
+////                            }
+//                        }
                         CommonResources.browserDriver.get(currUrl);
                     }
                 }
@@ -282,6 +281,33 @@ public class ContentManagerTests {
                 System.out.println();
             }
             i++;
+        }
+    }
+
+    private static WebElement getStartButton() {
+        try {
+            return CommonResources.browserDriver.findElement(
+                    By.cssSelector(CommonResources.cssSelectorQuizStartButton));
+        }
+        catch (NoSuchElementException n) {
+            return null;
+        }
+    }
+    private static WebElement getTitle() {
+        try {
+            return CommonResources.browserDriver.findElement(
+                    By.cssSelector(CommonResources.cssSelectorQuizTitle));
+        }
+        catch (NoSuchElementException n) {
+            return null;
+        }
+    }
+    private static List<WebElement> getSubLinks(WebElement item) {
+        try {
+            return item.findElements(By.cssSelector(CommonResources.cssSelectorSubLinks));
+        }
+        catch (NoSuchElementException n) {
+            return null;
         }
     }
 
@@ -323,10 +349,8 @@ public class ContentManagerTests {
     }
 
     private static List<WebElement> getCourseItems() throws InterruptedException{
-        Thread.sleep(2000);
-        List<WebElement> list = CommonResources.browserDriver.findElements(
-                By.cssSelector(CommonResources.cssSelectorNavigationItems));
-        Utility.waitForVisible(list);
+        Thread.sleep(5000);
+        List<WebElement> list = Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorNavigationItems);
         return list;
     }
 
