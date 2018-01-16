@@ -29,8 +29,8 @@ public class CommonResources {
     //chromedriver.exe and geckodriver.exe file paths
     public static final String chromeDriver = "webdriver.chrome.driver";
     public static final String geckoDriver = "webdriver.gecko.driver";
-    public static final String pathFFDriver = "C:\\Users\\Mike\\IdeaProjects\\Test\\drivers\\geckodriver.exe";
-    public static final String pathChromeDriver = "C:\\Users\\Mike\\IdeaProjects\\Test\\drivers\\chromedriver.exe";
+    public static final String pathFFDriver = "drivers/geckodriver.exe";
+    public static final String pathChromeDriver = "drivers/chromedriver.exe";
 
     //URL
     public static String urlDevLS = "https://stagelearningsite.waysidepublishing.com/";
