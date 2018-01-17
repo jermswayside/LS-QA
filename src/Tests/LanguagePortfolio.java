@@ -235,7 +235,7 @@ public class LanguagePortfolio {
     }
 
     private static void fileUpload(WebElement addFileButton) {
-        addFileButton.findElement(By.cssSelector("input")).sendKeys("C:\\Users\\Mike\\Desktop\\Memes\\wednesday.jpg");
+        addFileButton.findElement(By.cssSelector("input")).sendKeys("images/wednesday.jpg");
     }
 
     private static String getCommentUploadText(){

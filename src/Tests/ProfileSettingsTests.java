@@ -182,11 +182,61 @@ public class ProfileSettingsTests {
         }
     }
 
-    public static void editImage() {
+    public static void editImage() throws InterruptedException {
+        UINavigation.clickProfile();
 
+        WebElement profileImage = getProfileImage();
+        profileImage.click();
+
+        String initialProfileImage = getProfileImageURL();
+        WebElement uploadFileButton = getUploadFileButton();
+        uploadFile(uploadFileButton, System.getProperty("user.dir") + "\\images\\badger.png");
+
+        WebElement saveProfileButton = getSaveProfileButton();
+        UINavigation.scrollTo(saveProfileButton);
+        saveProfileButton.click();
+
+        WebElement errorMessageBox = getMessageBox();
+        Utility.waitForVisible(errorMessageBox);
+        errorMessageBox.click();
+
+        String newProfileImage = getProfileImageURL();
+        if(initialProfileImage.equals(newProfileImage)) {
+            System.out.println("Error");
+            return;
+        }
+
+        imageCleanUp();
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private static void imageCleanUp() throws InterruptedException {
+        WebElement profileImage = getProfileImage();
+        profileImage.click();
+
+        WebElement revertToRobohashButton = getRevertToRobohashButton();
+        revertToRobohashButton.click();
+
+        WebElement successMessageBox = getMessageBox();
+        Utility.waitForVisible(successMessageBox);
+        successMessageBox.click();
+
+        Utility.waitForVisible(getProfileImage());
+    }
+
+    private static WebElement getRevertToRobohashButton() {
+        return CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorRevertToRobohashButton));
+    }
+    private static String getProfileImageURL() throws InterruptedException {
+        return getProfileImage().getAttribute("style");
+    }
+    private static WebElement getUploadFileButton(){
+        return CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorUploadFileButton));
+    }
+
+    private static void uploadFile(WebElement input, String fileName) {
+        input.sendKeys(fileName);
+    }
     private static void passwordCleanUp(String newPassword, String oldPassword) throws InterruptedException{
         WebElement oldPasswordInputField = getOldPasswordInputField();
         inputText(oldPasswordInputField, newPassword);
@@ -205,6 +255,11 @@ public class ProfileSettingsTests {
 
     private static void inputText(WebElement to, String text) {
         to.sendKeys(text);
+
+    }
+
+    private static WebElement getProfileImage() throws  InterruptedException {
+        return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorProfileImage);
     }
 
     private static List<WebElement> getTimezonesOptions() throws InterruptedException {

@@ -244,7 +244,11 @@ public class CommonResources {
     public static final String cssSelectorSaveProfileButton = "button.Btn_Save_Profile.ws-btn-1";
     public static final String cssSelectorPasswordErrorMessage = "div.input-error-b";
     public static final String cssSelectorTimezoneSelectField = "div.ws-input-group-1 > select.ws-select-1";
-    public static final String cssSelectorTimezoneOptions = "option";
+    public static final String cssSelectorProfileImage = "div.Profile_User_Avatar_Img";
+    public static final String cssSelectorUploadFileButton = "div.Change_Avatar_Block.active >" +
+            " div.Btn_Upload_File.ws-btn-0 > input";
+    public static final String cssSelectorRevertToRobohashButton = "div.Btn_Revert_To_Robohash.ws-btn-0 > " +
+            "div.ws-btn-loader";
 
     //Error Log Names
     public static final String errorLogFlexText = "logs/FlexTextError.txt";
