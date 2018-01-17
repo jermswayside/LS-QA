@@ -212,6 +212,7 @@ public class ProfileSettingsTests {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private static void imageCleanUp() throws InterruptedException {
         WebElement profileImage = getProfileImage();
+        Utility.waitForVisible(profileImage);
         profileImage.click();
 
         WebElement revertToRobohashButton = getRevertToRobohashButton();
