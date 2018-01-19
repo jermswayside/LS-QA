@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ContentManagerTests {
     public static void checkContentIcons() throws InterruptedException{
-        Thread.sleep(2000);
+        long start = System.nanoTime();
         ArrayList<String> icons = CommonResources.getIconsClass();
         List<WebElement> allFolders = getFolders();
         search:
@@ -30,7 +30,6 @@ public class ContentManagerTests {
             List<WebElement> foldersLvl2 = getSubFolders(folder);
             int folderCnt = 0;
             for(WebElement f: foldersLvl2) {
-                Thread.sleep(5000);
                 allFolders = getFolders();
                 foldersLvl2 = getSubFolders(allFolders.get(i));
                 f = foldersLvl2.get(folderCnt);
@@ -72,9 +71,12 @@ public class ContentManagerTests {
 
             togglerLvl1.click();
         }
+        long end = System.nanoTime();
+        Utility.nanoToReadableTime(start, end);
     }
 
     public static void checkViewAssignGradesAttemptLinks() throws InterruptedException{
+        long start = System.nanoTime();
         Thread.sleep(2000);
         ArrayList<String> icons = CommonResources.getIconsClass();
         List<WebElement> allFolders = getFolders();
@@ -133,11 +135,13 @@ public class ContentManagerTests {
 
             togglerLvl1.click();
         }
-
+        long end = System.nanoTime();
+        Utility.nanoToReadableTime(start, end);
     }
 
     public static void checkAssigning() throws InterruptedException{
-        Thread.sleep(2000);
+        long start = System.nanoTime();
+        ArrayList<String> icons = CommonResources.getIconsClass();
         List<WebElement> allFolders = getFolders();
         search:
         for(int i = 1; i<allFolders.size(); i++) {
@@ -145,7 +149,6 @@ public class ContentManagerTests {
             WebElement folder = allFolders.get(i);
             while (!folder.isDisplayed()) {
             }
-
             UINavigation.scrollTo(folder);
             Thread.sleep(1000);
 
@@ -163,7 +166,10 @@ public class ContentManagerTests {
                 WebElement togglerLvl2 = getToggler(f);
                 Thread.sleep(1000);
                 if(togglerLvl2 == null) {
-                    assign();
+                    assign(icons);
+                    if(icons.isEmpty()) {
+                        break search;
+                    }
                 }
                 else{
                     List<WebElement> subfolders = getSubFolders(f);
@@ -177,16 +183,21 @@ public class ContentManagerTests {
                         UINavigation.scrollTo(subfolder);
                         Thread.sleep(1000);
                         subfolder.click();
-                        assign();
+                        assign(icons);
+                        if(icons.isEmpty()) {
+                            break search;
+                        }
                     }
                     System.out.println("Yep");
                 }
                 folderCnt++;
             }
         }
+        long end = System.nanoTime();
+        Utility.nanoToReadableTime(start, end);
     }
 
-    private static void assign() throws InterruptedException {
+    private static void assign(ArrayList icons) throws InterruptedException {
         Thread.sleep(500);
         List<WebElement> items = getCourseItems();
         int i = 0;
@@ -195,35 +206,59 @@ public class ContentManagerTests {
             items = getCourseItems();
             item = items.get(i);
             UINavigation.scrollTo(item);
+            WebElement icon = getIcon(item);
+            String iconName = getIconString(icon, icons);
             List<WebElement> subLinks = getSubLinks(item);
-            for(int j=0; j<subLinks.size(); j++){
-                WebElement currLink = subLinks.get(j);
-                if(currLink.getText().equals("Assign")){
-                    currLink.click();
-                    Thread.sleep(500);
-                    if(popUpAppeared()){
-
+            if (!iconName.equals("")) {
+                for (int j = 0; j < subLinks.size(); j++) {
+                    WebElement currLink = Utility.waitForClickable(subLinks.get(j));
+                    if (currLink.getText().equals("Assign")) {
+                        currLink.click();
                         Thread.sleep(500);
+                        if (popUpAppeared()) {
 
-                        WebElement selectAll = getSelectAll();
+                            Thread.sleep(500);
 
-                        selectAll.click();
+                            WebElement selectAll = getSelectAll();
 
-                        UINavigation.clickActiveNextStep();
-                        Thread.sleep(500);
+                            selectAll.click();
 
-                        UINavigation.clickChooseDate();
-                        Thread.sleep(500);
+                            UINavigation.clickActiveNextStep();
+                            Thread.sleep(500);
 
-                        UINavigation.clickCurrDay();
-                        Thread.sleep(500);
+                            UINavigation.clickChooseDate();
+                            Thread.sleep(500);
 
-                        UINavigation.clickSave();
-                        Thread.sleep(500);
+                            UINavigation.clickCurrDay();
+                            Thread.sleep(500);
+
+                            try {
+                                UINavigation.clickSave();
+                            }
+                            catch (NoSuchElementException n) {
+                                UINavigation.clickAssign();
+                            }
+
+                            Thread.sleep(4000);
+
+                        }
                     }
                 }
+                icons.remove(iconName);
+                System.out.printf("Removed %s", iconName);
+                System.out.println();
+
+                WebElement messageBox = getMessageBox();
+                Utility.waitForClickable(messageBox);
+                messageBox.click();
             }
+            i++;
         }
+
+    }
+
+    private static WebElement getMessageBox() throws InterruptedException {
+        return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorMessageBox);
     }
 
     private static WebElement getSelectAll() throws InterruptedException {
@@ -327,9 +362,8 @@ public class ContentManagerTests {
         }
         return popup.isDisplayed();
     }
-    private static List<WebElement> getFolders() {
-        return CommonResources.browserDriver.findElements(
-                By.cssSelector(CommonResources.cssSelectorContentFolders));
+    private static List<WebElement> getFolders() throws InterruptedException {
+        return Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorContentFolders);
     }
 
 
@@ -349,9 +383,7 @@ public class ContentManagerTests {
     }
 
     private static List<WebElement> getCourseItems() throws InterruptedException{
-        Thread.sleep(5000);
-        List<WebElement> list = Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorNavigationItems);
-        return list;
+        return Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorNavigationItems);
     }
 
     private static WebElement getIcon(WebElement w){
@@ -370,7 +402,6 @@ public class ContentManagerTests {
 
     private static void checkIcons(ArrayList<String> icons) throws InterruptedException{
         List<WebElement> items = getCourseItems();
-        Thread.sleep(1000);
         int i = 0;
         for(WebElement item: items){
             items = getCourseItems();

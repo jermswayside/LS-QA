@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommonResources {
+    //Files with relative file paths
+    public static final String fileWednesday = System.getProperty("user.dir") + "\\images\\wednesday.jpg";
+    public static final String fileBadger = System.getProperty("user.dir") + "\\images\\badger.png";
     //Usernames and passwords
     public static final String usernameStudent = "qastudent";
     public static final String passwordStudent = "1234";
@@ -58,7 +61,7 @@ public class CommonResources {
     public static String cssSelectorCourseContent = ".Content";
     public static String cssSelectorCreateCourse = "#Textbooks > div.ws-page > div > div >" +
             " div:nth-child(1) > div.ws-courses-item-bottom > div";
-    public static String cssSelectorCreateCoursePopUp = "button.ws-button__positive";
+    public static String cssSelectorCreateCoursePopUp = "button.ws-button__positive.Btn_Save_Course";
     public static String cssSelectorMessageBox = "#Message_Box > div:nth-child(1)";
     public static String cssSelectorCourseTitle = ".content-b > div:nth-child(1) > input:nth-child(2)";
     public static String cssXpathStartDate = "//input[@placeholder='Start date']";
@@ -131,8 +134,8 @@ public class CommonResources {
     public static String cssSelectorArchive = "div.ws-table-wrapper.ws-assignments-table > table.ws-table > tbody > " +
             "tr.ws-table-row > td:nth-child(6) > a.icon-link.Btn_Archive_Assignment";
 
-    public static String cssSelectorArchiveYes = "div:nth-child(12) > div.ws-popup-wrapper >" +
-            " div.ws-popup-wrapper__footer> div.Btn_Popup_Confirm.ws-button__positive";
+    public static String cssSelectorArchiveYes = "body > div:nth-child(16) > div.ws-popup-wrapper > " +
+            "div.ws-popup-wrapper__footer > div.Btn_Popup_Confirm.ws-button__positive";
 
     public static String cssSelectorArchiveMessageBox = "div.visible.success";
     public static String archiveSuccessMessage = "Assignment archived";
@@ -183,7 +186,11 @@ public class CommonResources {
             " div.Btn_Next_Step ws-button__positive";
     public static final String cssSelectorQuizTitle = "article > h1";
     public static final String cssSelectorQuizStartButton = "div.ws-btn-1.quiz-component__action.quiz-component__action--green";
-
+    public static final String cssSelectorAssignX = "div#Popup_Create_Assignment > " +
+            "div.ws-assignment-popup-wrapper.Popup_Body > div.ws-popup-btn-close.fa.fa-remove.white";
+    public static String cssSelectorContentLoadingSaveButton = "#Popup_Create_Assignment > div.ws-assignment-popup-wrapper.Popup_Body >" +
+            " div.ws-popup-content > div.step-b.active > div.bottom-b >" +
+            " div.Btn_Save_Assignment.ws-button__positive.loading > div";
 
     //Language Porfolio CSS Selectors and Xpaths
     public static final String cssSelectorProfile = "div.ws-layout-wrapper > a#Btn_Profile";
@@ -214,7 +221,8 @@ public class CommonResources {
     public static final String cssSelectorVideo = "div.Questions_Table_Question.active >" +
             " div.Questions_Table_Question_Content > div.cando-b > div.Cando_Result >" +
             "div.message-form-b > form.Create_Message_Form > video";
-    public static final String cssSelectorCommentBoxVideo = "div.ws-forum-message > div > div.ws-forum-message-content >" +
+    public static final String cssSelectorCommentBoxVideo = "div.Questions_Table_Question_Content > div.cando-b > " +
+            "div.Cando_Result > div.Comments > div.ws-forum-message-wrapper > div.ws-forum-message > div > div.ws-forum-message-content >" +
             "div.ws-forum-message-content-attachments > a";
     public static final String cssSelectorChangeProgressLink = "div.Questions_Table_Question.active >" +
             " div.Questions_Table_Question_Content > div.cando-b > div.Cando_Result > div.cando-grade-b.edit-mode >" +
@@ -228,7 +236,8 @@ public class CommonResources {
             " div.ws-btn-loader";
     public static final String cssSelectorTextArea = "div.Questions_Table_Question_Content > div.cando-b > " +
             "div.Cando_Result > div.message-form-b > form.Create_Message_Form > textarea";
-    public static final String cssSelectorCommentBoxText = "div.ws-forum-message > div > div.ws-forum-message-content >" +
+    public static final String cssSelectorCommentBoxText = "div.Questions_Table_Question_Content > div.cando-b > " +
+            "div.Cando_Result > div.Comments > div.ws-forum-message-wrapper > div.ws-forum-message > div > div.ws-forum-message-content >" +
             "div.ws-forum-message-content-text > span";
     public static final String cssSelectorCommentBoxUploadText = "div.ws-forum-message > div >" +
             " div.ws-forum-message-content > div.ws-forum-message-content-attachments > a";

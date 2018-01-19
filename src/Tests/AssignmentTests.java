@@ -11,6 +11,12 @@ import java.util.*;
 
 public class AssignmentTests {
     public static void selectEachAssignments() throws InterruptedException{
+        long start = System.nanoTime();
+        UINavigation.navToAssignment();
+
+        Thread.sleep(1000);
+
+        UINavigation.clickAddAssignments();
         System.out.println("Now selecting each assignment...");
 
         ArrayList<String> icons = CommonResources.getIcons();
@@ -94,10 +100,20 @@ public class AssignmentTests {
         }
         catch (NoSuchElementException n){}
         System.out.println("Assignments creation complete.");
+        long end = System.nanoTime();
+        Utility.nanoToReadableTime(start, end);
     }
 
 
     public static void selectAllAssignments() throws InterruptedException {
+        long start = System.nanoTime();
+
+        UINavigation.navToAssignment();
+
+        Thread.sleep(1000);
+
+        UINavigation.clickAddAssignments();
+
         ArrayList<String> copyOfIcons = CommonResources.getIcons();
 
         Thread.sleep(3000);
@@ -185,9 +201,23 @@ public class AssignmentTests {
                 System.out.println(String.format("%s was not added successfully.", i.next()));
             }
         }
+        long end = System.nanoTime();
+        Utility.nanoToReadableTime(start, end);
     }
 
     public static void confirmAssignments() throws InterruptedException {
+        long start = System.nanoTime();
+
+        UINavigation.navToAssignment();
+
+        Thread.sleep(1000);
+
+        UINavigation.clickAddAssignments();
+
+        Utility.simpleSelectAssignment();
+
+        Utility.createAssignment();
+
         System.out.println("Now confirming assigning in \"qastudent\"");
 
         System.out.println("Now logging out...");
@@ -217,9 +247,24 @@ public class AssignmentTests {
         Utility.logout();
 
         Utility.login(CommonResources.usernameTeacher, CommonResources.passwordTeacher, CommonResources.browserDriver);
+
+        long end = System.nanoTime();
+        Utility.nanoToReadableTime(start, end);
     }
 
     public static void deleteAssignments() throws InterruptedException{
+        long start = System.nanoTime();
+
+        UINavigation.navToAssignment();
+
+        Thread.sleep(1000);
+
+        UINavigation.clickAddAssignments();
+
+        Utility.simpleSelectAssignment();
+
+        Utility.createAssignment();
+
         System.out.println("Now deleting assignments...");
 
         Thread.sleep(2000);
@@ -294,6 +339,8 @@ public class AssignmentTests {
             System.out.println("No assignments created yet.");
         }
         studentBrowser.close();
+        long end = System.nanoTime();
+        Utility.nanoToReadableTime(start, end);
     }
 
     private static List<WebElement> getExistingAssignments() {
@@ -307,6 +354,18 @@ public class AssignmentTests {
     }
 
     public static void editAssignments() throws InterruptedException{
+        long start = System.nanoTime();
+
+        UINavigation.navToAssignment();
+
+        Thread.sleep(1000);
+
+        UINavigation.clickAddAssignments();
+
+        Utility.simpleSelectAssignment();
+
+        Utility.createAssignmentSelectedStudents();
+
         System.out.println("Now editing assignments...");
 
         Thread.sleep(2000);
@@ -351,9 +410,24 @@ public class AssignmentTests {
 
         UINavigation.clickClose();
 
+        Utility.confirmAssignmentSelectedStudents();
+        long end = System.nanoTime();
+        Utility.nanoToReadableTime(start, end);
     }
 
     public static void archiveAssignment() throws InterruptedException {
+        long start = System.nanoTime();
+
+        UINavigation.navToAssignment();
+
+        Thread.sleep(1000);
+
+        UINavigation.clickAddAssignments();
+
+        Utility.simpleSelectAssignment();
+
+        Utility.createAssignment();
+
         System.out.println("Now archiving assignment...");
 
         UINavigation.clickArchive();
@@ -377,6 +451,8 @@ public class AssignmentTests {
         System.out.println(String.format("There are %s assignment(s) that have been archived named:",
                 allArchiveAssignments.size()));
         allArchiveAssignments.forEach((assignment -> System.out.println(assignment)));
+        long end = System.nanoTime();
+        Utility.nanoToReadableTime(start, end);
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -455,10 +531,8 @@ public class AssignmentTests {
         }
     }
 
-    private static ArrayList<String> getStudents() {
-        List<WebElement> students = CommonResources.browserDriver.findElements(
-                By.cssSelector(CommonResources.cssSelectorAllAssigned)
-        );
+    private static ArrayList<String> getStudents() throws InterruptedException {
+        List<WebElement> students = Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorAllAssigned);
         if (students.isEmpty()){
             return new ArrayList<>();
         }

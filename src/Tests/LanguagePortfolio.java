@@ -12,6 +12,7 @@ import java.util.List;
 
 public class LanguagePortfolio {
     public static void checkViewButton() throws InterruptedException{
+        long startTime = System.nanoTime();
         UINavigation.clickSkip();
         UINavigation.clickProfile();
         clickPortfolio();
@@ -21,9 +22,12 @@ public class LanguagePortfolio {
         if(canDoStatements.size() == 0){
             System.out.println("Error");
         }
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
     }
 
     public static void checkAddQuizAttemptButton() throws InterruptedException {
+        long startTime = System.nanoTime();
         UINavigation.clickSkip();
         UINavigation.clickProfile();
         clickPortfolio();
@@ -51,9 +55,12 @@ public class LanguagePortfolio {
             return;
         }
         cleanUp(commentBox);
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
     }
 
     public static void checkAddRecordingButton() throws InterruptedException {
+        long startTime = System.nanoTime();
         UINavigation.clickSkip();
         UINavigation.clickProfile();
         clickPortfolio();
@@ -86,9 +93,12 @@ public class LanguagePortfolio {
             }
         }
         cleanUp(commentBox);
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
     }
 
     public static void checkAddVideoRecordingButton() throws InterruptedException {
+        long startTime = System.nanoTime();
         UINavigation.clickSkip();
         UINavigation.clickProfile();
         clickPortfolio();
@@ -113,15 +123,18 @@ public class LanguagePortfolio {
         Utility.waitForNotVisible(getLoadingSaveButton());
         WebElement commentBox = getCommentBox();
         if(commentBox != null) {
-            if(!getCommentBoxVideo(commentBox).isDisplayed()) {
+            if(!getCommentBoxVideo().isDisplayed()) {
                 System.out.println("Error");
                 return;
             }
         }
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
         cleanUp(commentBox);
     }
 
     public static void checkChangeProgressLink() throws InterruptedException {
+        long startTime = System.nanoTime();
         UINavigation.clickSkip();
         UINavigation.clickProfile();
         clickPortfolio();
@@ -140,10 +153,13 @@ public class LanguagePortfolio {
             System.out.println("Error");
             return;
         }
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
         cleanUp(commentBox);
     }
 
     public static void checkAddingComment() throws InterruptedException {
+        long startTime = System.nanoTime();
         UINavigation.clickSkip();
         UINavigation.clickProfile();
         clickPortfolio();
@@ -158,20 +174,23 @@ public class LanguagePortfolio {
         Thread.sleep(1000);
         enterTextInComment(text);
         clickSaveButton();
-//        Utility.waitForNotVisible(getLoadingProgressSaveButton());
+        Utility.waitForNotVisible(getLoadingSaveButton());
         WebElement commentBox = getCommentBox();
         if(!commentBox.isDisplayed()) {
             System.out.println("Error");
             return;
         }
-        if(!getCommentText(commentBox).equals(text)){
+        if(!getCommentText().equals(text)){
             System.out.println("Error");
             return;
         }
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
         cleanUp(commentBox);
     }
 
     public static void checkFileUpload() throws InterruptedException {
+        long startTime = System.nanoTime();
         UINavigation.clickSkip();
         UINavigation.clickProfile();
         clickPortfolio();
@@ -197,6 +216,8 @@ public class LanguagePortfolio {
             System.out.println("Error");
             return;
         }
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
         cleanUp(commentBox);
     }
 
@@ -235,7 +256,7 @@ public class LanguagePortfolio {
     }
 
     private static void fileUpload(WebElement addFileButton) {
-        addFileButton.findElement(By.cssSelector("input")).sendKeys("images/wednesday.jpg");
+        addFileButton.findElement(By.cssSelector("input")).sendKeys(CommonResources.fileWednesday);
     }
 
     private static String getCommentUploadText(){
@@ -247,8 +268,8 @@ public class LanguagePortfolio {
         }
     }
 
-    private static String getCommentText(WebElement cb){
-        return cb.findElement(By.cssSelector(CommonResources.cssSelectorCommentBoxText)).getText();
+    private static String getCommentText() throws InterruptedException {
+        return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorCommentBoxText).getText();
     }
 
     private static void enterTextInComment(String s){
@@ -269,10 +290,10 @@ public class LanguagePortfolio {
                 By.cssSelector(CommonResources.cssSelectorProgressResourceEditLoadingSaveButton));
     }
 
-    private static WebElement getCommentBoxVideo(WebElement cb) throws InterruptedException {
+    private static WebElement getCommentBoxVideo() throws InterruptedException {
         Thread.sleep(500);
         try {
-            return cb.findElement(By.cssSelector(CommonResources.cssSelectorCommentBoxVideo));
+            return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorCommentBoxVideo);
         }
         catch (NoSuchElementException n){
             return null;
@@ -386,23 +407,25 @@ public class LanguagePortfolio {
         }
     }
 
-    private static WebElement getCommentBoxAudioRecording(){
+    private static WebElement getCommentBoxAudioRecording() throws InterruptedException {
         try {
-            return CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorCommentBoxAudioRecording));
+            return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorCommentBoxAudioRecording);
         }
         catch (NoSuchElementException n){
             return null;
         }
     }
+
     private static WebElement getCommentBox() throws InterruptedException {
         Thread.sleep(500);
         try {
-            return CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorCommentBox));
+            return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorCommentBox);
         }
         catch (NoSuchElementException n) {
             return null;
         }
     }
+
     private static void clickPortfolio() throws InterruptedException {
         Thread.sleep(2000);
         WebElement portfolio = Utility.waitForElementToExistByLinkText("Portfolio");

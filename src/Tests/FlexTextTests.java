@@ -97,6 +97,8 @@ public class FlexTextTests {
             }
             UINavigation.navToDash();
         }
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
     }
 
     private static String getTextBody() {
@@ -221,6 +223,8 @@ public class FlexTextTests {
     public static void checkExplorerLinks() throws InterruptedException, IOException {
         long startTime = System.nanoTime();
         int courseSize = getAllCourses().size();
+        int checkedCompassCount = 0;
+        flexText:
         for (int y = 0; y<courseSize; y++) {
             List<WebElement> allCourses = getAllCourses();
             WebElement currCourse = allCourses.get(y);
@@ -242,6 +246,7 @@ public class FlexTextTests {
                 UINavigation.clickFlexTextTab();
 
                 int allFlexCnt = getAllFlexText().size();
+
                 for (int x = 1; x<allFlexCnt; x++) {
                     List<WebElement> allFT = getAllFlexText();
                     WebElement currFT = allFT.get(x);
@@ -320,6 +325,11 @@ public class FlexTextTests {
                                     Thread.sleep(5000);
                                     switchToFT();
                                     switching = true;
+                                    checkedCompassCount++;
+                                    System.out.println("Compass count at: " + checkedCompassCount);
+                                    if(checkedCompassCount == 10) {
+                                        break flexText;
+                                    }
                                 }
                             }
                         }
@@ -340,7 +350,7 @@ public class FlexTextTests {
             UINavigation.navToDash();
         }
         long endTime = System.nanoTime();
-        System.out.println(String.format("Time it took to complete the test was: %s", endTime-startTime));
+        Utility.nanoToReadableTime(startTime, endTime);
     }
 
 
@@ -406,8 +416,8 @@ public class FlexTextTests {
         return Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorAllFlexText);
     }
 
-    private static List<WebElement> getAllCourses(){
-        return CommonResources.browserDriver.findElements(By.cssSelector(CommonResources.cssSelectorCourse));
+    private static List<WebElement> getAllCourses() throws InterruptedException {
+        return Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorCourse);
     }
 
     private static WebElement getActiveSection() {

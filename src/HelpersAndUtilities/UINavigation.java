@@ -12,19 +12,9 @@ import java.util.Objects;
 
 public class UINavigation {
     public static void navToDash() throws InterruptedException {
-        try {
-            Thread.sleep(3000);
-            WebElement dash = (new WebDriverWait(CommonResources.browserDriver, 30))
-                    .until(ExpectedConditions.elementToBeClickable(By.cssSelector("nav > div.ws-layout-wrapper >  a.ws-main-menu-item:nth-child(1)")));
-            scrollTo(dash);
-            dash.click();
-            System.out.println("Redirecting back to dashboard...");
-        }
-        catch (NoSuchElementException n){
-            System.out.println("Dashboard button not found.  Contact administrator.");
-            System.out.println("Exiting program.");
-            System.exit(0);
-        }
+        Thread.sleep(3000);
+        CommonResources.browserDriver.get("https://stagelearningsite.waysidepublishing.com/dashboard");
+        System.out.println("Redirecting back to dashboard...");
     }
 
     public static void navToAssignment() throws InterruptedException{
@@ -102,7 +92,8 @@ public class UINavigation {
 
     public static void clickX() throws InterruptedException{
         Thread.sleep(500);
-        WebElement X = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorAssignmentX);
+        WebElement X = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorAssignX);
+        Utility.waitForVisible(X);
         X.click();
     }
     public static void accessCourse(String course, WebDriver driver) throws InterruptedException{
@@ -268,16 +259,15 @@ public class UINavigation {
 
     public static void clickArchive() throws InterruptedException{
         Thread.sleep(500);
-        WebElement archive = CommonResources.browserDriver.findElement(
-                By.cssSelector(CommonResources.cssSelectorArchive));
+        WebElement archive = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorArchive);
         archive.click();
 
         System.out.println("Clicked Archive icon.");
     }
 
-    public static void clickArchiveYes() {
-        WebElement yes = CommonResources.browserDriver.findElement(
-                By.cssSelector(CommonResources.cssSelectorArchiveYes));
+    public static void clickArchiveYes() throws InterruptedException {
+        WebElement yes = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorArchiveYes);
+        String whatthefuck = yes.getAttribute("id");
         yes.click();
 
         System.out.println("Clicked \"YES\".");

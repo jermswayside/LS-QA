@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ProfileSettingsTests {
     public static void editFirstName() throws InterruptedException {
-
+        long startTime = System.nanoTime();
         UINavigation.clickProfile();
 
         WebElement firstNameInputField = getFirstNameInputField();
@@ -46,9 +46,12 @@ public class ProfileSettingsTests {
         }
 
         firstNameCleanUp(initialFirstNameValue);
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
     }
 
     public static void editLastName() throws InterruptedException {
+        long startTime = System.nanoTime();
         UINavigation.clickProfile();
         WebElement lastNameInputField = getLastNameInputField();
         String initialLastNameValue = lastNameInputField.getAttribute("value");
@@ -77,11 +80,13 @@ public class ProfileSettingsTests {
             System.out.println("Error");
 //            return;
         }
-
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
         lastNameCleanUp(initialLastNameValue);
     }
 
     public static void editPassword() throws InterruptedException {
+        long startTime = System.nanoTime();
         UINavigation.clickProfile();
 
         WebElement oldPasswordInputField = getOldPasswordInputField();
@@ -117,10 +122,13 @@ public class ProfileSettingsTests {
 
         UINavigation.clickProfile();
 
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
         passwordCleanUp(newPassword, CommonResources.passwordTeacher);
     }
 
     public static void editEmail() throws InterruptedException {
+        long startTime = System.nanoTime();
         UINavigation.clickProfile();
 
         WebElement emailInputField = getEmailInputField();
@@ -151,9 +159,12 @@ public class ProfileSettingsTests {
         if(!emailInEmailInputField.equals(newEmail)) {
             System.out.println("Error");
         }
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
     }
 
     public static void editTimezone() throws InterruptedException {
+        long startTime = System.nanoTime();
         UINavigation.clickProfile();
 
         Select timezoneSelectField = getTimezoneSelectField();
@@ -180,9 +191,12 @@ public class ProfileSettingsTests {
         if(!newTimezoneName.equals(currTimezoneName)) {
             System.out.println("Error");
         }
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
     }
 
     public static void editImage() throws InterruptedException {
+        long startTime = System.nanoTime();
         UINavigation.clickProfile();
 
         WebElement profileImage = getProfileImage();
@@ -206,6 +220,8 @@ public class ProfileSettingsTests {
             return;
         }
 
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
         imageCleanUp();
     }
 

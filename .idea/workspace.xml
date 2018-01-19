@@ -2,6 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="39a20b22-7437-4301-b3d8-96ff74008ce5" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/src/HelpersAndUtilities/CommonResources.java" afterPath="$PROJECT_DIR$/src/HelpersAndUtilities/CommonResources.java" />
+      <change beforePath="$PROJECT_DIR$/src/HelpersAndUtilities/UINavigation.java" afterPath="$PROJECT_DIR$/src/HelpersAndUtilities/UINavigation.java" />
+      <change beforePath="$PROJECT_DIR$/src/HelpersAndUtilities/Utility.java" afterPath="$PROJECT_DIR$/src/HelpersAndUtilities/Utility.java" />
+      <change beforePath="$PROJECT_DIR$/src/QATest.java" afterPath="$PROJECT_DIR$/src/QATest.java" />
+      <change beforePath="$PROJECT_DIR$/src/Tests/AssignmentTests.java" afterPath="$PROJECT_DIR$/src/Tests/AssignmentTests.java" />
+      <change beforePath="$PROJECT_DIR$/src/Tests/ContentManagerTests.java" afterPath="$PROJECT_DIR$/src/Tests/ContentManagerTests.java" />
+      <change beforePath="$PROJECT_DIR$/src/Tests/CreateCourse.java" afterPath="$PROJECT_DIR$/src/Tests/CreateCourse.java" />
+      <change beforePath="$PROJECT_DIR$/src/Tests/FlexTextTests.java" afterPath="$PROJECT_DIR$/src/Tests/FlexTextTests.java" />
+      <change beforePath="$PROJECT_DIR$/src/Tests/LanguagePortfolio.java" afterPath="$PROJECT_DIR$/src/Tests/LanguagePortfolio.java" />
       <change beforePath="$PROJECT_DIR$/src/Tests/ProfileSettingsTests.java" afterPath="$PROJECT_DIR$/src/Tests/ProfileSettingsTests.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -18,15 +27,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ProfileSettingsTests.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ProfileSettingsTests.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Tests/ProfileSettingsTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
-              <caret line="214" column="43" lean-forward="false" selection-start-line="214" selection-start-column="43" selection-end-line="214" selection-end-column="43" />
+            <state relative-caret-position="1676">
+              <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#8277#8278#0" expanded="true" />
-                <element signature="e#8317#8318#0" expanded="true" />
+                <element signature="e#9127#9128#0" expanded="true" />
+                <element signature="e#9167#9168#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -35,9 +44,12 @@
       <file leaf-file-name="ContentManagerTests.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Tests/ContentManagerTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1860">
-              <caret line="102" column="41" lean-forward="false" selection-start-line="102" selection-start-column="41" selection-end-line="102" selection-end-column="41" />
-              <folding />
+            <state relative-caret-position="-697">
+              <caret line="176" column="0" lean-forward="false" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
+              <folding>
+                <element signature="e#14802#14803#0" expanded="true" />
+                <element signature="e#14859#14860#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -45,8 +57,8 @@
       <file leaf-file-name="LanguagePortfolio.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Tests/LanguagePortfolio.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5020">
-              <caret line="263" column="9" lean-forward="false" selection-start-line="263" selection-start-column="9" selection-end-line="263" selection-end-column="9" />
+            <state relative-caret-position="-404">
+              <caret line="168" column="55" lean-forward="true" selection-start-line="168" selection-start-column="55" selection-end-line="168" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -55,8 +67,8 @@
       <file leaf-file-name="CommonResources.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/HelpersAndUtilities/CommonResources.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4860">
-              <caret line="250" column="32" lean-forward="false" selection-start-line="250" selection-start-column="32" selection-end-line="250" selection-end-column="32" />
+            <state relative-caret-position="270">
+              <caret line="137" column="66" lean-forward="false" selection-start-line="137" selection-start-column="66" selection-end-line="137" selection-end-column="66" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -67,8 +79,8 @@
       <file leaf-file-name="AssignmentTests.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Tests/AssignmentTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="28" column="65" lean-forward="false" selection-start-line="28" selection-start-column="65" selection-end-line="28" selection-end-column="65" />
+            <state relative-caret-position="263">
+              <caret line="455" column="0" lean-forward="false" selection-start-line="455" selection-start-column="0" selection-end-line="455" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -76,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QATest.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="QATest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/QATest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6320">
-              <caret line="322" column="57" lean-forward="false" selection-start-line="322" selection-start-column="57" selection-end-line="322" selection-end-column="57" />
+            <state relative-caret-position="216">
+              <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -91,8 +103,8 @@
       <file leaf-file-name="FlexTextTests.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Tests/FlexTextTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7380">
-              <caret line="384" column="0" lean-forward="false" selection-start-line="384" selection-start-column="0" selection-end-line="384" selection-end-column="0" />
+            <state relative-caret-position="243">
+              <caret line="420" column="5" lean-forward="true" selection-start-line="420" selection-start-column="5" selection-end-line="420" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -101,11 +113,9 @@
       <file leaf-file-name="UINavigation.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/HelpersAndUtilities/UINavigation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5740">
-              <caret line="293" column="31" lean-forward="false" selection-start-line="293" selection-start-column="23" selection-end-line="293" selection-end-column="31" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="416">
+              <caret line="273" column="0" lean-forward="false" selection-start-line="273" selection-start-column="0" selection-end-line="273" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -113,8 +123,8 @@
       <file leaf-file-name="Utility.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/HelpersAndUtilities/Utility.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5800">
-              <caret line="309" column="25" lean-forward="false" selection-start-line="309" selection-start-column="25" selection-end-line="309" selection-end-column="25" />
+            <state relative-caret-position="-484">
+              <caret line="214" column="0" lean-forward="false" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -133,36 +143,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Link doesn't</find>
-      <find>all</find>
-      <find>quiztitle</find>
-      <find>cssSelectorAssignee</find>
-      <find>nth</find>
-      <find>clickcompletedAss</find>
-      <find>editAss</find>
-      <find>click</find>
-      <find>clickEdit</find>
-      <find>selectorEdit</find>
-      <find>archive</find>
-      <find>login</find>
-      <find>cssSelectorArchive</find>
-      <find>getTitle</find>
-      <find>archiveYes</find>
-      <find>getSearchInput</find>
-      <find>getallflex</find>
-      <find>getCourseItems</find>
-      <find>getSelectAl</find>
-      <find>create course</find>
-      <find>get</find>
-      <find>cssSelectorFolders</find>
-      <find>Btn_Save_Pro</find>
-      <find>message_Box</find>
-      <find>messag</find>
-      <find>getFolders</find>
-      <find>getRandNum</find>
       <find>randomInt</find>
       <find>scrollTo</find>
       <find>fileupload</find>
+      <find>createCourse</find>
+      <find>endtime</find>
+      <find>nanoTo</find>
+      <find>courseCount</find>
+      <find>nanoto</find>
+      <find>getAllCourses</find>
+      <find>getCommentBox</find>
+      <find>selectorCommentBox</find>
+      <find>commentBoxVideo</find>
+      <find>CommentBoxText</find>
+      <find>system.getp</find>
+      <find>getFolders</find>
+      <find>getCourseItems</find>
+      <find>assignmentX</find>
+      <find>nanotoreadabletime</find>
+      <find>assign</find>
+      <find>Btn_assign</find>
+      <find>Btn_save_Assignment</find>
+      <find>loadingsavebutton</find>
+      <find>content manager</find>
+      <find>cleanUp</find>
+      <find>clickEdit</find>
+      <find>clickClose</find>
+      <find>cssSelectorClose</find>
+      <find>archiveYes</find>
+      <find>checkIcons</find>
+      <find>delete</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -201,16 +211,16 @@
         <option value="$PROJECT_DIR$/src/HelpersAndUtilities/UIHelper.java" />
         <option value="$USER_HOME$/Downloads/selenium-java-3.6.0/client-combined-3.6.0.jar!/org/openqa/selenium/support/ui/WebDriverWait.class" />
         <option value="$PROJECT_DIR$/logs/FlexTextError.txt" />
-        <option value="$PROJECT_DIR$/src/HelpersAndUtilities/UINavigation.java" />
         <option value="$PROJECT_DIR$/src/Tests/CreateCourse.java" />
-        <option value="$PROJECT_DIR$/src/Tests/ContentManagerTests.java" />
-        <option value="$PROJECT_DIR$/src/Tests/AssignmentTests.java" />
-        <option value="$PROJECT_DIR$/src/QATest.java" />
         <option value="$PROJECT_DIR$/src/Tests/FlexTextTests.java" />
-        <option value="$PROJECT_DIR$/src/HelpersAndUtilities/Utility.java" />
         <option value="$PROJECT_DIR$/src/Tests/LanguagePortfolio.java" />
-        <option value="$PROJECT_DIR$/src/HelpersAndUtilities/CommonResources.java" />
         <option value="$PROJECT_DIR$/src/Tests/ProfileSettingsTests.java" />
+        <option value="$PROJECT_DIR$/src/HelpersAndUtilities/Utility.java" />
+        <option value="$PROJECT_DIR$/src/Tests/ContentManagerTests.java" />
+        <option value="$PROJECT_DIR$/src/QATest.java" />
+        <option value="$PROJECT_DIR$/src/Tests/AssignmentTests.java" />
+        <option value="$PROJECT_DIR$/src/HelpersAndUtilities/UINavigation.java" />
+        <option value="$PROJECT_DIR$/src/HelpersAndUtilities/CommonResources.java" />
       </list>
     </option>
   </component>
@@ -221,10 +231,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="21" />
-    <option name="y" value="-9" />
-    <option name="width" value="1938" />
-    <option name="height" value="1098" />
+    <option name="x" value="-931" />
+    <option name="y" value="-1098" />
+    <option name="width" value="1934" />
+    <option name="height" value="1038" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -519,11 +529,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="true" />
+    <frame x="-1010" y="-1089" width="1938" height="1048" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23977901" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -539,13 +549,12 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35027623" sideWeight="0.4953125" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35027623" sideWeight="0.4953125" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23977901" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -564,19 +573,23 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Tests/ProfileSettingsTests.java</url>
-          <line>97</line>
+          <url>file://$PROJECT_DIR$/src/Tests/ContentManagerTests.java</url>
+          <line>238</line>
           <properties />
-          <option name="timeStamp" value="281" />
+          <option name="timeStamp" value="304" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/HelpersAndUtilities/UINavigation.java</url>
+          <line>268</line>
+          <properties />
+          <option name="timeStamp" value="307" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="295" />
+      <option name="time" value="308" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/Downloads/client-combined-3.5.3-nodeps.jar!/org/openqa/selenium/remote/RemoteWebDriver.class" />
-    <entry file="jar://$USER_HOME$/Downloads/client-combined-3.5.3-nodeps.jar!/org/openqa/selenium/By.class" />
     <entry file="file://$PROJECT_DIR$/src/UIHelper.java" />
     <entry file="file://$PROJECT_DIR$/src/CommonResources.java" />
     <entry file="file://$PROJECT_DIR$/src/QATest.java">
@@ -637,7 +650,6 @@
     <entry file="jar://$USER_HOME$/Downloads/selenium-java-3.6.0/client-combined-3.6.0.jar!/org/openqa/selenium/support/ui/SystemClock.class" />
     <entry file="jar://$USER_HOME$/Downloads/selenium-java-3.6.0/libs/guava-23.0.jar!/com/google/common/collect/Lists.class" />
     <entry file="jar://$USER_HOME$/Downloads/selenium-java-3.6.0/client-combined-3.6.0.jar!/org/openqa/selenium/support/ui/FluentWait.class" />
-    <entry file="jar://$USER_HOME$/Downloads/selenium-java-3.6.0/client-combined-3.6.0.jar!/org/openqa/selenium/support/ui/WebDriverWait.class" />
     <entry file="jar://$USER_HOME$/Downloads/selenium-java-3.6.0/client-combined-3.6.0.jar!/org/openqa/selenium/remote/RemoteWebDriver.class" />
     <entry file="file://$PROJECT_DIR$/logs/FlexTextError.txt">
       <provider selected="true" editor-type-id="text-editor">
@@ -654,42 +666,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.base/java/io/FileInputStream.java">
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.base/java/lang/ProcessImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
-          <caret line="219" column="23" lean-forward="false" selection-start-line="219" selection-start-column="23" selection-end-line="219" selection-end-column="23" />
+          <caret line="489" column="31" lean-forward="false" selection-start-line="489" selection-start-column="31" selection-end-line="489" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Downloads/selenium-java-3.6.0/client-combined-3.6.0.jar!/org/openqa/selenium/support/ui/WebDriverWait.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Tests/CreateCourse.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="39" column="27" lean-forward="true" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/HelpersAndUtilities/UINavigation.java">
+    <entry file="file://$PROJECT_DIR$/src/Tests/ProfileSettingsTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5740">
-          <caret line="293" column="31" lean-forward="false" selection-start-line="293" selection-start-column="23" selection-end-line="293" selection-end-column="31" />
+        <state relative-caret-position="1676">
+          <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#9127#9128#0" expanded="true" />
+            <element signature="e#9167#9168#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.base/java/io/FileInputStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="219" column="23" lean-forward="false" selection-start-line="219" selection-start-column="23" selection-end-line="219" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/java.base/java/io/PrintStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="693" column="0" lean-forward="false" selection-start-line="693" selection-start-column="0" selection-end-line="693" selection-end-column="0" />
+          <folding>
+            <element signature="e#23895#23896#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Tests/FlexTextTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7380">
-          <caret line="384" column="0" lean-forward="false" selection-start-line="384" selection-start-column="0" selection-end-line="384" selection-end-column="0" />
+        <state relative-caret-position="243">
+          <caret line="420" column="5" lean-forward="true" selection-start-line="420" selection-start-column="5" selection-end-line="420" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Tests/AssignmentTests.java">
+    <entry file="file://$PROJECT_DIR$/src/HelpersAndUtilities/Utility.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="65" lean-forward="false" selection-start-line="28" selection-start-column="65" selection-end-line="28" selection-end-column="65" />
+        <state relative-caret-position="-484">
+          <caret line="214" column="0" lean-forward="false" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -698,18 +740,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/HelpersAndUtilities/CommonResources.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4860">
-          <caret line="250" column="32" lean-forward="false" selection-start-line="250" selection-start-column="32" selection-end-line="250" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/HelpersAndUtilities/Utility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5800">
-          <caret line="309" column="25" lean-forward="false" selection-start-line="309" selection-start-column="25" selection-end-line="309" selection-end-column="25" />
+        <state relative-caret-position="270">
+          <caret line="137" column="66" lean-forward="false" selection-start-line="137" selection-start-column="66" selection-end-line="137" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -718,38 +750,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Tests/ContentManagerTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1860">
-          <caret line="102" column="41" lean-forward="false" selection-start-line="102" selection-start-column="41" selection-end-line="102" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/QATest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6320">
-          <caret line="322" column="57" lean-forward="false" selection-start-line="322" selection-start-column="57" selection-end-line="322" selection-end-column="57" />
+        <state relative-caret-position="-697">
+          <caret line="176" column="0" lean-forward="false" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#14802#14803#0" expanded="true" />
+            <element signature="e#14859#14860#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Tests/LanguagePortfolio.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5020">
-          <caret line="263" column="9" lean-forward="false" selection-start-line="263" selection-start-column="9" selection-end-line="263" selection-end-column="9" />
+        <state relative-caret-position="-404">
+          <caret line="168" column="55" lean-forward="true" selection-start-line="168" selection-start-column="55" selection-end-line="168" selection-end-column="55" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Tests/ProfileSettingsTests.java">
+    <entry file="file://$PROJECT_DIR$/src/HelpersAndUtilities/UINavigation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="214" column="43" lean-forward="false" selection-start-line="214" selection-start-column="43" selection-end-line="214" selection-end-column="43" />
+        <state relative-caret-position="416">
+          <caret line="273" column="0" lean-forward="false" selection-start-line="273" selection-start-column="0" selection-end-line="273" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Tests/AssignmentTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="455" column="0" lean-forward="false" selection-start-line="455" selection-start-column="0" selection-end-line="455" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8277#8278#0" expanded="true" />
-            <element signature="e#8317#8318#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/QATest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

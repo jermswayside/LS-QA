@@ -17,6 +17,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 // This class is used for testing functionality that are one-off/uncommonly used.
 
@@ -25,6 +26,7 @@ public class Utility {
         return ThreadLocalRandom.current().nextInt(from, to);
     }
     public static void courseCount() throws InterruptedException {
+        long start = System.nanoTime();
         System.out.println("Checking course book count...");
 
         WebElement newCourse = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorNewCourse));
@@ -42,6 +44,8 @@ public class Utility {
             System.out.println("There aren't enough books loaded.  Contact the administrator.");
             System.exit(0);
         }
+        long end = System.nanoTime();
+        nanoToReadableTime(start, end);
     }
 
     public static WebDriver startBrowser(String driver, String path){
@@ -284,10 +288,12 @@ public class Utility {
     }
 
     public static void nanoToReadableTime(long start, long end){
-        double elapsedTime = end-start/1000000000.0;
-        int minutes = (int) (elapsedTime/60)%60;
-        int seconds = (int) (elapsedTime%60);
-        System.out.println(String.format("%s minutes and %s seconds", minutes, seconds));
+        long difference = end - start;
+        System.out.println("Total execution time: " +
+                String.format("%d min, %d sec",
+                        TimeUnit.NANOSECONDS.toMinutes(difference),
+                        TimeUnit.NANOSECONDS.toSeconds(difference) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.NANOSECONDS.toMinutes(difference))));
     }
 
     public static WebElement waitForElementToExistByCssSelector(String cssSelector) throws InterruptedException{
@@ -400,5 +406,10 @@ public class Utility {
     public static void waitForVisible(WebElement w){
         WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
         wait.until(ExpectedConditions.visibilityOf(w));
+    }
+
+    public static WebElement waitForClickable(WebElement w){
+        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
+        return wait.until(ExpectedConditions.elementToBeClickable(w));
     }
 }

@@ -96,12 +96,6 @@ public class QATest {
                         if (assignmentChoiceEntry == 1){
                             System.out.println("Testing selecting and creating all assignment functionality...");
 
-                            UINavigation.navToAssignment();
-
-                            Thread.sleep(1000);
-
-                            UINavigation.clickAddAssignments();
-
                             AssignmentTests.selectAllAssignments();
 
                             Utility.simpleDeleteAssignments();
@@ -111,10 +105,6 @@ public class QATest {
                             System.out.println("Testing selecting and creating each" +
                                     " assignment individually functionality...");
 
-                            UINavigation.navToAssignment();
-
-                            Thread.sleep(1000);
-
                             AssignmentTests.selectEachAssignments();
 
                             Utility.simpleDeleteAssignments();
@@ -122,16 +112,6 @@ public class QATest {
 
                         if (assignmentChoiceEntry == 3){
                             System.out.println("Confirming that assignments are properly assigned to students...");
-
-                            UINavigation.navToAssignment();
-
-                            Thread.sleep(1000);
-
-                            UINavigation.clickAddAssignments();
-
-                            Utility.simpleSelectAssignment();
-
-                            Utility.createAssignment();
 
                             AssignmentTests.confirmAssignments();
 
@@ -143,48 +123,15 @@ public class QATest {
                         if (assignmentChoiceEntry == 4) {
                             System.out.println("Testing deleting assignments...");
 
-                            UINavigation.navToAssignment();
-
-                            Thread.sleep(1000);
-
-                            UINavigation.clickAddAssignments();
-
-                            Utility.simpleSelectAssignment();
-
-                            Utility.createAssignment();
-
                             AssignmentTests.deleteAssignments();
                         }
                         if(assignmentChoiceEntry == 5){
                             System.out.println("Testing editing assignments...");
-                            UINavigation.navToAssignment();
-
-                            Thread.sleep(1000);
-
-                            UINavigation.clickAddAssignments();
-
-                            Utility.simpleSelectAssignment();
-
-                            Utility.createAssignmentSelectedStudents();
-
                             AssignmentTests.editAssignments();
-
-                            Utility.confirmAssignmentSelectedStudents();
-
                             Utility.simpleDeleteAssignments();
                         }
                         if (assignmentChoiceEntry == 6) {
                             System.out.println("Testing archiving assignments...");
-
-                            UINavigation.navToAssignment();
-
-                            Thread.sleep(1000);
-
-                            UINavigation.clickAddAssignments();
-
-                            Utility.simpleSelectAssignment();
-
-                            Utility.createAssignment();
 
                             AssignmentTests.archiveAssignment();
 
@@ -259,7 +206,9 @@ public class QATest {
                     }
                     int portfolioChoice = scanChoice.nextInt();
                     Utility.logout();
-                    Utility.login("qastudent", "1234", CommonResources.browserDriver);
+                    Utility.login(CommonResources.usernameStudent,
+                            CommonResources.passwordStudent,
+                            CommonResources.browserDriver);
                     if(portfolioChoice == 1) {
                         LanguagePortfolio.checkViewButton();
                     }
@@ -282,7 +231,9 @@ public class QATest {
                         LanguagePortfolio.checkFileUpload();
                     }
                     Utility.logout();
-                    Utility.login("qateacher", "1234", CommonResources.browserDriver);
+                    Utility.login(CommonResources.usernameTeacher,
+                            CommonResources.passwordTeacher,
+                            CommonResources.browserDriver);
                 }
 
                 if (choiceEntry == 7) {

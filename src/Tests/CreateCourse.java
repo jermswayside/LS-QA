@@ -12,6 +12,7 @@ import java.util.Objects;
 
 public class CreateCourse {
     public static void createCourse() throws InterruptedException {
+        long startTime = System.nanoTime();
         clickNewCourseButton();
         clickCreateCourseButton();
 
@@ -55,6 +56,8 @@ public class CreateCourse {
         catch (NoSuchElementException e) {
             System.out.println("Course creation finished, but it did not redirect to expected page.  Contact administrator.");
         }
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
     }
 
     private static WebElement getCog() throws InterruptedException {
