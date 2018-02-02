@@ -16,7 +16,6 @@ public class AssignmentTests {
 
         Thread.sleep(1000);
 
-        UINavigation.clickAddAssignments();
         System.out.println("Now selecting each assignment...");
 
         ArrayList<String> icons = CommonResources.getIcons();

@@ -82,6 +82,7 @@ public class UINavigation {
         courses.forEach((c) -> {
             if (Objects.equals(c.getText(), course)){
                 scrollTo(c);
+                Utility.waitForClickable(c);
                 c.click();
                 System.out.println(String.format("Now accessing course: %s", course));
 

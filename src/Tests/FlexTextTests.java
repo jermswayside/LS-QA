@@ -18,7 +18,9 @@ public class FlexTextTests {
         long startTime = System.nanoTime();
         List<WebElement> allCourses = getAllCourses();
         ArrayList<String> allBooks = CommonResources.getAllBooks();
-        for (WebElement course : allCourses) {
+        for (int y = 0; y<allCourses.size(); y++) {
+            allCourses = getAllCourses();
+            WebElement course = allCourses.get(y);
             String courseTitle = course.getText();
             if (allBooks.contains(courseTitle)) {
                 UINavigation.scrollTo(course);
@@ -140,7 +142,9 @@ public class FlexTextTests {
         long startTime = System.nanoTime();
         List<WebElement> allCourses = getAllCourses();
         ArrayList<String> allBooks = CommonResources.getAllBooks();
-        for (WebElement course: allCourses){
+        for (int i = 0; i<allCourses.size(); i++){
+            allCourses = getAllCourses();
+            WebElement course = allCourses.get(i);
             String courseTitle = course.getText();
             if(allBooks.contains(courseTitle)){
                 UINavigation.scrollTo(course);

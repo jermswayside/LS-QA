@@ -27,7 +27,7 @@ public class ProfileSettingsTests {
         UINavigation.scrollTo(saveProfileButton);
         saveProfileButton.click();
 
-        WebElement messageBox = getMessageBox();
+        WebElement messageBox = Utility.getMessageBox();
         Utility.waitForVisible(messageBox);
         messageBox.click();
 
@@ -62,7 +62,7 @@ public class ProfileSettingsTests {
         UINavigation.scrollTo(saveProfileButton);
         saveProfileButton.click();
 
-        WebElement messageBox = getMessageBox();
+        WebElement messageBox = Utility.getMessageBox();
         Utility.waitForVisible(messageBox);
         messageBox.click();
 
@@ -110,7 +110,7 @@ public class ProfileSettingsTests {
         UINavigation.scrollTo(saveProfileButton);
         saveProfileButton.click();
 
-        WebElement messageBox = getMessageBox();
+        WebElement messageBox = Utility.getMessageBox();
         Utility.waitForVisible(messageBox);
         messageBox.click();
 
@@ -140,7 +140,7 @@ public class ProfileSettingsTests {
         UINavigation.scrollTo(saveProfileButton);
         saveProfileButton.click();
 
-        WebElement errorMessageBox = getMessageBox();
+        WebElement errorMessageBox = Utility.getMessageBox();
         Utility.waitForVisible(errorMessageBox);
         errorMessageBox.click();
 
@@ -150,7 +150,7 @@ public class ProfileSettingsTests {
 
         saveProfileButton.click();
 
-        WebElement messageBox = getMessageBox();
+        WebElement messageBox = Utility.getMessageBox();
         Utility.waitForVisible(messageBox);
         messageBox.click();
 
@@ -182,7 +182,7 @@ public class ProfileSettingsTests {
         WebElement saveProfileButton = getSaveProfileButton();
         saveProfileButton.click();
 
-        WebElement errorMessageBox = getMessageBox();
+        WebElement errorMessageBox = Utility.getMessageBox();
         Utility.waitForVisible(errorMessageBox);
         errorMessageBox.click();
 
@@ -210,7 +210,7 @@ public class ProfileSettingsTests {
         UINavigation.scrollTo(saveProfileButton);
         saveProfileButton.click();
 
-        WebElement errorMessageBox = getMessageBox();
+        WebElement errorMessageBox = Utility.getMessageBox();
         Utility.waitForVisible(errorMessageBox);
         errorMessageBox.click();
 
@@ -234,7 +234,7 @@ public class ProfileSettingsTests {
         WebElement revertToRobohashButton = getRevertToRobohashButton();
         revertToRobohashButton.click();
 
-        WebElement successMessageBox = getMessageBox();
+        WebElement successMessageBox = Utility.getMessageBox();
         Utility.waitForVisible(successMessageBox);
         successMessageBox.click();
 
@@ -265,7 +265,7 @@ public class ProfileSettingsTests {
         UINavigation.scrollTo(saveProfileButton);
         saveProfileButton.click();
 
-        WebElement messageBox = getMessageBox();
+        WebElement messageBox = Utility.getMessageBox();
         Utility.waitForVisible(messageBox);
         messageBox.click();
     }
@@ -351,7 +351,7 @@ public class ProfileSettingsTests {
         WebElement saveProfileButton = getSaveProfileButton();
         UINavigation.scrollTo(saveProfileButton);
         saveProfileButton.click();
-        WebElement messageBox = getMessageBox();
+        WebElement messageBox = Utility.getMessageBox();
         Utility.waitForVisible(messageBox);
         messageBox.click();
     }
@@ -363,12 +363,10 @@ public class ProfileSettingsTests {
         WebElement saveProfileButton = getSaveProfileButton();
         UINavigation.scrollTo(saveProfileButton);
         saveProfileButton.click();
-        WebElement messageBox = getMessageBox();
+        WebElement messageBox = Utility.getMessageBox();
         Utility.waitForVisible(messageBox);
         messageBox.click();
     }
 
-    private static WebElement getMessageBox() throws InterruptedException {
-        return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorMessageBox);
-    }
+
 }

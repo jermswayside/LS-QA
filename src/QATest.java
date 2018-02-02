@@ -269,6 +269,35 @@ public class QATest {
                         ProfileSettingsTests.editImage();
                     }
                 }
+                if (choiceEntry == 8){
+                    scanChoice = new Scanner(System.in);
+                    num = 0;
+                    for(String test: CommonResources.getAllCourseSettingsTest()){
+                        System.out.println(String.format("\"%s\" - %s", num+1, test));
+                        num++;
+                    }
+                    int courseSettingsChoice = scanChoice.nextInt();
+
+                    if (courseSettingsChoice == 1){
+                        CourseSettings.assignmentPenalty();
+                    }
+
+                    if(courseSettingsChoice == 2) {
+                        CourseSettings.quizHidePassFailStatus();
+                    }
+
+                    if(courseSettingsChoice == 3) {
+                        CourseSettings.quizMaxAttempts();
+                    }
+
+                    if(courseSettingsChoice == 4) {
+                        CourseSettings.quizThreshold();
+                    }
+
+                    if(courseSettingsChoice == 5) {
+                        CourseSettings.showHideContent();
+                    }
+                }
                 if (choiceEntry == CommonResources.getAllTests().length) {
                     System.out.println("Now exiting.");
                     CommonResources.browserDriver.quit();

@@ -13,6 +13,7 @@ public class CommonResources {
     //Files with relative file paths
     public static final String fileWednesday = System.getProperty("user.dir") + "\\images\\wednesday.jpg";
     public static final String fileBadger = System.getProperty("user.dir") + "\\images\\badger.png";
+
     //Usernames and passwords
     public static final String usernameStudent = "qastudent";
     public static final String passwordStudent = "1234";
@@ -259,6 +260,17 @@ public class CommonResources {
     public static final String cssSelectorRevertToRobohashButton = "div.Btn_Revert_To_Robohash.ws-btn-0 > " +
             "div.ws-btn-loader";
 
+    //Course Settings CSS Selectors
+    public static final String cssSelectorSettings= "div.Content > div.ws-course__settings > " +
+            "div.ws-course__settings__contents > div.ws-course__settings__contents-item";
+    public static final String cssSelectorAssignmentsPenaltyToggle =
+            "div.ws-form__input-group-item.ws-form__input-group-item__penalty-toggle > div.onoffswitch > " +
+            "label > span.onoffswitch-switch";
+    public static final String cssSelectorAssignmentsFormGroups = "form > div.ws-form__input-group";
+    public static final String cssSelectorAssignmentsPenaltyInput =
+            "div.ws-form__input-group-item.ws-form__input-group-item--short > input";
+
+
     //Error Log Names
     public static final String errorLogFlexText = "logs/FlexTextError.txt";
 
@@ -316,6 +328,7 @@ public class CommonResources {
                 "Content Manager",
                 "Language Portfolio",
                 "Profile Settings",
+                "Course Settings",
                 "Exit program.",
         };
     }
@@ -367,6 +380,16 @@ public class CommonResources {
                 "Jump to page",
                 "Check Explorer Links",
                 "Search",
+        };
+    }
+
+    public static String[] getAllCourseSettingsTest() {
+        return new String[] {
+                "Assignments Penalty",
+                "Quiz Hide Pass/Fail Status",
+                "Quiz Threshold",
+                "Quiz Max Attempts",
+                "Show/Hide Content"
         };
     }
 

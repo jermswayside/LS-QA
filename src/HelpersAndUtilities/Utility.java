@@ -412,4 +412,8 @@ public class Utility {
         WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
         return wait.until(ExpectedConditions.elementToBeClickable(w));
     }
+
+    public static WebElement getMessageBox() throws InterruptedException {
+        return waitForElementToExistByCssSelector(CommonResources.cssSelectorMessageBox);
+    }
 }
