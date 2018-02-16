@@ -269,7 +269,14 @@ public class CommonResources {
     public static final String cssSelectorAssignmentsFormGroups = "form > div.ws-form__input-group";
     public static final String cssSelectorAssignmentsPenaltyInput =
             "div.ws-form__input-group-item.ws-form__input-group-item--short > input";
-
+    public static final String cssSelectorSettingsSaveButton = "div > button";
+    public static final String cssSelectorSideNav = "div.ws-course__settings__tabs > " +
+            "div.ws-course__settings__tabs-item";
+    public static final String cssSelectorQuizSettingsInputGroups = "div.ws-course__settings__contents > " +
+            "div.ws-course__settings__contents-item:nth-child(2) > form > div.ws-form__input-group";
+    public static final String cssSelectorQuizSettingsHidePassFailToggle =
+            "div.ws-form__input-group-item.ws-form__input-group-item__penalty-toggle > div > label.onoffswitch-label > " +
+                    "span.onoffswitch-switch";
 
     //Error Log Names
     public static final String errorLogFlexText = "logs/FlexTextError.txt";

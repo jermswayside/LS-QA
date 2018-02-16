@@ -287,11 +287,11 @@ public class QATest {
                     }
 
                     if(courseSettingsChoice == 3) {
-                        CourseSettings.quizMaxAttempts();
+                        CourseSettings.quizThreshold();
                     }
 
                     if(courseSettingsChoice == 4) {
-                        CourseSettings.quizThreshold();
+                        CourseSettings.quizMaxAttempts();
                     }
 
                     if(courseSettingsChoice == 5) {
