@@ -439,7 +439,9 @@ public class AssignmentTests {
         Thread.sleep(1000);
 
         UINavigation.clickShowArchived();
-        Thread.sleep(1000);
+
+        WebElement loaderIcon = getLoaderIcon();
+        Utility.waitForNotVisible(loaderIcon);
 
         ArrayList<String> allArchiveAssignments = getArchivedAssignments();
 
@@ -455,6 +457,9 @@ public class AssignmentTests {
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private static WebElement getLoaderIcon() throws InterruptedException {
+        return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorLoaderIcon);
+    }
     private static WebElement getCreateAssignmentPopup() throws InterruptedException{
         return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorCreateAssignmentPopup);
     }

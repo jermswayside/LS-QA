@@ -141,7 +141,9 @@ public class CommonResources {
     public static String cssSelectorArchiveMessageBox = "div.visible.success";
     public static String archiveSuccessMessage = "Assignment archived";
     public static String cssSelectorShowArchived = "#CourseAssignment > div.ws-page >" +
-            " div.ws-page-content.ws-layout-wrapper > div:nth-child(5) > a";
+            " div.ws-page-content.ws-layout-wrapper > " +
+            "div.ws-assignments-controls.grid.grid-no-padding.grid-align-middle > div.ws-assignments-filters > " +
+            "div.ws-checkbox";
 
     public static String cssSelectorArchivedAssignments = "#CourseAssignment > div.ws-page >" +
             " div.ws-page-content.ws-layout-wrapper > div.Assignments > div >" +
@@ -169,6 +171,10 @@ public class CommonResources {
     public static final String cssXpathNoMatch = "//*[contains(text(), 'Sorry, no matches found.')]";
     public static final String cssSelectorSearchResults = "div.tab-content.active > div.search-results-b >" +
             " div.items-b > div.item-b";
+    public static final String cssSelectorLoaderIcon = "#CourseAssignment > div.ws-page > " +
+            "div.ws-page-content.ws-layout-wrapper > " +
+            "div.ws-assignments-controls.grid.grid-no-padding.grid-align-middle > div.ws-assignments-filters > " +
+            "div.ws-simple-loader";
 
     //Content Manager CSS Selectors and Xpaths
     public static final String cssSelectorContentFolders = "div.Course_Toc > ul.jqtree_common.jqtree-tree" +
@@ -277,6 +283,15 @@ public class CommonResources {
     public static final String cssSelectorQuizSettingsHidePassFailToggle =
             "div.ws-form__input-group-item.ws-form__input-group-item__penalty-toggle > div > label.onoffswitch-label > " +
                     "span.onoffswitch-switch";
+    public static final String cssSelectorShowHideContent = "div.ws-course__settings__contents > " +
+            "div.ws-course__settings__contents-item:nth-child(3) > div.ws-course__settings__show-hide > " +
+            "div.ws-course__settings__show-hide__tree > div.ws-course-tree.ws-course-tree__root > " +
+            "div.ws-course-tree__node.ws-course-tree__node--has-children";
+    public static final String cssSelectorChapterCheckboxCheck = "i.ws-course-tree__icon.fa.fa-check-square-o";
+    public static final String cssSelectorChapterCheckboxNoCheck = "i.ws-course-tree__icon.fa.fa-square-o";
+    public static final String cssSelectorChapterCheckboxDash = "i.ws-course-tree__icon.fa.fa-minus-square-o";
+    public static final String cssSelectorVisibleContent = "div.ws-course-tree__root.ws-course-tree__root--visible > " +
+            "div.ws-course-tree__node.ws-course-tree__node--has-children";
 
     //Error Log Names
     public static final String errorLogFlexText = "logs/FlexTextError.txt";

@@ -4,6 +4,7 @@ import HelpersAndUtilities.CommonResources;
 import HelpersAndUtilities.UINavigation;
 import HelpersAndUtilities.Utility;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -142,8 +143,12 @@ public class CourseSettings {
         WebElement quizThreshold = getQuizThreshold();
         quizThreshold.sendKeys("-1");
 
+        Thread.sleep(1000);
+
         WebElement quizSaveButton = getQuizSaveButton();
         quizSaveButton.click();
+
+        Thread.sleep(1000);
 
         WebElement messageBox = Utility.getMessageBox();
         if(messageBox.isDisplayed()) {
@@ -157,6 +162,8 @@ public class CourseSettings {
         Thread.sleep(1000);
 
         quizSaveButton.click();
+
+        Thread.sleep(1000);
 
         messageBox = Utility.getMessageBox();
         if(messageBox.isDisplayed()) {
@@ -197,10 +204,181 @@ public class CourseSettings {
         WebElement quizSettings = getQuizSettings();
         Utility.waitForClickable(quizSettings);
         quizSettings.click();
+
+        WebElement quizAttempts = getQuizAttempts();
+        quizAttempts.sendKeys("-1");
+
+        Thread.sleep(1000);
+
+        WebElement quizSaveButton = getQuizSaveButton();
+        quizSaveButton.click();
+
+        WebElement messageBox = Utility.getMessageBox();
+        if(messageBox.isDisplayed()) {
+            System.out.println("Quiz Threshold saved with 101 as input");
+            return;
+        }
+
+        quizAttempts.clear();
+        quizAttempts.sendKeys("0");
+
+        Thread.sleep(1000);
+
+        quizSaveButton.click();
+
+        messageBox = Utility.getMessageBox();
+        if(messageBox.isDisplayed()) {
+            System.out.println("Quiz Threshold saved with 101 as input");
+            return;
+        }
+
+        quizAttempts.clear();
+        quizAttempts.sendKeys("100");
+
+        Thread.sleep(1000);
+
+        quizSaveButton.click();
+
+        String messageBoxText = "Changes were saved";
+        Utility.waitForVisible(messageBox);
+        if(!messageBox.getText().equals(messageBoxText)) {
+            System.out.println(String.format("Message in message box were not correct: %s", messageBox.getText()));
+            return;
+        }
+
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
+
+        quizAttemptsCleanUp();
     }
-    public static void showHideContent() {}
+    public static void showHideContent() throws InterruptedException {
+        long startTime = System.nanoTime();
+
+        UINavigation.accessCourse("asd");
+        UINavigation.clickSkip();
+
+        WebElement settingsLink = getSettingsLink();
+        Utility.waitForClickable(settingsLink);
+        settingsLink.click();
+
+        WebElement quizSettings = getQuizSettings();
+        Utility.waitForClickable(quizSettings);
+        quizSettings.click();
+
+        WebElement showHideContentSettings = getShowHideContentSettings();
+        showHideContentSettings.click();
+
+        WebElement firstChapter = getChapter(0);
+        UINavigation.scrollTo(firstChapter);
+        WebElement firstChapterCheckbox = getCheckBox(firstChapter);
+
+        firstChapterCheckbox.click();
+        Thread.sleep(1000);
+
+        try {
+            getNoCheckBox(firstChapter);
+        }
+        catch (NoSuchElementException n) {
+            System.out.println("Checkbox-to-NoCheckBox not working.");
+            return;
+        }
+
+        firstChapter.click();
+
+        Thread.sleep(1000);
+
+        WebElement firstSubChapter;
+
+        try {
+            firstSubChapter = getVisibleContent().get(0);
+        }
+        catch (NoSuchElementException n) {
+            System.out.println("Expanding not working.");
+            return;
+        }
+
+        WebElement subChapterCheckbox = getNoCheckBox(firstSubChapter);
+        subChapterCheckbox.click();
+
+        try{
+            getCheckBox(firstSubChapter);
+        }
+        catch (NoSuchElementException n){
+            System.out.println("Checkbox-to-NoCbeckBox in subchapter not working");
+            return;
+        }
+
+        try{
+            getDashBox(firstChapter);
+        }
+        catch(NoSuchElementException n) {
+            System.out.println("NoCheckBox-to-DashCheckBox in first chapter not working");
+            return;
+        }
+
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
+
+        showHideContentSettingsCleanUp();
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private static void showHideContentSettingsCleanUp() throws InterruptedException {
+        WebElement firstChapter = getChapter(0);
+
+        UINavigation.scrollTo(firstChapter);
+
+        WebElement firstChapterBox = getDashBox(firstChapter);
+        firstChapterBox.click();
+
+        Thread.sleep(5000);
+
+
+        firstChapterBox = getNoCheckBox(firstChapter);
+        firstChapterBox.click();
+
+        Thread.sleep(5000);
+    }
+    private static List<WebElement> getVisibleContent() {
+        return CommonResources.browserDriver.findElements(By.cssSelector(CommonResources.cssSelectorVisibleContent));
+    }
+    private static WebElement getDashBox(WebElement chapter) {
+        return chapter.findElement(By.cssSelector(CommonResources.cssSelectorChapterCheckboxDash));
+    }
+    private static WebElement getNoCheckBox(WebElement chapter) {
+        return chapter.findElement(By.cssSelector(CommonResources.cssSelectorChapterCheckboxNoCheck));
+    }
+    private static WebElement getCheckBox(WebElement chapter) {
+        return chapter.findElement(By.cssSelector(CommonResources.cssSelectorChapterCheckboxCheck));
+    }
+    private static WebElement getChapter(int i) throws InterruptedException {
+        return getShowHideContent().get(i);
+    }
+
+    private static List<WebElement> getShowHideContent() throws InterruptedException {
+        return Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorShowHideContent);
+    }
+    private static WebElement getShowHideContentSettings() throws InterruptedException {
+        return getSideNav().get(2);
+    }
+
+    private static void quizAttemptsCleanUp() throws InterruptedException {
+        WebElement quizAttempts = getQuizAttempts();
+        quizAttempts.clear();
+        quizAttempts.sendKeys("3");
+        Thread.sleep(1000);
+
+        WebElement quizSaveButton = getQuizSaveButton();
+        quizSaveButton.click();
+
+        WebElement messageBox = Utility.getMessageBox();
+        Utility.waitForVisible(messageBox);
+    }
+
+    private static WebElement getQuizAttempts() throws InterruptedException {
+        return getQuizSettingsInputGroups().get(2).findElement(
+                By.cssSelector(CommonResources.cssSelectorAssignmentsPenaltyInput));
+    }
 
     private static List<WebElement> getNavBar() throws InterruptedException{
         return Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorCourseNav);
@@ -292,9 +470,15 @@ public class CourseSettings {
 
     private static void quizThresholdCleanup() throws InterruptedException {
         WebElement quizThreshold = getQuizThreshold();
-        quizThreshold.sendKeys("-1");
+        quizThreshold.clear();
+        quizThreshold.sendKeys("80");
+
+        Thread.sleep(1000);
 
         WebElement quizSaveButton = getQuizSaveButton();
         quizSaveButton.click();
+
+        WebElement messageBox = Utility.getMessageBox();
+        Utility.waitForVisible(messageBox);
     }
 }
