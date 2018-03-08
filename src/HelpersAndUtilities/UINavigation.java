@@ -78,7 +78,7 @@ public class UINavigation {
                 By.cssSelector(CommonResources.cssSelectorCourse));
 
         List<WebElement> courses = wait.until(condition);
-
+        Thread.sleep(1000);
         courses.forEach((c) -> {
             if (Objects.equals(c.getText(), course)){
                 scrollTo(c);
@@ -267,8 +267,12 @@ public class UINavigation {
     }
 
     public static void clickArchiveYes() throws InterruptedException {
-        WebElement yes = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorArchiveYes);
-        String whatthefuck = yes.getAttribute("id");
+        List<WebElement> popupConfirm = Utility.waitForElementsToExistByCssSelector(
+                CommonResources.cssSelectorPopupConfirm);
+        WebElement lastPopupConfirm = popupConfirm.get(popupConfirm.size()-1);
+        System.out.println(lastPopupConfirm.getAttribute("style"));
+        WebElement yes = lastPopupConfirm.findElement(By.cssSelector(CommonResources.cssSelectorArchiveYes));
+        System.out.println(yes.getAttribute("class"));
         yes.click();
 
         System.out.println("Clicked \"YES\".");

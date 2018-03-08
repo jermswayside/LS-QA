@@ -270,6 +270,7 @@ public class CourseSettings {
 
         WebElement firstChapter = getChapter(0);
         UINavigation.scrollTo(firstChapter);
+        Thread.sleep(1000);
         WebElement firstChapterCheckbox = getCheckBox(firstChapter);
 
         firstChapterCheckbox.click();
@@ -327,6 +328,8 @@ public class CourseSettings {
         WebElement firstChapter = getChapter(0);
 
         UINavigation.scrollTo(firstChapter);
+
+        Thread.sleep(1000);
 
         WebElement firstChapterBox = getDashBox(firstChapter);
         firstChapterBox.click();

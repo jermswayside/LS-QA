@@ -16,7 +16,7 @@ public class CommonResources {
 
     //Usernames and passwords
     public static final String usernameStudent = "qastudent";
-    public static final String passwordStudent = "1234";
+    public static final String passwordStudent = "1234567";
 
     public static final String usernameTeacher = "qateacher";
     public static final String passwordTeacher = "1234567";
@@ -135,8 +135,9 @@ public class CommonResources {
     public static String cssSelectorArchive = "div.ws-table-wrapper.ws-assignments-table > table.ws-table > tbody > " +
             "tr.ws-table-row > td:nth-child(6) > a.icon-link.Btn_Archive_Assignment";
 
-    public static String cssSelectorArchiveYes = "body > div:nth-child(16) > div.ws-popup-wrapper > " +
-            "div.ws-popup-wrapper__footer > div.Btn_Popup_Confirm.ws-button__positive";
+    public static String cssSelectorPopupConfirm = "div#Popup_Confirm";
+    public static String cssSelectorArchiveYes = "div.ws-popup-wrapper > div.ws-popup-wrapper__footer > " +
+            "div.Btn_Popup_Confirm.ws-button__positive";
 
     public static String cssSelectorArchiveMessageBox = "div.visible.success";
     public static String archiveSuccessMessage = "Assignment archived";
@@ -250,7 +251,8 @@ public class CommonResources {
             " div.ws-forum-message-content > div.ws-forum-message-content-attachments > a";
     public static final String cssSelectorAddQuizAttemptPopupQuizzes = "div.ws-popup-wrapper.medium > " +
             "div.ws-popup-content.ws-popup-wrapper__content.ws-popup-wrapper__content--vertical-center > " +
-            "div.Popup_Confirm_Content > div.cando-quiz-b > div.item > span.Quiz_Checkbox.ws-checkbox";
+            "div.Popup_Confirm_Content > div.cando-quiz-b > div.ws-cando-quizes > div.ws-cando-quizes__item > " +
+            "div.ws-cando-quizes__item__quiz > span.Quiz_Checkbox.ws-checkbox";
     public static final String cssSelectorAddQuizAttemptPopupProceed = "div.ws-popup-wrapper.medium > " +
             "div.ws-popup-wrapper__footer > div.Btn_Popup_Confirm.ws-button__positive";
 
