@@ -298,6 +298,9 @@ public class QATest {
                         CourseSettings.showHideContent();
                     }
                 }
+                if(choiceEntry == 9){
+                    QuizTests.quizUICheck();
+                }
                 if (choiceEntry == CommonResources.getAllTests().length) {
                     System.out.println("Now exiting.");
                     CommonResources.browserDriver.quit();

@@ -295,10 +295,21 @@ public class CommonResources {
     public static final String cssSelectorVisibleContent = "div.ws-course-tree__root.ws-course-tree__root--visible > " +
             "div.ws-course-tree__node.ws-course-tree__node--has-children";
 
+    //QuizTests CSS Selectors
+    public static final String cssSelectorSimpleTextQuestion = "div.quiz-component__type-simpletext";
+    public static final String cssSelectorSimpleTextQuestionInput = "div.quiz-component__question__answer-wrapper > " +
+            "div.quiz-component__question__answer-input > input";
+    public static final String cssSelectorQuestionTitle = "div.quiz-component__question__title";
+    public static final String cssSelectorInputVirtualKeyboard =
+            "div.quiz-component__question__diacritics-container.ui-tabs.ui-widget.ui-widget-content.ui-corner-all";
+    public static final String cssSelectorEssayInput = "";
+    public static final String cssSelectorClozeQuestion = "div.quiz-component__type-cloze";
+    public static final String cssSelectorClozeQuestionInput = "div > div.quiz-component__question__answer-input > input";
+    public static final String cssSelectorClozeQuestionSelect = "div > div.quiz-component__question__answer-select > select";
+
+
     //Error Log Names
     public static final String errorLogFlexText = "logs/FlexTextError.txt";
-
-
 
     //Helper methods
     public static ArrayList<String> getIcons(){
@@ -353,6 +364,7 @@ public class CommonResources {
                 "Language Portfolio",
                 "Profile Settings",
                 "Course Settings",
+                "Quiz",
                 "Exit program.",
         };
     }
@@ -426,9 +438,9 @@ public class CommonResources {
     }
 
     public static Map<String, String> getIconTypes(){
-        return Map.ofEntries(
-                Map.entry("wsi-icon-quiz", "quiz"),
-                Map.entry("wsi-icon-flashcard", "flashcards")
-        );
+        Map<String, String> map = new HashMap<>();
+        map.put("wsi-icon-quiz", "quiz");
+        map.put("wsi-icon-flashcard", "flashcards");
+        return map;
     }
 }
