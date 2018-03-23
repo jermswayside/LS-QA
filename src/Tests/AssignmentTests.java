@@ -80,7 +80,7 @@ public class AssignmentTests {
                                 continue;
                             }
                             if (icons.contains(currIcon)) {
-                                dragAndDrop(currLvl3Element, dropLocation);
+                                UINavigation.dragAndDrop(currLvl3Element, dropLocation);
                                 icons.remove(currIcon);
                                 break folder_loop;
                             }
@@ -161,7 +161,7 @@ public class AssignmentTests {
                             continue;
                         }
                         if (copyOfIcons.contains(currIcon)) {
-                            dragAndDrop(currLvl3FolderElement, dropLocation);
+                            UINavigation.dragAndDrop(currLvl3FolderElement, dropLocation);
                             assignments.add(currLvl3FolderElement.getText());
                             copyOfIcons.remove(currIcon);
                         }
@@ -226,6 +226,7 @@ public class AssignmentTests {
 
         System.out.println("Now logging into \"qastudent\"");
         Utility.login(CommonResources.usernameStudent, CommonResources.passwordStudent, CommonResources.browserDriver);
+        UINavigation.clickSkip();
 
         UINavigation.accessCourse(CommonResources.courseForAssignmentTest);
         UINavigation.clickSkip();
@@ -462,11 +463,6 @@ public class AssignmentTests {
     }
     private static WebElement getCreateAssignmentPopup() throws InterruptedException{
         return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorCreateAssignmentPopup);
-    }
-
-    private static void dragAndDrop(WebElement object, WebElement to) {
-        Actions actions = new Actions(CommonResources.browserDriver);
-        actions.dragAndDrop(object, to).build().perform();
     }
 
     private static WebElement getCurrLvl3FolderIcon(WebElement currLvl3Folder) {

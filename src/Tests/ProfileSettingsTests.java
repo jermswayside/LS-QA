@@ -35,14 +35,10 @@ public class ProfileSettingsTests {
 
         String currFirstNameValue = firstNameInputField.getAttribute("value");
 
-        if(currFirstNameValue.contains(" ")) {
-            System.out.println("First Error");
-//            return;
-        }
-        String nameWithoutSpace = currFirstName.replace(" ", "");
-        if(!currFirstNameValue.equals(nameWithoutSpace)) {
-            System.out.println("Second Error");
-//            return;
+
+        if(!currFirstName.equals(currFirstNameValue)){
+            System.out.println("Updated name did not match.");
+            return;
         }
 
         firstNameCleanUp(initialFirstNameValue);

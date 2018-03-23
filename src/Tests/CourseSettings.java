@@ -51,14 +51,13 @@ public class CourseSettings {
         saveButton = getSaveButton();
         saveButton.click();
 
-        Utility.waitForClickable(messageBox);
-        messageBoxText = "Value in field [ quizAssignmentPenalty ] is not at least 0 fieldname=quizAssignmentPenalty";
-        System.out.println(messageBoxText);
-        if(!messageBox.getText().equals(messageBoxText)) {
-            System.out.println("Greater than 0 error changed or is wrong");
+        WebElement valueValidations = getValueValidations();
+        Utility.waitForClickable(valueValidations);
+
+        if(!valueValidations.isDisplayed()) {
+            System.out.println("Value validations did not appear.");
             return;
         }
-        messageBox.click();
 
         assignmentsPenaltyInput.clear();
 
@@ -67,9 +66,13 @@ public class CourseSettings {
         saveButton = getSaveButton();
         saveButton.click();
 
-        messageBox = Utility.getMessageBox();
-        Utility.waitForVisible(messageBox);
-        messageBox.click();
+        valueValidations = getValueValidations();
+        Utility.waitForClickable(valueValidations);
+
+        if(!valueValidations.isDisplayed()) {
+            System.out.println("Value validations did not appear.");
+            return;
+        }
 
         assignmentsPenaltyInput.clear();
         assignmentsPenaltyInput.sendKeys("100");
@@ -483,5 +486,9 @@ public class CourseSettings {
 
         WebElement messageBox = Utility.getMessageBox();
         Utility.waitForVisible(messageBox);
+    }
+
+    private static WebElement getValueValidations() throws InterruptedException {
+        return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorValueValidator);
     }
 }

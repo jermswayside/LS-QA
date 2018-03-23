@@ -1,5 +1,6 @@
 package HelpersAndUtilities;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -330,5 +331,19 @@ public class UINavigation {
         scrollTo(profile);
         Thread.sleep(500);
         profile.click();
+    }
+    public static void dragAndDrop(WebElement object, WebElement to) {
+        Actions actions = new Actions(CommonResources.browserDriver);
+        actions.dragAndDrop(object, to).build().perform();
+    }
+
+    public static void clickAndHold(WebElement from, WebElement to) throws InterruptedException {
+        Actions actions = new Actions(CommonResources.browserDriver);
+        actions.clickAndHold(from).moveToElement(to).build().perform();
+    }
+
+    public static void release(WebElement to) {
+        Actions actions = new Actions(CommonResources.browserDriver);
+        actions.release(to).build().perform();
     }
 }

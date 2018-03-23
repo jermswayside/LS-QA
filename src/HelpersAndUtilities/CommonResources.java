@@ -294,6 +294,7 @@ public class CommonResources {
     public static final String cssSelectorChapterCheckboxDash = "i.ws-course-tree__icon.fa.fa-minus-square-o";
     public static final String cssSelectorVisibleContent = "div.ws-course-tree__root.ws-course-tree__root--visible > " +
             "div.ws-course-tree__node.ws-course-tree__node--has-children";
+    public static final String cssSelectorValueValidator = "div.input-error-b";
 
     //QuizTests CSS Selectors
     public static final String cssSelectorSimpleTextQuestion = "div.quiz-component__type-simpletext";
@@ -302,10 +303,69 @@ public class CommonResources {
     public static final String cssSelectorQuestionTitle = "div.quiz-component__question__title";
     public static final String cssSelectorInputVirtualKeyboard =
             "div.quiz-component__question__diacritics-container.ui-tabs.ui-widget.ui-widget-content.ui-corner-all";
-    public static final String cssSelectorEssayInput = "";
     public static final String cssSelectorClozeQuestion = "div.quiz-component__type-cloze";
     public static final String cssSelectorClozeQuestionInput = "div > div.quiz-component__question__answer-input > input";
     public static final String cssSelectorClozeQuestionSelect = "div > div.quiz-component__question__answer-select > select";
+    public static final String cssSelectorEssayQuestion = "div.quiz-component__type-essay";
+    public static final String cssSelectorEssayInput = "div.quiz-component__question__content > " +
+            "div.quiz-component__question__wysiwyg.froala-box > div.froala-wrapper.f-basic > " +
+            "div.f-placeholder.froala-view.froala-element.not-msie.f-basic";
+    public static final String cssSelectorMultipleChoiceQuestions = "div.quiz-component__type-multichoice";
+    public static final String cssSelectorMultipleChoiceQuestionsOptions =
+            "div.quiz-component__question__answer-multichoise-wrapper > div.quiz-component__question__answer-multichoise-item > " +
+                    "label > span > p";
+    public static final String cssSelectorRankQuestion = "div.quiz-component__type-rank";
+    public static final String cssSelectorRankQuestionOptions = "div.ui-sortable-handle";
+    public static final String cssSelectorrankPlaceholder = "div.quiz-component__question__answer-rank-placeholder";
+    public static final String cssSelectorMatchingQuestion = "div.quiz-component__type-matching";
+    public static final String cssSelectorMatchingQuestionOptionsLeft =
+            "div.quiz-component__question__answer-matching-wrapper > " +
+                    "div.quiz-component__question__answer-matching-left > div";
+    public static final String cssSelectorMatchingQuestionOptionsRight =
+            "div.quiz-component__question__answer-matching-wrapper > " +
+                    "div.quiz-component__question__answer-matching-right > div";
+    public static final String cssSelectorSVG = "svg";
+    public static final String cssSelectorSimpleRecordingQuestion =
+            "div.quiz-component__type-simplerecording";
+    public static final String cssSelectorSimpleRecordingStartAudioRecordingButton =
+            "div.quiz-component__question__answer-simple-recording > div.ws-button__audio > " +
+                    "div.ws-button__audio-wrapper > div.ws-button__audio__title.ws-button__audio__title-start";
+    public static final String cssSelectorSimpleRecordingStopAudioRecordingButton =
+            "div.quiz-component__question__answer-simple-recording > div.ws-button__audio > " +
+                    "div.ws-button__audio-wrapper > div.ws-button__audio__title.ws-button__audio__title-stop";
+    public static final String cssSelectorSimpleRecordingAudioRecordingBar =
+            "div.quiz-component__question__answer-simple-recording > " +
+                    "div.quiz-component__question__answer-video-preview-container > audio";
+    public static final String cssSelectorSimpleRecordingStartVideoRecordingButton =
+            "div.quiz-component__question__answer-simple-recording > div.ws-button__video > " +
+                    "div.ws-button__video-wrapper > div.ws-button__video__title.ws-button__video__title-start";
+    public static final String cssSelectorSimpleRecordingStopVideoRecordingButton =
+            "div.quiz-component__question__answer-simple-recording > div.ws-button__video > " +
+                    "div.ws-button__video-wrapper > div.ws-button__video__title.ws-button__video__title-stop";
+    public static final String cssSelectorSimplerecordingVideoRecordings =
+            "div.quiz-component__question__answer-simple-recording > " +
+                    "div.quiz-component__question__answer-video-preview-container > video";
+    public static final String cssSelectorComparativeRecordingQuestion =
+            "div.quiz-component__type-comparativerecording";
+    public static final String cssSelectorComparativeRecordingQuestionAudioStartButton =
+            "div.quiz-component__question__answer-comparative-recording > div.ws-button__audio > " +
+                    "div.ws-button__audio-wrapper > div.ws-button__audio__title.ws-button__audio__title-start";
+    public static final String cssSelectorComparativeRecordingQuestionAudioStopButton =
+            "div.quiz-component__question__answer-comparative-recording > div.ws-button__audio > " +
+                    "div.ws-button__audio-wrapper > div.ws-button__audio__title.ws-button__audio__title-stop";
+    public static final String cssSelectorComparativeRecordingAudioBar =
+            "div.quiz-component__question__answer-comparative-recording > " +
+                    "div.quiz-component__question__answer-video-preview-container > audio";
+    public static final String cssSelectorQuizSubmitButton = "div.ws-btn-1.quiz-component__action.quiz-component__action--yellow";
+    public static final String cssSelectorQuestionsTableQuestions = "div.Questions_Table_Question";
+    public static final String cssSelectorQuestionsTableQuestionsFields = "table > tbody > tr > td";
+    public static final String cssSelectorSummaryItems = "div.quiz-component__summary__item > " +
+            "div.quiz-component__summary__item-icon > i";
+    public static final String cssSelectorSummaryTitles = "div.quiz-component__summary__item > " +
+            "div.quiz-component__summary__item-title";
+    public static final String cssSelectorSummaryItemsChecked = "div.quiz-component__summary__item > " +
+            "div.quiz-component__summary__item-icon > i.fa.fa-check-square-o";
+    public static final String summaryBoxChecked = "fa fa-check-square-o";
 
 
     //Error Log Names
