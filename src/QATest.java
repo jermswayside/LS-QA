@@ -51,7 +51,6 @@ public class QATest {
 
         Thread.sleep(10000);
         UINavigation.clickSkip();
-        UINavigation.clickSkip();
 
         Scanner scanChoice = new Scanner(System.in);
 

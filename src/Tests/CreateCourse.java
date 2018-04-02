@@ -47,14 +47,14 @@ public class CreateCourse {
         checkMessageBox(createCoursePopup,courseTitle,startDate,termsBox);
         UINavigation.clickSkip();
 
-        try {
-            WebElement cog = getCog();
-            System.out.println("Course creation finished.");
-
-        }
-
-        catch (NoSuchElementException e) {
-            System.out.println("Course creation finished, but it did not redirect to expected page.  Contact administrator.");
+        String url = CommonResources.browserDriver.getCurrentUrl();
+        String textbookUrl = "https://stagelearningsite.waysidepublishing.com/textbook";
+        if(!url.equals(textbookUrl)){
+            Utility.wait(3);
+            if(!url.equals(textbookUrl)){
+                System.out.println("Course creation failed.");
+                return;
+            }
         }
         long endTime = System.nanoTime();
         Utility.nanoToReadableTime(startTime, endTime);

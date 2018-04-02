@@ -13,35 +13,60 @@ import java.util.Objects;
 
 public class QuizTests {
     public static void quizUICheck() throws InterruptedException {
-        String url = "https://stagelearningsite.waysidepublishing.com/explorer/4609475/quiz/4609462/start";
+        String url = "https://stagelearningsite.waysidepublishing.com/explorer/5344303/quiz/5238761/start";
         CommonResources.browserDriver.get(url);
+
+        boolean correct = true;
+        boolean incorrect = false;
 
         WebElement start = getStart();
         start.click();
 
-        simpleTextQuestion(); //Question 1
+        simpleTextQuestion(incorrect); //Question 1
 
-        essayQuestion(); //Question 2
+        essayQuestion(incorrect); //Question 2
 
-        clozeQuestion(); //Question 3
+        clozeQuestion(incorrect); //Question 3
 
-        multipleChoiceNoShuffle(); //Question 4
+        multipleChoiceNoShuffle(incorrect); //Question 4
 
-        multipleChoiceNoWithShuffle(); //Question 5
+        multipleChoiceNoWithShuffle(incorrect); //Question 5
 
-        multipleChoiceWithShuffleAndMultipleCorrect(); //Question 6
+        multipleChoiceWithShuffleAndMultipleCorrect(incorrect); //Question 6
 
-        rankQuestion(); //Question 7
+        rankQuestion(incorrect); //Question 7
 
-        matchingQuestion(); //Question 8
+        matchingQuestion(incorrect); //Question 8
 
-        simpleRecordingQuestion(); //Question 9
+        simpleRecordingQuestion(incorrect); //Question 9
 
-        comparativeRecordingQuestion(); //Question 10
+        comparativeRecordingQuestion(incorrect); //Question 10
 
-        checkSummary();
+
 
         checkHyperlinks();
+
+        simpleTextQuestion(correct); //Question 1
+
+        essayQuestion(correct); //Question 2
+
+        clozeQuestion(correct); //Question 3
+
+        multipleChoiceNoShuffle(correct); //Question 4
+
+        multipleChoiceNoWithShuffle(correct); //Question 5
+
+        multipleChoiceWithShuffleAndMultipleCorrect(correct); //Question 6
+
+        rankQuestion(correct); //Question 7
+
+        matchingQuestion(correct); //Question 8
+
+        simpleRecordingQuestion(correct); //Question 9
+
+        comparativeRecordingQuestion(correct); //Question 10
+
+        checkSummary();
 
         WebElement submitButton = getSubmitButton();
         submitButton.click();
@@ -50,6 +75,11 @@ public class QuizTests {
 
         CommonResources.browserDriver.switchTo().alert().accept();
 
+        checkCorrectSaves();
+    }
+
+
+    private static void checkCorrectSaves() throws InterruptedException {
         List<WebElement> questionsTableQuestions = getQuestionsTableQuestions();
 
         for(int i = 0; i<questionsTableQuestions.size(); i++) {
@@ -57,10 +87,10 @@ public class QuizTests {
             List<WebElement> questionFields = getQuestionFields(currQuestion);
             String questionTitle = questionFields.get(0).getText();
             String questionGrade = questionFields.get(1).getText();
-            if(!questionTitle.equals("Essay Question") &&
-                    !questionTitle.equals("Simple Recording Question") &&
-                    !questionTitle.equals("Comparative Recording Question") &&
-                    !questionTitle.equals("None Question (Nonyabizzzznezzzzz)")) {
+            if(!questionTitle.equals("Question 2") &&
+                    !questionTitle.equals("Question 9") &&
+                    !questionTitle.equals("Question 10") &&
+                    !questionTitle.equals("Description")) {
                 if(!questionGrade.equals("100")) {
                     System.out.printf("Answers for %s not saved correctly.\n", questionTitle);
                     System.exit(0);
@@ -68,7 +98,6 @@ public class QuizTests {
             }
         }
     }
-
 
     private static void checkHyperlinks() throws InterruptedException {
         List<WebElement> summaryTitles = getSummaryTitles();
@@ -135,7 +164,7 @@ public class QuizTests {
         return CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorQuizSubmitButton));
     }
 
-    private static void simpleTextQuestion() throws InterruptedException {
+    private static void simpleTextQuestion(boolean correct) throws InterruptedException {
         WebElement simpleTextQuestionInput = getSimpleTextQuestionInput();
 
         UINavigation.scrollTo(simpleTextQuestionInput);
@@ -161,18 +190,34 @@ public class QuizTests {
             System.exit(0);
         }
 
-        simpleTextQuestionInput.sendKeys("correct");
+        if(correct) {
+            simpleTextQuestionInput.clear();
+            Thread.sleep(1000);
+            simpleTextQuestionInput.sendKeys("correct");
+            checkForSpinner();
+        }
+        else{
+            simpleTextQuestionInput.sendKeys("incorrect");
+        }
     }
 
 
-    private static void essayQuestion() throws InterruptedException {
+    private static void essayQuestion(boolean correct) throws InterruptedException {
         WebElement essayQuestionInput = getEssayQuestionInput();
-        essayQuestionInput.sendKeys("correct");
+        if(correct) {
+            essayQuestionInput.clear();
+            Thread.sleep(1000);
+            essayQuestionInput.sendKeys("correct");
+            checkForSpinner();
+        }
+        else{
+            essayQuestionInput.sendKeys("incorrect");
+        }
         Thread.sleep(2000);
     }
 
 
-    private static void clozeQuestion() throws InterruptedException {
+    private static void clozeQuestion(boolean correct) throws InterruptedException {
         WebElement clozeQuestionInput = getClozeQuestionInput();
 
         UINavigation.scrollTo(clozeQuestionInput);
@@ -185,7 +230,14 @@ public class QuizTests {
             System.exit(0);
         }
 
-        clozeQuestionInput.sendKeys("correct");
+        if(correct) {
+            clozeQuestionInput.clear();
+            Thread.sleep(1000);
+            clozeQuestionInput.sendKeys("correct");
+        }
+        else {
+            clozeQuestionInput.sendKeys("incorrect");
+        }
 
         WebElement clozeQuestionTitle = getClozeQuestionTitle();
         UINavigation.scrollTo(clozeQuestionTitle);
@@ -202,73 +254,122 @@ public class QuizTests {
         WebElement clozeQuestionSelect = getClozeQuestionSelect();
         Select dropCloze = new Select(clozeQuestionSelect);
         Thread.sleep(1000);
-        dropCloze.selectByVisibleText("correct");
+        if(correct) {
+            dropCloze.selectByVisibleText("correct");
+            checkForSpinner();
+        }
+        else{
+            dropCloze.selectByVisibleText("incorrect");
+        }
     }
 
-    private static void multipleChoiceNoShuffle() throws InterruptedException {
+    private static void multipleChoiceNoShuffle(boolean correct) throws InterruptedException {
         WebElement multipleChoiceNoShuffle = getMultipleChoiceQuestions().get(0);
         UINavigation.scrollTo(multipleChoiceNoShuffle);
         List<WebElement> multipleChoiecNoShuffleOptions = getMultipleChoiceQuestionsOptions(multipleChoiceNoShuffle);
         for(int i = 0; i<multipleChoiecNoShuffleOptions.size(); i++){
             WebElement currOpt = multipleChoiecNoShuffleOptions.get(i);
-            if (Objects.equals(currOpt.getText(), "correct")){
-                currOpt.click();
+            if(correct) {
+                if (Objects.equals(currOpt.getText(), "correct")) {
+                    currOpt.click();
+                    checkForSpinner();
+                }
+            }
+            else {
+                if (!Objects.equals(currOpt.getText(), "correct")){
+                    currOpt.click();
+                }
             }
         }
     }
 
-    private static void multipleChoiceNoWithShuffle() throws InterruptedException {
+    private static void multipleChoiceNoWithShuffle(boolean correct) throws InterruptedException {
         WebElement multipleChoiceNoShuffle = getMultipleChoiceQuestions().get(1);
         UINavigation.scrollTo(multipleChoiceNoShuffle);
         List<WebElement> multipleChoiecNoShuffleOptions = getMultipleChoiceQuestionsOptions(multipleChoiceNoShuffle);
         for(int i = 0; i<multipleChoiecNoShuffleOptions.size(); i++){
             WebElement currOpt = multipleChoiecNoShuffleOptions.get(i);
-            if (Objects.equals(currOpt.getText(), "correct")){
-                currOpt.click();
+            if(correct) {
+                if (Objects.equals(currOpt.getText(), "correct")) {
+                    currOpt.click();
+                    checkForSpinner();
+                }
             }
+            else {
+                if (!Objects.equals(currOpt.getText(), "correct")){
+                    currOpt.click();
+                }
+            }
+
         }
     }
 
-    private static void multipleChoiceWithShuffleAndMultipleCorrect() throws InterruptedException {
+    private static void multipleChoiceWithShuffleAndMultipleCorrect(boolean correct) throws InterruptedException {
         WebElement multipleChoiceNoShuffle = getMultipleChoiceQuestions().get(2);
         UINavigation.scrollTo(multipleChoiceNoShuffle);
         List<WebElement> multipleChoiecNoShuffleOptions = getMultipleChoiceQuestionsOptions(multipleChoiceNoShuffle);
         for(int i = 0; i<multipleChoiecNoShuffleOptions.size(); i++){
             WebElement currOpt = multipleChoiecNoShuffleOptions.get(i);
-            if (!Objects.equals(currOpt.getText(), "incorrect")){
+            if(correct) {
                 currOpt.click();
             }
+            else{
+                if(Objects.equals(currOpt.getText(), "incorrect")){
+                    currOpt.click();
+                }
+            }
+        }
+        if(correct){
+            checkForSpinner();
         }
     }
 
-    private static void rankQuestion() throws InterruptedException {
+    private static void rankQuestion(boolean correct) throws InterruptedException {
         List<WebElement> rankQuestionOptions = getRankQuestionOptions();
         WebElement firstOption = rankQuestionOptions.get(1);
         WebElement secondOption = rankQuestionOptions.get(0);
 
-        UINavigation.clickAndHold(firstOption, secondOption);
+        if(!correct) {
+            UINavigation.clickAndHold(firstOption, secondOption);
 
-        WebElement rankPlaceholder = getRankPlaceholder();
-        UINavigation.release(rankPlaceholder);
+            WebElement rankPlaceholder = getRankPlaceholder();
+            UINavigation.release(rankPlaceholder);
 
-        rankQuestionOptions = getRankQuestionOptions();
-        firstOption = rankQuestionOptions.get(0);
-        if(!firstOption.getText().equals("Second Thing")){
-            System.out.println("Ranking Question not working properly.");
-            System.exit(0);
+            rankQuestionOptions = getRankQuestionOptions();
+            firstOption = rankQuestionOptions.get(0);
+            if (!firstOption.getText().equals("Second Thing")) {
+                System.out.println("Ranking Question not working properly.");
+                System.exit(0);
+            }
         }
-        secondOption = rankQuestionOptions.get(1);
-        UINavigation.dragAndDrop(secondOption, firstOption);
+        else {
+            secondOption = rankQuestionOptions.get(0);
+            firstOption = rankQuestionOptions.get(1);
+            UINavigation.clickAndHold(secondOption, firstOption);
+            WebElement rankPlaceholder = getRankPlaceholder();
+            Thread.sleep(2000);
+            UINavigation.release(rankPlaceholder);
 
-        rankQuestionOptions = getRankQuestionOptions();
-        firstOption = rankQuestionOptions.get(0);
-        if(!firstOption.getText().equals("First Thing")) {
-            System.out.println("Ranking Question rearrangement didn't work properly.");
-            System.exit(0);
+
+            rankQuestionOptions = getRankQuestionOptions();
+            firstOption = rankQuestionOptions.get(0);
+            if (!firstOption.getText().equals("First Thing")) {
+                secondOption = rankQuestionOptions.get(0);
+                firstOption = rankQuestionOptions.get(1);
+                UINavigation.clickAndHoldAndMoveByOffset(secondOption, firstOption, 0, 10);
+                rankPlaceholder = getRankPlaceholder();
+                UINavigation.release(rankPlaceholder);
+                Thread.sleep(1000);
+                if(!firstOption.getText().equals("First Thing")) {
+                    System.out.println("Ranking Question rearrangement didn't work properly.");
+                    System.exit(0);
+                }
+            }
+            checkForSpinner();
         }
     }
 
-    private static void matchingQuestion() {
+    private static void matchingQuestion(boolean correct) {
         WebElement matchingQuestion = getMatchingQuestion();
         List<WebElement> matchingLeft = getMatchingQuestionOptionsLeft();
         List<WebElement> matchingRight = getMatchingQuesitonOptionsRight();
@@ -287,37 +388,42 @@ public class QuizTests {
                         System.out.println("Did not create line from option left to right.");
                         System.exit(0);
                     }
-                    break;
+                    if(correct) {
+                        break;
+                    }
+                    else{
+                        return;
+                    }
                 }
             }
         }
     }
 
-    private static void simpleRecordingQuestion() throws InterruptedException {
+    private static void simpleRecordingQuestion(boolean correct) throws InterruptedException {
         WebElement simpleRecordingQuestion = getSimpleRecordingQuestion();
         UINavigation.scrollTo(simpleRecordingQuestion);
 
         Thread.sleep(1000);
 
-        WebElement simpleAudioRecordingStartButton = getSimpleRecordingAudioStartButton();
-        simpleAudioRecordingStartButton.click();
-
-        Thread.sleep(3000);
-        WebElement simpleAudioRecordingStopButton = getSimpleRecordingAudioStopButton();
-        if(!simpleAudioRecordingStopButton.isDisplayed()){
-            System.out.println("Simple audio recording stop button did not display.");
-            System.exit(0);
-        }
-
-        Thread.sleep(10000);
-        simpleAudioRecordingStopButton.click();
-
-        Thread.sleep(2000);
-        WebElement simpleRecordingAudioRecordingBar = getSimpleRecordingAudioRecordingBar();
-        if(simpleRecordingAudioRecordingBar == null) {
-            System.out.println("Audio recording bar did not appear.");
-            System.exit(0);
-        }
+//        WebElement simpleAudioRecordingStartButton = getSimpleRecordingAudioStartButton();
+//        simpleAudioRecordingStartButton.click();
+//
+//        Thread.sleep(3000);
+//        WebElement simpleAudioRecordingStopButton = getSimpleRecordingAudioStopButton();
+//        if(!simpleAudioRecordingStopButton.isDisplayed()){
+//            System.out.println("Simple audio recording stop button did not display.");
+//            System.exit(0);
+//        }
+//
+//        Thread.sleep(10000);
+//        simpleAudioRecordingStopButton.click();
+//
+//        Thread.sleep(2000);
+//        WebElement simpleRecordingAudioRecordingBar = getSimpleRecordingAudioRecordingBar();
+//        if(simpleRecordingAudioRecordingBar == null) {
+//            System.out.println("Audio recording bar did not appear.");
+//            System.exit(0);
+//        }
 
         WebElement simpleVideoRecordingStartButton = getSimpleVideoRecordingStartButton();
         simpleVideoRecordingStartButton.click();
@@ -342,9 +448,13 @@ public class QuizTests {
             System.out.println("Simple Recording Question video is not displaying correctly");
             System.exit(0);
         }
+
+        if(correct) {
+            checkForSpinner();
+        }
     }
 
-    private static void comparativeRecordingQuestion() throws InterruptedException {
+    private static void comparativeRecordingQuestion(boolean correct) throws InterruptedException {
         WebElement comparativeRecord = getComparativeRecordingQuestion();
         UINavigation.scrollTo(comparativeRecord);
         Thread.sleep(1000);
@@ -355,6 +465,7 @@ public class QuizTests {
         Thread.sleep(2000);
 
         WebElement stopButton = getComparativeStopButton();
+        Thread.sleep(1000);
         if(!stopButton.isDisplayed()){
             System.out.println("Stop button in Comparative Recording Question did not appear.");
             System.exit(0);
@@ -381,6 +492,16 @@ public class QuizTests {
                 System.exit(0);
             }
         }
+
+        if(correct) {
+            checkForSpinner();
+        }
+    }
+
+    private static void checkForSpinner() {
+        WebElement saveSpinner = getSaveSpinner();
+        Utility.waitForVisible(saveSpinner);
+        Utility.waitForNotVisible(saveSpinner);
     }
 
     private static WebElement getComparativeAudioBar() {
@@ -549,5 +670,9 @@ public class QuizTests {
     private static List<WebElement> getMultipleChoiceQuestionsOptions(WebElement multipleChoiceQuestion) throws InterruptedException {
         return multipleChoiceQuestion.findElements(By.cssSelector(
                 CommonResources.cssSelectorMultipleChoiceQuestionsOptions));
+    }
+
+    private static WebElement getSaveSpinner() {
+        return CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.saveSpinner));
     }
 }

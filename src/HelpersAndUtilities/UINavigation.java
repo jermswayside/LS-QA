@@ -346,4 +346,9 @@ public class UINavigation {
         Actions actions = new Actions(CommonResources.browserDriver);
         actions.release(to).build().perform();
     }
+
+    public static void clickAndHoldAndMoveByOffset(WebElement from, WebElement to, int x, int y) throws InterruptedException {
+        Actions actions = new Actions(CommonResources.browserDriver);
+        actions.clickAndHold(from).moveToElement(to).moveByOffset(x, y).build().perform();
+    }
 }

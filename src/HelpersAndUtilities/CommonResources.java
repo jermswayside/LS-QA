@@ -25,7 +25,7 @@ public class CommonResources {
     public static final String passwordFail = "helloworld";
 
     public static final String usernameStudent1 = "qastudent1";
-    public static final String passwordStudent1 = "1234";
+    public static final String passwordStudent1 = "1234567";
 
     //Browser driver placeholder
     public static WebDriver browserDriver = null;
@@ -309,7 +309,7 @@ public class CommonResources {
     public static final String cssSelectorEssayQuestion = "div.quiz-component__type-essay";
     public static final String cssSelectorEssayInput = "div.quiz-component__question__content > " +
             "div.quiz-component__question__wysiwyg.froala-box > div.froala-wrapper.f-basic > " +
-            "div.f-placeholder.froala-view.froala-element.not-msie.f-basic";
+            "div";
     public static final String cssSelectorMultipleChoiceQuestions = "div.quiz-component__type-multichoice";
     public static final String cssSelectorMultipleChoiceQuestionsOptions =
             "div.quiz-component__question__answer-multichoise-wrapper > div.quiz-component__question__answer-multichoise-item > " +
@@ -366,6 +366,7 @@ public class CommonResources {
     public static final String cssSelectorSummaryItemsChecked = "div.quiz-component__summary__item > " +
             "div.quiz-component__summary__item-icon > i.fa.fa-check-square-o";
     public static final String summaryBoxChecked = "fa fa-check-square-o";
+    public static final String saveSpinner = "div.quiz-component__top-loader";
 
 
     //Error Log Names

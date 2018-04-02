@@ -393,6 +393,15 @@ public class Utility {
         return null;
     }
 
+    public static  void wait(int seconds) throws InterruptedException {
+        int waitTime = seconds;
+        int waitCount = 0;
+        while(waitCount <= 3) {
+            Thread.sleep(waitTime*1000);
+            waitCount++;
+        }
+    }
+
     public static boolean waitForNotVisible(WebElement w){
         WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
         return wait.until(ExpectedConditions.invisibilityOf(w));

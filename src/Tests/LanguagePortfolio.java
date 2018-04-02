@@ -177,11 +177,11 @@ public class LanguagePortfolio {
         Utility.waitForNotVisible(getLoadingSaveButton());
         WebElement commentBox = getCommentBox();
         if(!commentBox.isDisplayed()) {
-            System.out.println("Error");
+            System.out.println("Comment Box is not displayed");
             return;
         }
         if(!getCommentText().equals(text)){
-            System.out.println("Error");
+            System.out.println("Comment text is not the same");
             return;
         }
         long endTime = System.nanoTime();
