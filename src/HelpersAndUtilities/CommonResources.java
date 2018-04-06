@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommonResources {
+    // Site choice
+    public static int siteChoiceEntry = 0;
+
     //Files with relative file paths
     public static final String fileWednesday = System.getProperty("user.dir") + "\\images\\wednesday.jpg";
     public static final String fileBadger = System.getProperty("user.dir") + "\\images\\badger.png";
@@ -37,7 +40,9 @@ public class CommonResources {
     public static final String pathChromeDriver = "drivers/chromedriver.exe";
 
     //URL
-    public static String urlDevLS = "https://stagelearningsite.waysidepublishing.com/";
+    public static String urlStageLS = "https://stagelearningsite.waysidepublishing.com/";
+    public static String urlProdLS = "https://learningsite.waysidepublishing.com/";
+    public static String urlDevLS = "https://devlearningsite.waysidepublishing.com/";
 
     //Login Page CSS classes and selectors
     public static String cssClassButtonLogin = "Login_Form";
@@ -76,7 +81,7 @@ public class CommonResources {
     public static String cssSelectorCogWheel = "//*[@id=\"CourseContent\"]/div[2]/div[1]/div/div[1]/div/a[2]";
     public static String cssXpathAssignmentTab = "//*[@id=\"CourseContent\"]/div[2]/div[1]/div/div[2]/a[3]";
     public static String cssSelectorTrashCan = "div.col.buttons-b > div.ws-btn-2.Btn_Edit_Mode";
-    public static String cssSelectorCheckAllBox = "div.checkbox-b";
+    public static String cssSelectorCheckAllBox = "div.checkbox-b > span";
     public static String cssLinkedTextRemove = "Remove selected";
     public static String cssSelectorRemoveConfirm = "div.Btn_Popup_Confirm";
     public static String cssSelectorCourseNav = "div.ws-layout-wrapper >" +
@@ -261,6 +266,7 @@ public class CommonResources {
     public static final String cssSelectorInputField = "input.ws-input-1";
     public static final String cssSelectorSaveProfileButton = "button.Btn_Save_Profile.ws-btn-1";
     public static final String cssSelectorPasswordErrorMessage = "div.input-error-b";
+    public static final String cssSelectorUserBrowserTimezone = "div:nth-child(2) > input";
     public static final String cssSelectorTimezoneSelectField = "div.ws-input-group-1 > select.ws-select-1";
     public static final String cssSelectorProfileImage = "div.Profile_User_Avatar_Img";
     public static final String cssSelectorUploadFileButton = "div.Change_Avatar_Block.active >" +

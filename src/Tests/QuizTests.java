@@ -13,7 +13,18 @@ import java.util.Objects;
 
 public class QuizTests {
     public static void quizUICheck() throws InterruptedException {
-        String url = "https://stagelearningsite.waysidepublishing.com/explorer/5344303/quiz/5238761/start";
+        long startTime = System.nanoTime();
+        String url = "";
+        if(CommonResources.siteChoiceEntry == 1) {
+            url = "https://stagelearningsite.waysidepublishing.com/explorer/5344303/quiz/5238761/start";
+        }
+        if(CommonResources.siteChoiceEntry == 2) {
+            url = "https://learningsite.waysidepublishing.com/explorer/5238731/quiz/5238761/start";
+        }
+        if(CommonResources.siteChoiceEntry == 3) {
+            System.out.println("Dev does not have QA Textbook");
+            return;
+        }
         CommonResources.browserDriver.get(url);
 
         boolean correct = true;
@@ -76,6 +87,9 @@ public class QuizTests {
         CommonResources.browserDriver.switchTo().alert().accept();
 
         checkCorrectSaves();
+
+        long endTime = System.nanoTime();
+        Utility.nanoToReadableTime(startTime, endTime);
     }
 
 
@@ -192,7 +206,7 @@ public class QuizTests {
 
         if(correct) {
             simpleTextQuestionInput.clear();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             simpleTextQuestionInput.sendKeys("correct");
             checkForSpinner();
         }

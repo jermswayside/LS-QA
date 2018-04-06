@@ -269,7 +269,7 @@ public class AssignmentTests {
 
         Thread.sleep(2000);
 
-        WebDriver studentBrowser = Utility.startBrowser(CommonResources.chromeDriver, CommonResources.pathChromeDriver);
+        WebDriver studentBrowser = Utility.startBrowser(CommonResources.chromeDriver, CommonResources.pathChromeDriver, CommonResources.siteChoiceEntry);
         System.out.println("Opened browser for student...");
 
         Utility.login(CommonResources.usernameStudent, CommonResources.passwordStudent, studentBrowser);

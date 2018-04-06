@@ -48,7 +48,7 @@ public class Utility {
         nanoToReadableTime(start, end);
     }
 
-    public static WebDriver startBrowser(String driver, String path){
+    public static WebDriver startBrowser(String driver, String path, int choice){
         System.setProperty(driver, path);
         WebDriver currDriver = null;
         if (path.contains("chromedriver.exe")){
@@ -60,7 +60,15 @@ public class Utility {
         else if(path.contains("geckodriver.exe")){
             currDriver = new FirefoxDriver();
         }
-        currDriver.get(CommonResources.urlDevLS);
+        if(choice == 1){
+            currDriver.get(CommonResources.urlStageLS);
+        }
+        if(choice == 2){
+            currDriver.get(CommonResources.urlProdLS);
+        }
+        if(choice == 3) {
+            currDriver.get(CommonResources.urlDevLS);
+        }
         return currDriver;
     }
 
@@ -191,8 +199,8 @@ public class Utility {
 
         CommonResources.assignedAssignments = getAssignments(CommonResources.cssSelectorAssignmentTitle);
 
-        WebDriver qastudentBrowser = startBrowser(CommonResources.chromeDriver, CommonResources.pathChromeDriver);
-        WebDriver qastudent1Browser = startBrowser(CommonResources.chromeDriver, CommonResources.pathChromeDriver);
+        WebDriver qastudentBrowser = startBrowser(CommonResources.chromeDriver, CommonResources.pathChromeDriver, CommonResources.siteChoiceEntry);
+        WebDriver qastudent1Browser = startBrowser(CommonResources.chromeDriver, CommonResources.pathChromeDriver, CommonResources.siteChoiceEntry);
 
         login(CommonResources.usernameStudent, CommonResources.passwordStudent, qastudentBrowser);
         login(CommonResources.usernameStudent1, CommonResources.passwordStudent1, qastudent1Browser);

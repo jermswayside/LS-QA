@@ -49,9 +49,9 @@ public class CreateCourse {
 
         String url = CommonResources.browserDriver.getCurrentUrl();
         String textbookUrl = "https://stagelearningsite.waysidepublishing.com/textbook";
-        if(!url.equals(textbookUrl)){
+        if(url.equals(textbookUrl)){
             Utility.wait(3);
-            if(!url.equals(textbookUrl)){
+            if(url.equals(textbookUrl)){
                 System.out.println("Course creation failed.");
                 return;
             }

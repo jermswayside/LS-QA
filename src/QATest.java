@@ -8,6 +8,12 @@ import java.util.*;
 
 public class QATest {
     public static void main(String[] args) throws InterruptedException, IOException{
+        Scanner siteChoice = new Scanner(System.in);
+        System.out.println("Which version of Learning Site would you like to use?:\n" +
+                "\"1\" - Stage\n" +
+                "\"2\" - Production\n" +
+                "\"3\" - Development");
+        CommonResources.siteChoiceEntry = siteChoice.nextInt();
         Scanner scanBrowserChoice = new Scanner(System.in);
         int choiceEntry = 0;
         String browser = "";
@@ -45,7 +51,7 @@ public class QATest {
                 System.exit(0);
             }
         }while(choiceEntry > 4 || choiceEntry < 0);
-        CommonResources.browserDriver = Utility.startBrowser(driver, browser);
+        CommonResources.browserDriver = Utility.startBrowser(driver, browser, CommonResources.siteChoiceEntry);
         Utility.login(CommonResources.usernameTeacher, CommonResources.passwordTeacher, CommonResources.browserDriver);
 
 

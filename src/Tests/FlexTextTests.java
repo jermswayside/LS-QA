@@ -260,13 +260,14 @@ public class FlexTextTests {
                     currFT.click();
 
                     UINavigation.clickSkip();
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
 
                     while(hasNextPageButton()) {
                         System.out.println(String.format("Now accessing: %s", getActiveSection().getText()));
                         WebElement nextPageButton = getNextPageButton();
 
                         switchToFT();
+                        Thread.sleep(1000);
 
                         if (getAllExplorerCompass().isEmpty()) {
 

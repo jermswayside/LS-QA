@@ -382,7 +382,7 @@ public class CourseSettings {
     }
 
     private static WebElement getQuizAttempts() throws InterruptedException {
-        return getQuizSettingsInputGroups().get(2).findElement(
+        return getQuizSettingsInputGroups().get(1).findElement(
                 By.cssSelector(CommonResources.cssSelectorAssignmentsPenaltyInput));
     }
 
@@ -470,7 +470,7 @@ public class CourseSettings {
 
     private static WebElement getQuizThreshold() throws InterruptedException {
         List<WebElement> quizSettingsInputGroup = getQuizSettingsInputGroups();
-        return quizSettingsInputGroup.get(1).findElement(
+        return quizSettingsInputGroup.get(2).findElement(
                 By.cssSelector(CommonResources.cssSelectorAssignmentsPenaltyInput));
     }
 

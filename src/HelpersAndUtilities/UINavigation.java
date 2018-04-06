@@ -14,7 +14,15 @@ import java.util.Objects;
 public class UINavigation {
     public static void navToDash() throws InterruptedException {
         Thread.sleep(3000);
-        CommonResources.browserDriver.get("https://stagelearningsite.waysidepublishing.com/dashboard");
+        if(CommonResources.siteChoiceEntry == 1){
+            CommonResources.browserDriver.get(CommonResources.urlStageLS);
+        }
+        if(CommonResources.siteChoiceEntry == 2){
+            CommonResources.browserDriver.get(CommonResources.urlProdLS);
+        }
+        if(CommonResources.siteChoiceEntry == 3) {
+            CommonResources.browserDriver.get(CommonResources.urlDevLS);
+        }
         System.out.println("Redirecting back to dashboard...");
     }
 

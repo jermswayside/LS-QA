@@ -4,6 +4,7 @@ import HelpersAndUtilities.CommonResources;
 import HelpersAndUtilities.UINavigation;
 import HelpersAndUtilities.Utility;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -51,7 +52,7 @@ public class ProfileSettingsTests {
         UINavigation.clickProfile();
         WebElement lastNameInputField = getLastNameInputField();
         String initialLastNameValue = lastNameInputField.getAttribute("value");
-        String currLastName = " TestingLastName ";
+        String currLastName = "TestingLastName";
         lastNameInputField.clear();
         inputText(lastNameInputField, currLastName);
         WebElement saveProfileButton = getSaveProfileButton();
@@ -66,15 +67,9 @@ public class ProfileSettingsTests {
 
         String currLastNameValue = lastNameInputField.getAttribute("value");
 
-        if(currLastNameValue.contains(" ")) {
-            System.out.println("Error");
-//            return;
-        }
-
-        String nameWithoutSpace = currLastName.replace(" ", "");
-        if(!currLastNameValue.equals(nameWithoutSpace)){
-            System.out.println("Error");
-//            return;
+        if(!currLastNameValue.equals(currLastName)){
+            System.out.println("Updated name did not match input.");
+            return;
         }
         long endTime = System.nanoTime();
         Utility.nanoToReadableTime(startTime, endTime);
@@ -129,18 +124,27 @@ public class ProfileSettingsTests {
 
         WebElement emailInputField = getEmailInputField();
         emailInputField.clear();
-        String newEmail = "fake@gmail.c";
+        String newEmail = "qateacher@testing.c";
         inputText(emailInputField, newEmail);
 
         WebElement saveProfileButton = getSaveProfileButton();
         UINavigation.scrollTo(saveProfileButton);
         saveProfileButton.click();
 
-        WebElement errorMessageBox = Utility.getMessageBox();
-        Utility.waitForVisible(errorMessageBox);
-        errorMessageBox.click();
+        WebElement errorMessage = getErrorMessage();
+        try {
+            Utility.waitForVisible(errorMessage);
+        }
+        catch (TimeoutException t) {
+            System.out.println("Validator did not appear for email.");
+            return;
+        }
+        if(!errorMessage.getText().equals("Enter a valid email")){
+            System.out.println("Wrong error message appeared for email.");
+            return;
+        }
 
-        newEmail = "fake@gmail.com";
+        newEmail = "qateacher@testing.com";
         emailInputField.clear();
         inputText(emailInputField, newEmail);
 
@@ -162,6 +166,11 @@ public class ProfileSettingsTests {
     public static void editTimezone() throws InterruptedException {
         long startTime = System.nanoTime();
         UINavigation.clickProfile();
+
+        WebElement userBrowserTimezoneCheckbox = getUserBrowserTimezoneCheckbox();
+        if(!userBrowserTimezoneCheckbox.isEnabled()) {
+            userBrowserTimezoneCheckbox.click();
+        }
 
         Select timezoneSelectField = getTimezoneSelectField();
 
@@ -195,6 +204,7 @@ public class ProfileSettingsTests {
         long startTime = System.nanoTime();
         UINavigation.clickProfile();
 
+        Thread.sleep(1000);
         WebElement profileImage = getProfileImage();
         profileImage.click();
 
@@ -279,6 +289,9 @@ public class ProfileSettingsTests {
         return getTimezoneSelectField().getOptions();
     }
 
+    private static WebElement getUserBrowserTimezoneCheckbox() throws InterruptedException {
+        return getAllInputFields().get(6).findElement(By.cssSelector(CommonResources.cssSelectorUserBrowserTimezone));
+    }
     private static Select getTimezoneSelectField() throws InterruptedException {
         return Utility.waitForSelectElementToExistByCssSelector(CommonResources.cssSelectorTimezoneSelectField);
     }
