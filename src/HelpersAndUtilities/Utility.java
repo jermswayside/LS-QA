@@ -1,4 +1,5 @@
 package HelpersAndUtilities;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,6 +9,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import Objects.Test;
+import Objects.User;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,28 +28,7 @@ public class Utility {
     public static int randomInt(int from, int to) {
         return ThreadLocalRandom.current().nextInt(from, to);
     }
-    public static void courseCount() throws InterruptedException {
-        long start = System.nanoTime();
-        System.out.println("Checking course book count...");
 
-        WebElement newCourse = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorNewCourse));
-        newCourse.click();
-        System.out.println("Clicked \"New Course\".");
-        Thread.sleep(2000);
-
-        WebElement content = CommonResources.browserDriver.findElement(
-                By.cssSelector(CommonResources.cssSelectorCourseContent));
-        int booksCount = content.findElements(By.xpath("*")).size();
-        System.out.println("Finding books count...");
-        System.out.println(String.format("Books found: %d", booksCount));
-
-        if (booksCount < 3){
-            System.out.println("There aren't enough books loaded.  Contact the administrator.");
-            System.exit(0);
-        }
-        long end = System.nanoTime();
-        nanoToReadableTime(start, end);
-    }
 
     public static WebDriver startBrowser(String driver, String path, int choice){
         System.setProperty(driver, path);
@@ -77,27 +59,37 @@ public class Utility {
         return allRemoveConfirmButtons.get(allRemoveConfirmButtons.size()-1);
     }
 
-    public static void login(String user, String pass, WebDriver driver) throws InterruptedException {
+    public static void login(User user, WebDriver driver) throws InterruptedException {
 
         //Finds the Login button on the Login screen and clicks on the button
         WebElement element = (new WebDriverWait(driver, 60))
                 .until(ExpectedConditions.presenceOfElementLocated(By.className(CommonResources.cssClassButtonLogin)));
         element.click();
 
-        System.out.println(String.format("Now logging in as \"%s\"", user));
+        System.out.println(String.format("Now logging in as \"%s\"", user.getUsername()));
 
         //Finds the username field on the Login screen and enters the username
         WebElement username = driver.findElement(By.cssSelector(CommonResources.cssSelectorUsername));
-        username.sendKeys(user);
+        username.sendKeys(user.getUsername());
 
         //Finds the password field on the Login screen and enters the password, then submit
         WebElement password = driver.findElement(By.cssSelector(CommonResources.cssSelectorPassword));
-        password.sendKeys(pass, Keys.ENTER);
+        password.sendKeys(user.getPassword());
+
+        Thread.sleep(1000);
+
+        WebElement login = driver.findElement(By.cssSelector(CommonResources.cssSelectorLogin));
+        login.click();
 
     }
 
-    public static void logout(){
-        WebElement logout = CommonResources.browserDriver.findElement(By.linkText(CommonResources.cssLinkTextLogout));
+    public static void logout() throws InterruptedException {
+        WebElement logout = waitForElementToExistByCssSelector(CommonResources.cssSelectorLogout);
+        waitForVisible(logout);
+        Thread.sleep(4000);
+        if(Utility.getMessageBox().isDisplayed()){
+            Utility.getMessageBox().click();
+        }
         logout.click();
     }
 
@@ -147,6 +139,7 @@ public class Utility {
 
         List<WebElement> folders3 = flvl2.findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl3));
 
+        Thread.sleep(1000);
         Actions actions = new Actions(CommonResources.browserDriver);
         actions.dragAndDrop(folders3.get(0), target).build().perform();
 
@@ -194,7 +187,7 @@ public class Utility {
         Thread.sleep(1000);
     }
 
-    public static void confirmAssignmentSelectedStudents() throws InterruptedException {
+    public static boolean confirmAssignmentSelectedStudents(Test ct) throws InterruptedException {
         System.out.println("Now confirming assignments for assigned students...");
 
         CommonResources.assignedAssignments = getAssignments(CommonResources.cssSelectorAssignmentTitle);
@@ -202,8 +195,10 @@ public class Utility {
         WebDriver qastudentBrowser = startBrowser(CommonResources.chromeDriver, CommonResources.pathChromeDriver, CommonResources.siteChoiceEntry);
         WebDriver qastudent1Browser = startBrowser(CommonResources.chromeDriver, CommonResources.pathChromeDriver, CommonResources.siteChoiceEntry);
 
-        login(CommonResources.usernameStudent, CommonResources.passwordStudent, qastudentBrowser);
-        login(CommonResources.usernameStudent1, CommonResources.passwordStudent1, qastudent1Browser);
+        User student = new User(CommonResources.usernameStudent, CommonResources.passwordStudent);
+        User student1 = new User(CommonResources.usernameStudent1, CommonResources.passwordStudent1);
+        login(student, qastudentBrowser);
+        login(student1, qastudent1Browser);
 
         Thread.sleep(5000);
         UINavigation.clickSkip(qastudentBrowser);
@@ -217,30 +212,40 @@ public class Utility {
         ArrayList<String> qastudent1Assigned = getAssignments(CommonResources.cssSelectorStudentAssignmentTitle,
                 qastudent1Browser);
 
+        if (qastudentAssigned.isEmpty()){
+            Utility.addTestToTests(ct, CommonResources.fail, CommonResources.na);
+            qastudentBrowser.close();
+            qastudent1Browser.close();
+            return false;
+        }
 
         String assignmentTitle = CommonResources.assignedAssignments.get(0);
         String qastudentAssignmentTitle = qastudentAssigned.get(0);
         String qastudent1AssignmentTitle = qastudent1Assigned.get(0);
 
-        if (qastudentAssigned.isEmpty()){
-            System.out.println("There are no assignments assigned to qastudent.");
-        }
-
-        else if (Objects.equals(qastudentAssignmentTitle, assignmentTitle)){
+        if (Objects.equals(qastudentAssignmentTitle, assignmentTitle)){
             System.out.println(String.format("%s has been successfully added for qastudent!",
                     assignmentTitle));
+            qastudentBrowser.close();
+            qastudent1Browser.close();
+            return true;
         }
 
         if (qastudent1Assigned.isEmpty()){
             System.out.println("There are no assignments assigned to qastudent1.");
+            Utility.addTestToTests(ct, CommonResources.fail, CommonResources.na);
+            qastudentBrowser.close();
+            qastudent1Browser.close();
+            return false;
         }
         else if (Objects.equals(qastudent1AssignmentTitle, assignmentTitle)){
             System.out.println(String.format("%s has been successfully added for qastudent1!",
                     assignmentTitle));
+            qastudentBrowser.close();
+            qastudent1Browser.close();
+            return true;
         }
-
-        qastudentBrowser.close();
-        qastudent1Browser.close();
+        return false;
     }
 
     public static ArrayList<String> getAssignments(String person) throws InterruptedException{
@@ -298,10 +303,18 @@ public class Utility {
     public static void nanoToReadableTime(long start, long end){
         long difference = end - start;
         System.out.println("Total execution time: " +
-                String.format("%d min, %d sec",
+                String.format("%d min: %d sec",
                         TimeUnit.NANOSECONDS.toMinutes(difference),
                         TimeUnit.NANOSECONDS.toSeconds(difference) -
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.NANOSECONDS.toMinutes(difference))));
+    }
+
+    public static String readableTime(long start, long end) {
+        long difference = end - start;
+        long minutes = TimeUnit.NANOSECONDS.toMinutes(difference);
+        long seconds = TimeUnit.NANOSECONDS.toSeconds(difference) -
+                TimeUnit.MINUTES.toSeconds(TimeUnit.NANOSECONDS.toMinutes(difference));
+        return String.format("%d min: %d sec", minutes, seconds);
     }
 
     public static WebElement waitForElementToExistByCssSelector(String cssSelector) throws InterruptedException{
@@ -433,4 +446,95 @@ public class Utility {
     public static WebElement getMessageBox() throws InterruptedException {
         return waitForElementToExistByCssSelector(CommonResources.cssSelectorMessageBox);
     }
+
+    public static int getSiteVersion() {
+        Scanner siteChoice = new Scanner(System.in);
+        System.out.println("Which version of Learning Site would you like to use?:\n" +
+                "\"1\" - Stage\n" +
+                "\"2\" - Production\n" +
+                "\"3\" - Development");
+        return siteChoice.nextInt();
+    }
+
+    public static void printPretty() {
+        int longestCatLen = CommonResources.tests.get(0).getCategories().length();
+        int longestNameLen = CommonResources.tests.get(0).getName().length();
+        int longestPassFailLen = CommonResources.tests.get(0).getPassFail().length();
+        int longestTimeLen = CommonResources.tests.get(0).getTime().length();
+
+        for(int i = 0; i<CommonResources.tests.size(); i++){
+            Test currTest = CommonResources.tests.get(i);
+            int currCatLen = currTest.getCategories().length();
+            int currNameLen = currTest.getName().length();
+            int currPassFailLen = currTest.getPassFail().length();
+            int currTimeLen = currTest.getTime().length();
+
+            if(currCatLen > longestCatLen) {
+                longestCatLen = currCatLen;
+            }
+            if(currNameLen > longestNameLen) {
+                longestNameLen = currNameLen;
+            }
+            if(currPassFailLen > longestPassFailLen) {
+                longestPassFailLen = currPassFailLen;
+            }
+            if(currTimeLen > longestTimeLen) {
+                longestTimeLen = currTimeLen;
+            }
+        }
+
+        int catFormatSpace = longestCatLen+4;
+        int nameFormatSpace = longestNameLen+4;
+        int passFailFormatSpace = longestPassFailLen+4;
+        int timeFormatSpace = longestTimeLen+4;
+
+        int total = catFormatSpace + nameFormatSpace + passFailFormatSpace + timeFormatSpace;
+
+        System.out.printf("%-"+ catFormatSpace + "s%-" + nameFormatSpace + "s%-" + passFailFormatSpace + "s%-" + timeFormatSpace + "s\n",
+                "CATEGORY", "NAME", "P/F", "Time");
+
+        for(int i = 0; i<total; i++){
+            System.out.print("-");
+        }
+        System.out.println();
+
+        for(int i = 0; i<CommonResources.tests.size(); i++) {
+            Test currTest = CommonResources.tests.get(i);
+            System.out.printf("%-"+ catFormatSpace + "s%-" + nameFormatSpace + "s%-" + passFailFormatSpace + "s%-" + timeFormatSpace + "s\n",
+                    currTest.getCategories(), currTest.getName(), currTest.getPassFail(), currTest.getTime());
+
+        }
+    }
+
+    public static void addTestToTests(Test te, String pf, String ti) {
+        te.setPassFail(pf);
+        te.setTime(ti);
+        CommonResources.tests.add(te);
+    }
+
+
+    public static void switchUsers(User to, WebDriver wd) throws InterruptedException {
+        logout();
+        login(to, wd);
+    }
+
+    public static String getSiteVersionQuiz() {
+        if(CommonResources.siteChoiceEntry == 1) {
+            return "https://stagelearningsite.waysidepublishing.com/explorer/5344303/quiz/5238761/start";
+        }
+        if(CommonResources.siteChoiceEntry == 2) {
+            return "https://learningsite.waysidepublishing.com/explorer/5238731/quiz/5238761/start";
+        }
+        System.out.println("Dev does not have QA Textbook");
+        return "";
+    }
+
+    public static WebElement getQuizStartButton() throws InterruptedException {
+        return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorQuizStartButton);
+    }
+
+    public static WebElement getCancelButton() throws InterruptedException {
+        return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorQuizCancelButton);
+    }
+
 }

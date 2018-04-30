@@ -191,7 +191,7 @@ public class UINavigation {
         WebElement checkbox = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorStudentCheckBox));
         checkbox.click();
 
-        System.out.println("Clicked checkbox for \"QA Student 1\"");
+        System.out.println("Clicked checkbox for \"QA User 1\"");
     }
 
     public static void clickCurrDay() throws InterruptedException{

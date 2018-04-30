@@ -7,11 +7,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import Objects.User;
+import Objects.Test;
 
 import java.util.List;
 
 public class ProfileSettingsTests {
+    private static final String currCat = CommonResources.getAllCategories().get(6);
+
     public static void editFirstName() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check Edit First Name", "", "");
         long startTime = System.nanoTime();
         UINavigation.clickProfile();
 
@@ -26,6 +31,7 @@ public class ProfileSettingsTests {
 
         WebElement saveProfileButton = getSaveProfileButton();
         UINavigation.scrollTo(saveProfileButton);
+        Thread.sleep(1000);
         saveProfileButton.click();
 
         WebElement messageBox = Utility.getMessageBox();
@@ -39,15 +45,22 @@ public class ProfileSettingsTests {
 
         if(!currFirstName.equals(currFirstNameValue)){
             System.out.println("Updated name did not match.");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
         firstNameCleanUp(initialFirstNameValue);
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
     }
 
     public static void editLastName() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check Edit Last Name", "", "");
         long startTime = System.nanoTime();
         UINavigation.clickProfile();
         WebElement lastNameInputField = getLastNameInputField();
@@ -57,6 +70,7 @@ public class ProfileSettingsTests {
         inputText(lastNameInputField, currLastName);
         WebElement saveProfileButton = getSaveProfileButton();
         UINavigation.scrollTo(saveProfileButton);
+        Thread.sleep(1000);
         saveProfileButton.click();
 
         WebElement messageBox = Utility.getMessageBox();
@@ -69,14 +83,21 @@ public class ProfileSettingsTests {
 
         if(!currLastNameValue.equals(currLastName)){
             System.out.println("Updated name did not match input.");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
         lastNameCleanUp(initialLastNameValue);
     }
 
     public static void editPassword() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check Edit Password", "", "");
         long startTime = System.nanoTime();
         UINavigation.clickProfile();
 
@@ -89,6 +110,7 @@ public class ProfileSettingsTests {
 
         WebElement saveProfileButton = getSaveProfileButton();
         UINavigation.scrollTo(saveProfileButton);
+        Thread.sleep(1000);
         saveProfileButton.click();
 
         WebElement errorMessage = getErrorMessage();
@@ -99,6 +121,7 @@ public class ProfileSettingsTests {
         inputText(newPasswordInputField, newPassword);
 
         UINavigation.scrollTo(saveProfileButton);
+        Thread.sleep(1000);
         saveProfileButton.click();
 
         WebElement messageBox = Utility.getMessageBox();
@@ -108,17 +131,23 @@ public class ProfileSettingsTests {
         oldPasswordInputField = getOldPasswordInputField();
         Utility.waitForVisible(oldPasswordInputField);
 
-        Utility.logout();
-        Utility.login(CommonResources.usernameTeacher, newPassword, CommonResources.browserDriver);
+        User teacher = new User(CommonResources.usernameTeacher, newPassword);
+        Utility.switchUsers(teacher, CommonResources.browserDriver);
 
         UINavigation.clickProfile();
 
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
         passwordCleanUp(newPassword, CommonResources.passwordTeacher);
     }
 
     public static void editEmail() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check Edit Email", "", "");
         long startTime = System.nanoTime();
         UINavigation.clickProfile();
 
@@ -129,6 +158,7 @@ public class ProfileSettingsTests {
 
         WebElement saveProfileButton = getSaveProfileButton();
         UINavigation.scrollTo(saveProfileButton);
+        Thread.sleep(1000);
         saveProfileButton.click();
 
         WebElement errorMessage = getErrorMessage();
@@ -137,10 +167,12 @@ public class ProfileSettingsTests {
         }
         catch (TimeoutException t) {
             System.out.println("Validator did not appear for email.");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
         if(!errorMessage.getText().equals("Enter a valid email")){
             System.out.println("Wrong error message appeared for email.");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
@@ -157,13 +189,21 @@ public class ProfileSettingsTests {
         emailInputField = getEmailInputField();
         String emailInEmailInputField = emailInputField.getAttribute("value");
         if(!emailInEmailInputField.equals(newEmail)) {
-            System.out.println("Error");
+            System.out.println("Inputted email does not equal original email");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+            return;
         }
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")) {
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
     }
 
     public static void editTimezone() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check Edit Timezone", "", "");
         long startTime = System.nanoTime();
         UINavigation.clickProfile();
 
@@ -180,6 +220,7 @@ public class ProfileSettingsTests {
         int randNum = Utility.randomInt(0, timezoneOptions.size()-1);
         WebElement currTimezone = timezoneOptions.get(randNum);
         UINavigation.scrollTo(currTimezone);
+        Thread.sleep(1000);
         currTimezone.click();
 
         String currTimezoneName = timezoneSelectField.getFirstSelectedOption().getText();
@@ -194,13 +235,21 @@ public class ProfileSettingsTests {
         timezoneSelectField = getTimezoneSelectField();
         String newTimezoneName =timezoneSelectField.getFirstSelectedOption().getText();
         if(!newTimezoneName.equals(currTimezoneName)) {
-            System.out.println("Error");
+            System.out.println("Timezones did not change.");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+            return;
         }
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if (CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
     }
 
     public static void editImage() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check Edit Image", "", "");
         long startTime = System.nanoTime();
         UINavigation.clickProfile();
 
@@ -214,6 +263,7 @@ public class ProfileSettingsTests {
 
         WebElement saveProfileButton = getSaveProfileButton();
         UINavigation.scrollTo(saveProfileButton);
+        Thread.sleep(1000);
         saveProfileButton.click();
 
         WebElement errorMessageBox = Utility.getMessageBox();
@@ -222,21 +272,32 @@ public class ProfileSettingsTests {
 
         String newProfileImage = getProfileImageURL();
         if(initialProfileImage.equals(newProfileImage)) {
-            System.out.println("Error");
+            System.out.println("Profile image did not change");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")) {
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
         imageCleanUp();
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private static void imageCleanUp() throws InterruptedException {
-        WebElement profileImage = getProfileImage();
+        WebElement profileImage = getChangedProfilePicture();
+        Thread.sleep(1000);
         Utility.waitForVisible(profileImage);
+        Utility.waitForClickable(profileImage);
+        UINavigation.scrollTo(profileImage);
+        Thread.sleep(1000);
         profileImage.click();
 
+        Thread.sleep(1000);
         WebElement revertToRobohashButton = getRevertToRobohashButton();
         revertToRobohashButton.click();
 
@@ -247,6 +308,9 @@ public class ProfileSettingsTests {
         Utility.waitForVisible(getProfileImage());
     }
 
+    private static WebElement getChangedProfilePicture() throws InterruptedException {
+        return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorChangedProfilePicture);
+    }
     private static WebElement getRevertToRobohashButton() {
         return CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorRevertToRobohashButton));
     }
@@ -269,6 +333,7 @@ public class ProfileSettingsTests {
 
         WebElement saveProfileButton = getSaveProfileButton();
         UINavigation.scrollTo(saveProfileButton);
+        Thread.sleep(1000);
         saveProfileButton.click();
 
         WebElement messageBox = Utility.getMessageBox();
@@ -359,6 +424,7 @@ public class ProfileSettingsTests {
         inputText(firstNameInputField, name);
         WebElement saveProfileButton = getSaveProfileButton();
         UINavigation.scrollTo(saveProfileButton);
+        Thread.sleep(1000);
         saveProfileButton.click();
         WebElement messageBox = Utility.getMessageBox();
         Utility.waitForVisible(messageBox);
@@ -371,6 +437,7 @@ public class ProfileSettingsTests {
         inputText(lastNameInputField, name);
         WebElement saveProfileButton = getSaveProfileButton();
         UINavigation.scrollTo(saveProfileButton);
+        Thread.sleep(1000);
         saveProfileButton.click();
         WebElement messageBox = Utility.getMessageBox();
         Utility.waitForVisible(messageBox);

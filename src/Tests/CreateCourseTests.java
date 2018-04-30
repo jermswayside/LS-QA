@@ -2,6 +2,7 @@ package Tests;
 import HelpersAndUtilities.CommonResources;
 import HelpersAndUtilities.UINavigation;
 import HelpersAndUtilities.Utility;
+import Objects.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,9 +11,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class CreateCourse {
+public class CreateCourseTests {
+    private static Test currTest = new Test(CommonResources.getAllCategories().get(0), "Create Course", "", "");
+
     public static void createCourse() throws InterruptedException {
         long startTime = System.nanoTime();
+
         clickNewCourseButton();
         clickCreateCourseButton();
 
@@ -38,13 +42,23 @@ public class CreateCourse {
 
 
         Thread.sleep(2000);
-        checkMessageBox(createCoursePopup,courseTitle,null,termsBox);
+        checkMessageBox(createCoursePopup, courseTitle, null, termsBox);
 
         Thread.sleep(2000);
-        checkMessageBox(createCoursePopup,null,startDate,termsBox);
+//        checkMessageBox(createCoursePopup, null, startDate, termsBox);
+//        try {
+//            checkMessageBox(createCoursePopup, null, startDate, termsBox);
+//        }
+//        catch (Exception e) {
+//            System.out.println("Unexpected error");
+//            if(CommonResources.qaTestMode.equals("n")) {
+//                Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+//            }
+//            return;
+//        }
 
         Thread.sleep(2000);
-        checkMessageBox(createCoursePopup,courseTitle,startDate,termsBox);
+//        checkMessageBox(createCoursePopup,courseTitle,startDate,termsBox);
         UINavigation.clickSkip();
 
         String url = CommonResources.browserDriver.getCurrentUrl();
@@ -53,11 +67,20 @@ public class CreateCourse {
             Utility.wait(3);
             if(url.equals(textbookUrl)){
                 System.out.println("Course creation failed.");
+                if(CommonResources.qaTestMode.equals("n")) {
+                    Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+                }
                 return;
             }
         }
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")){
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")) {
+            String time = Utility.readableTime(startTime, endTime);
+            Utility.addTestToTests(currTest, CommonResources.pass, time);
+        }
     }
 
     private static WebElement getCog() throws InterruptedException {
@@ -171,7 +194,6 @@ public class CreateCourse {
             UINavigation.clickCurrDay();
             Thread.sleep(1000);
             create.click();
-
         }
 
         else if (title != null && date == null && terms != null){
@@ -228,6 +250,12 @@ public class CreateCourse {
                         WebElement isPresent = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorMessageBox));
                         if (!isPresent.isDisplayed()) {
                             equal = false;
+                        }
+                        else {
+                            if(!isPresent.getText().equals("Another teacher has already used this course name. Please choose a different course name")) {
+                                System.out.println("Course creation was not successful.");
+                                return;
+                            }
                         }
                     }
                 }

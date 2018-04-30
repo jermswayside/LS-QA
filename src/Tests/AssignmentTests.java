@@ -1,16 +1,21 @@
 package Tests;
 import HelpersAndUtilities.CommonResources;
+import Objects.Test;
 import HelpersAndUtilities.UINavigation;
 import HelpersAndUtilities.Utility;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.interactions.Actions;
+import Objects.User;
 
 import java.util.*;
 
 
 public class AssignmentTests {
+    private static String currCat = CommonResources.getAllCategories().get(2);
+
     public static void selectEachAssignments() throws InterruptedException{
+        Test currTest = new Test(currCat,
+                "Add Each Assignment", "", "");
         long start = System.nanoTime();
         UINavigation.navToAssignment();
 
@@ -20,18 +25,10 @@ public class AssignmentTests {
 
         ArrayList<String> icons = CommonResources.getIcons();
         UINavigation.clickSkip();
-        boolean cached = false;
         while(!icons.isEmpty()){
             UINavigation.clickAddAssignments();
 
             System.out.println("Waiting for course content to load...");
-
-            if(!cached) {
-                Thread.sleep(20000);
-                cached = true;
-            }
-
-            WebElement firstSelectorFolder = getFolders().get(0);
 
             List<WebElement> folders = getFolders();
             List<WebElement> foldersCloser = getFoldersCloser();
@@ -100,11 +97,18 @@ public class AssignmentTests {
         catch (NoSuchElementException n){}
         System.out.println("Assignments creation complete.");
         long end = System.nanoTime();
-        Utility.nanoToReadableTime(start, end);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(start, end);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            String time = Utility.readableTime(start, end);
+            Utility.addTestToTests(currTest, CommonResources.pass, time);
+        }
     }
 
 
     public static void selectAllAssignments() throws InterruptedException {
+        Test currTest = new Test(currCat, "Assigning All Assignments", "", "");
         long start = System.nanoTime();
 
         UINavigation.navToAssignment();
@@ -114,9 +118,6 @@ public class AssignmentTests {
         UINavigation.clickAddAssignments();
 
         ArrayList<String> copyOfIcons = CommonResources.getIcons();
-
-        Thread.sleep(3000);
-        System.out.println("Waiting for course content to load...");
 
         List<WebElement> folders = getFolders();
         List<WebElement> foldersCloser = getFoldersCloser();
@@ -130,11 +131,11 @@ public class AssignmentTests {
             WebElement currFolder = folders.get(i);
             UINavigation.scrollTo(currFolder);
             String folderTitle = currFolder.getText();
-            System.out.println(String.format("Expanding folder \"%s\".", folderTitle));
+            // System.out.println(String.format("Expanding folder \"%s\".", folderTitle));
             currFolder.click();
             List<WebElement> foldersLvl2 = getFoldersLvl2(currFolder);
             List<WebElement> foldersLvl2Closer = getFoldersLvl2Closer(currFolder);
-            System.out.println(String.format("There are %s folders within \"%s\"", foldersLvl2.size(), folderTitle));
+            // System.out.println(String.format("There are %s folders within \"%s\"", foldersLvl2.size(), folderTitle));
 
             for (int j = 0; j < foldersLvl2.size(); j++) {
                 Thread.sleep(500);
@@ -142,13 +143,13 @@ public class AssignmentTests {
                 WebElement currInnerFolderCloser = foldersLvl2Closer.get(j);
                 String currInnerFolderTitle = foldersLvl2.get(j).getText();
 
-                System.out.println(String.format("Expanding folder in folder \"%s\": \"%s\".", folderTitle, currInnerFolder.getText()));
+                // System.out.println(String.format("Expanding folder in folder \"%s\": \"%s\".", folderTitle, currInnerFolder.getText()));
 
                 UINavigation.scrollTo(currInnerFolder);
                 currInnerFolder.click();
 
                 List<WebElement> foldersLvl3 = getFoldersLvl3(currInnerFolder);
-                System.out.println(String.format("There are %s items in inner folder \"%s\"", foldersLvl3.size(), currInnerFolderTitle));
+                // System.out.println(String.format("There are %s items in inner folder \"%s\"", foldersLvl3.size(), currInnerFolderTitle));
 
                 for (int k = 0; k < foldersLvl3.size(); k++) {
                     if (!copyOfIcons.isEmpty()) {
@@ -188,6 +189,10 @@ public class AssignmentTests {
             } else {
                 for (Iterator<String> i = assignments.iterator(); i.hasNext(); ) {
                     System.out.println(String.format("%s was not added successfully.", i.next()));
+                    if(CommonResources.qaTestMode.equals("n")){
+                        Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+                        return;
+                    }
                 }
             }
         }
@@ -199,12 +204,23 @@ public class AssignmentTests {
             for (Iterator<String> i = assignments.iterator(); i.hasNext(); ) {
                 System.out.println(String.format("%s was not added successfully.", i.next()));
             }
+            if(CommonResources.qaTestMode.equals("n")){
+                Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+                return;
+            }
         }
         long end = System.nanoTime();
-        Utility.nanoToReadableTime(start, end);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(start, end);
+        }
+        else if (CommonResources.qaTestMode.equals("n")){
+            String time = Utility.readableTime(start, end);
+            Utility.addTestToTests(currTest, CommonResources.pass, time);
+        }
     }
 
     public static void confirmAssignments() throws InterruptedException {
+        Test currTest = new Test(currCat, "Confirm Assignments", "", "");
         long start = System.nanoTime();
 
         UINavigation.navToAssignment();
@@ -222,10 +238,11 @@ public class AssignmentTests {
         System.out.println("Now logging out...");
         Thread.sleep(2000);
 
-        Utility.logout();
+
 
         System.out.println("Now logging into \"qastudent\"");
-        Utility.login(CommonResources.usernameStudent, CommonResources.passwordStudent, CommonResources.browserDriver);
+        User student = new User(CommonResources.usernameStudent, CommonResources.passwordStudent);
+        Utility.switchUsers(student, CommonResources.browserDriver);
         UINavigation.clickSkip();
 
         UINavigation.accessCourse(CommonResources.courseForAssignmentTest);
@@ -238,21 +255,34 @@ public class AssignmentTests {
 
         if (currAssignments.isEmpty()){
             System.out.println(String.format("There are no assignments assigned to \"%s\"",CommonResources.usernameStudent));
+            if(CommonResources.qaTestMode.equals("n")){
+                Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+            }
+            return;
         }
         else{
             System.out.println(String.format("There are %s assignments that have been assigned.", currAssignments.size()));
             currAssignments.forEach((assignments)->
                     System.out.println(String.format("%s has been successfully assigned.",assignments)));
         }
-        Utility.logout();
 
-        Utility.login(CommonResources.usernameTeacher, CommonResources.passwordTeacher, CommonResources.browserDriver);
+
+        User teacher = new User(CommonResources.usernameTeacher, CommonResources.passwordTeacher);
+        Utility.switchUsers(teacher, CommonResources.browserDriver);
 
         long end = System.nanoTime();
-        Utility.nanoToReadableTime(start, end);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(start, end);
+        }
+        else if(CommonResources.qaTestMode.equals("n")) {
+            String time = Utility.readableTime(start, end);
+            Utility.addTestToTests(currTest, CommonResources.pass, time);
+        }
     }
 
-    public static void deleteAssignments() throws InterruptedException{
+    public static void deleteAssignments() throws InterruptedException {
+        Test currTest = new Test(currCat, "Delete Assignments", "", "");
+
         long start = System.nanoTime();
 
         UINavigation.navToAssignment();
@@ -272,7 +302,8 @@ public class AssignmentTests {
         WebDriver studentBrowser = Utility.startBrowser(CommonResources.chromeDriver, CommonResources.pathChromeDriver, CommonResources.siteChoiceEntry);
         System.out.println("Opened browser for student...");
 
-        Utility.login(CommonResources.usernameStudent, CommonResources.passwordStudent, studentBrowser);
+        User student = new User(CommonResources.usernameStudent, CommonResources.passwordStudent);
+        Utility.login(student, studentBrowser);
         Thread.sleep(10000);
         UINavigation.clickSkip(studentBrowser);
 
@@ -289,10 +320,11 @@ public class AssignmentTests {
             System.out.println("There are no assignments assigned to student." +
                     "  Closing student browser and navigating back to dashboard now.");
             studentBrowser.quit();
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
-        System.out.println("Student currently has assignments: ");
+        System.out.println("User currently has assignments: ");
         studentAssignments.forEach((assignment)-> System.out.println(assignment));
         System.out.println();
 
@@ -326,21 +358,35 @@ public class AssignmentTests {
 
             studentAssignments = Utility.getAssignments(CommonResources.cssSelectorStudentAssignmentTitle, studentBrowser);
 
-            if(studentAssignments == null){
+            if(studentAssignments.size() == 0){
                 System.out.println("Assignments have been successfully removed from the student account.");
+                studentBrowser.quit();
+            }
+            else {
+                System.out.println("Assignments are not deleted.");
+                if(CommonResources.qaTestMode.equals("n")){
+                    Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+                }
                 studentBrowser.quit();
                 return;
             }
-
-            studentAssignments.forEach((assignments)-> System.out.println(String.format(
-                    "%s was not deleted.", assignments)));
         }
         else {
             System.out.println("No assignments created yet.");
+            if(CommonResources.qaTestMode.equals("n")){
+                Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+            }
+            studentBrowser.quit();
+            return;
         }
-        studentBrowser.close();
         long end = System.nanoTime();
-        Utility.nanoToReadableTime(start, end);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(start, end);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            String time = Utility.readableTime(start, end);
+            Utility.addTestToTests(currTest, CommonResources.pass, time);
+        }
     }
 
     private static List<WebElement> getExistingAssignments() {
@@ -354,6 +400,7 @@ public class AssignmentTests {
     }
 
     public static void editAssignments() throws InterruptedException{
+        Test currTest = new Test(currCat, "Edit Assignment", "", "");
         long start = System.nanoTime();
 
         UINavigation.navToAssignment();
@@ -376,6 +423,7 @@ public class AssignmentTests {
 
         if(allStudents.isEmpty()){
             System.out.println("There are no students assigned to this assignment.");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
@@ -410,12 +458,24 @@ public class AssignmentTests {
 
         UINavigation.clickClose();
 
-        Utility.confirmAssignmentSelectedStudents();
+        boolean passed = Utility.confirmAssignmentSelectedStudents(currTest);
         long end = System.nanoTime();
-        Utility.nanoToReadableTime(start, end);
+        if(!passed) {
+            System.out.println("There are no assignments assigned.");
+            return;
+        }
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(start, end);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            String time = Utility.readableTime(start, end);
+            Utility.addTestToTests(currTest, CommonResources.pass, time);
+        }
     }
 
     public static void archiveAssignment() throws InterruptedException {
+        Test currTest = new Test (currCat,"Archive Assignments", "", "");
+
         long start = System.nanoTime();
 
         UINavigation.navToAssignment();
@@ -448,13 +508,20 @@ public class AssignmentTests {
 
         if (allArchiveAssignments.isEmpty()){
             System.out.println("There are no archived assignments.");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
         System.out.println(String.format("There are %s assignment(s) that have been archived named:",
                 allArchiveAssignments.size()));
         allArchiveAssignments.forEach((assignment -> System.out.println(assignment)));
         long end = System.nanoTime();
-        Utility.nanoToReadableTime(start, end);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(start, end);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            String time = Utility.readableTime(start, end);
+            Utility.addTestToTests(currTest, CommonResources.pass, time);
+        }
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

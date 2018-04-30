@@ -7,32 +7,41 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import Objects.Test;
 
 import java.util.List;
 
-public class LanguagePortfolio {
-    public static void checkViewButton() throws InterruptedException{
+public class LanguagePortfolioTests {
+    private static String currCat = CommonResources.getAllCategories().get(5);
+    public static void viewButton() throws InterruptedException{
+        Test currTest = new Test(currCat, "Check View Button", "", "");
         long startTime = System.nanoTime();
         UINavigation.clickSkip();
         UINavigation.clickProfile();
         clickPortfolio();
         clickView();
-        Thread.sleep(25000);
         List<WebElement> canDoStatements = getCanDoStatements();
         if(canDoStatements.size() == 0){
-            System.out.println("Error");
+            System.out.println("Can-do statements don't exist.");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+            return;
         }
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
     }
 
-    public static void checkAddQuizAttemptButton() throws InterruptedException {
+    public static void addQuizAttemptButton() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check Add Quiz Attempt Button", "", "");
         long startTime = System.nanoTime();
         UINavigation.clickSkip();
         UINavigation.clickProfile();
         clickPortfolio();
         clickView();
-        Thread.sleep(25000);
         List<WebElement> canDoStatements = getCanDoStatements();
         WebElement firstCanDo = canDoStatements.get(0);
         UINavigation.scrollTo(firstCanDo);
@@ -47,25 +56,32 @@ public class LanguagePortfolio {
         Utility.waitForNotVisible(getLoadingSaveButton());
         WebElement commentBox = getCommentBox();
         if(commentBox == null){
-            System.out.println("Error");
+            System.out.println("Comment box didn't appear");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
         if(!commentBox.getText().contains(quizName)){
-            System.out.println("Error");
+            System.out.println("Text in comment box does not equal to the inputted text");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
         cleanUp(commentBox);
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
     }
 
-    public static void checkAddRecordingButton() throws InterruptedException {
+    public static void addRecordingButton() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check Add Recording Button", "", "");
         long startTime = System.nanoTime();
         UINavigation.clickSkip();
         UINavigation.clickProfile();
         clickPortfolio();
         clickView();
-        Thread.sleep(25000);
         List<WebElement> canDoStatements = getCanDoStatements();
         WebElement firstCanDo = canDoStatements.get(0);
         UINavigation.scrollTo(firstCanDo);
@@ -79,7 +95,8 @@ public class LanguagePortfolio {
         WebElement audioRecordingBar = getAudioRecordingBar();
         Thread.sleep(500);
         if(!audioRecordingBar.isDisplayed()){
-            System.out.println("Error");
+            System.out.println("Audio Recording Bar did not appear");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
         clickSaveButton();
@@ -88,16 +105,23 @@ public class LanguagePortfolio {
         if(commentBox != null){
             WebElement commentBoxAudioRecording = getCommentBoxAudioRecording();
             if(!commentBoxAudioRecording.isDisplayed()){
-                System.out.println("Error");
+                System.out.println("Audio Recording box did not appear.");
+                Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
                 return;
             }
         }
         cleanUp(commentBox);
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass,  Utility.readableTime(startTime, endTime));
+        }
     }
 
-    public static void checkAddVideoRecordingButton() throws InterruptedException {
+    public static void addVideoRecordingButton() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check Add Video Recording Button", "", "");
         long startTime = System.nanoTime();
         UINavigation.clickSkip();
         UINavigation.clickProfile();
@@ -116,7 +140,8 @@ public class LanguagePortfolio {
         Thread.sleep(10000);
         clickStopVideoRecordingButton(allCanDoButtons);
         if(!getVideo().isDisplayed()){
-            System.out.println("Error");
+            System.out.println("Video not displayed");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
         clickSaveButton();
@@ -124,16 +149,23 @@ public class LanguagePortfolio {
         WebElement commentBox = getCommentBox();
         if(commentBox != null) {
             if(!getCommentBoxVideo().isDisplayed()) {
-                System.out.println("Error");
+                System.out.println("Comment Box for Video not displayed");
+                Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
                 return;
             }
         }
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
         cleanUp(commentBox);
     }
 
-    public static void checkChangeProgressLink() throws InterruptedException {
+    public static void changeProgressLink() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check Change Progress Link", "", "");
         long startTime = System.nanoTime();
         UINavigation.clickSkip();
         UINavigation.clickProfile();
@@ -150,15 +182,22 @@ public class LanguagePortfolio {
         Utility.waitForNotVisible(getLoadingProgressSaveButton());
         WebElement commentBox = getCommentBox();
         if(!commentBox.isDisplayed()) {
-            System.out.println("Error");
+            System.out.println("Comment box not displayed");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
         cleanUp(commentBox);
     }
 
-    public static void checkAddingComment() throws InterruptedException {
+    public static void addingComment() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check Adding Comment", "", "");
         long startTime = System.nanoTime();
         UINavigation.clickSkip();
         UINavigation.clickProfile();
@@ -178,18 +217,26 @@ public class LanguagePortfolio {
         WebElement commentBox = getCommentBox();
         if(!commentBox.isDisplayed()) {
             System.out.println("Comment Box is not displayed");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
         if(!getCommentText().equals(text)){
             System.out.println("Comment text is not the same");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
         cleanUp(commentBox);
     }
 
-    public static void checkFileUpload() throws InterruptedException {
+    public static void fileUpload() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check File Upload", "", "");
         long startTime = System.nanoTime();
         UINavigation.clickSkip();
         UINavigation.clickProfile();
@@ -209,15 +256,22 @@ public class LanguagePortfolio {
         Utility.waitForNotVisible(getLoadingSaveButton());
         WebElement commentBox = getCommentBox();
         if(!commentBox.isDisplayed()) {
-            System.out.println("Error");
+            System.out.println("Commend box was not displayed");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
         if(!getCommentUploadText().contains("wednesday")){
-            System.out.println("Error");
+            System.out.println("Uploaded file's name is not the same as original file name");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
         cleanUp(commentBox);
     }
 

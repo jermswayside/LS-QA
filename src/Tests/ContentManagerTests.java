@@ -6,13 +6,15 @@ import HelpersAndUtilities.Utility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.support.events.WebDriverEventListener;
+import Objects.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ContentManagerTests {
-    public static void checkContentIcons() throws InterruptedException{
+    private static String currCat = CommonResources.getAllCategories().get(4);
+    public static void contentIcons() throws InterruptedException{
+        Test currTest = new Test(currCat, "Check Content Icons", "", "");
         long start = System.nanoTime();
         ArrayList<String> icons = CommonResources.getIconsClass();
         List<WebElement> allFolders = getFolders();
@@ -61,7 +63,6 @@ public class ContentManagerTests {
                             break search;
                         }
                     }
-                    System.out.println("Yep");
                 }
                 folderCnt++;
             }
@@ -72,10 +73,17 @@ public class ContentManagerTests {
             togglerLvl1.click();
         }
         long end = System.nanoTime();
-        Utility.nanoToReadableTime(start, end);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(start, end);
+        }
+        else if (CommonResources.qaTestMode.equals("n")) {
+            String time = Utility.readableTime(start, end);
+            Utility.addTestToTests(currTest, CommonResources.pass, time);
+        }
     }
 
-    public static void checkViewAssignGradesAttemptLinks() throws InterruptedException{
+    public static void viewAssignGradesAttemptLinks() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check Sublinks", "", "");
         long start = System.nanoTime();
         Thread.sleep(2000);
         ArrayList<String> icons = CommonResources.getIconsClass();
@@ -135,11 +143,18 @@ public class ContentManagerTests {
 
             togglerLvl1.click();
         }
+
         long end = System.nanoTime();
-        Utility.nanoToReadableTime(start, end);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(start, end);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(start, end));
+        }
     }
 
-    public static void checkAssigning() throws InterruptedException{
+    public static void assigning() throws InterruptedException{
+        Test currTest = new Test(currCat, "Check Assigning from Content", "", "");
         long start = System.nanoTime();
         ArrayList<String> icons = CommonResources.getIconsClass();
         List<WebElement> allFolders = getFolders();
@@ -194,7 +209,12 @@ public class ContentManagerTests {
             }
         }
         long end = System.nanoTime();
-        Utility.nanoToReadableTime(start, end);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(start, end);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(start, end));
+        }
     }
 
     private static void assign(ArrayList icons) throws InterruptedException {
@@ -265,7 +285,6 @@ public class ContentManagerTests {
         return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorSelectAll);
     }
 
-    /*TODO: Audio and Video assignments are bugged*/
     private static void checkSubLinks(ArrayList icons) throws InterruptedException {
         List<WebElement> items = getCourseItems();
         int i = 0;

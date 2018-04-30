@@ -1,65 +1,17 @@
 import HelpersAndUtilities.CommonResources;
 import HelpersAndUtilities.UINavigation;
 import HelpersAndUtilities.Utility;
+import Objects.User;
+import TestConfigurations.*;
 import Tests.*;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
-public class QATest {
-    public static void main(String[] args) throws InterruptedException, IOException{
-        Scanner siteChoice = new Scanner(System.in);
-        System.out.println("Which version of Learning Site would you like to use?:\n" +
-                "\"1\" - Stage\n" +
-                "\"2\" - Production\n" +
-                "\"3\" - Development");
-        CommonResources.siteChoiceEntry = siteChoice.nextInt();
-        Scanner scanBrowserChoice = new Scanner(System.in);
-        int choiceEntry = 0;
-        String browser = "";
-        String driver = "";
-        do {
-            try {
-                System.out.println("Which browser driver would you like to use?:\n" +
-                        "\"1\" - Google Chrome\n" +
-                        "\"2\" - Firefox\n" +
-                        "\"3\" - Quit the program");
-                choiceEntry = scanBrowserChoice.nextInt();
-            }
-
-            catch (InputMismatchException i) {
-                System.out.println("Please input a number.");
-                continue;
-            }
-
-            if(choiceEntry > 3 || choiceEntry < 0){
-                System.out.println("Please input a valid number.");
-            }
-
-            if(choiceEntry == 1){
-                browser = CommonResources.pathChromeDriver;
-                driver = CommonResources.chromeDriver;
-            }
-
-            if(choiceEntry == 2){
-                browser = CommonResources.pathFFDriver;
-                driver = CommonResources.geckoDriver;
-            }
-
-            if(choiceEntry == 3){
-                System.out.println("Exiting program.");
-                System.exit(0);
-            }
-        }while(choiceEntry > 4 || choiceEntry < 0);
-        CommonResources.browserDriver = Utility.startBrowser(driver, browser, CommonResources.siteChoiceEntry);
-        Utility.login(CommonResources.usernameTeacher, CommonResources.passwordTeacher, CommonResources.browserDriver);
-
-
-        Thread.sleep(10000);
-        UINavigation.clickSkip();
-
+public class qaTestDebug {
+    public static void run() throws InterruptedException, IOException{
         Scanner scanChoice = new Scanner(System.in);
-
         while(true) {
             System.out.println("Which test would you like to run?:");
             int num = 0;
@@ -68,7 +20,7 @@ public class QATest {
                 num++;
             }
             try {
-                choiceEntry = scanChoice.nextInt();
+                int choiceEntry = scanChoice.nextInt();
 
                 if(choiceEntry>CommonResources.getAllTests().length){
                     System.out.println("Please input a valid number.");
@@ -76,11 +28,11 @@ public class QATest {
                 }
 
                 else if (choiceEntry == 1){
-                    CreateCourse.createCourse();
+                    CreateCourseConfig.checkCreateCourse();
                 }
 
                 else if (choiceEntry == 2){
-                   Utility.courseCount();
+                    BookCountConfig.checkBookCount();
                 }
 
                 else if (choiceEntry == 3) {
@@ -101,46 +53,36 @@ public class QATest {
                         if (assignmentChoiceEntry == 1){
                             System.out.println("Testing selecting and creating all assignment functionality...");
 
-                            AssignmentTests.selectAllAssignments();
-
-                            Utility.simpleDeleteAssignments();
+                            AssignmentsConfig.checkSelectAllAssignments();
                         }
 
                         if (assignmentChoiceEntry == 2) {
                             System.out.println("Testing selecting and creating each" +
                                     " assignment individually functionality...");
 
-                            AssignmentTests.selectEachAssignments();
-
-                            Utility.simpleDeleteAssignments();
+                            AssignmentsConfig.checkSelectEachAssignments();
                         }
 
                         if (assignmentChoiceEntry == 3){
                             System.out.println("Confirming that assignments are properly assigned to students...");
 
-                            AssignmentTests.confirmAssignments();
-
-                            UINavigation.navToAssignment();
-
-                            Utility.simpleDeleteAssignments();
+                            AssignmentsConfig.checkConfirmAssignments();
                         }
 
                         if (assignmentChoiceEntry == 4) {
                             System.out.println("Testing deleting assignments...");
 
-                            AssignmentTests.deleteAssignments();
+                            AssignmentsConfig.checkDeleteAssignments();
                         }
                         if(assignmentChoiceEntry == 5){
                             System.out.println("Testing editing assignments...");
-                            AssignmentTests.editAssignments();
-                            Utility.simpleDeleteAssignments();
+
+                            AssignmentsConfig.checkEditAssignments();
                         }
                         if (assignmentChoiceEntry == 6) {
                             System.out.println("Testing archiving assignments...");
 
-                            AssignmentTests.archiveAssignment();
-
-                            Utility.simpleDeleteAssignments();
+                            AssignmentsConfig.checkArchiveAssignments();
                         }
                         if (assignmentChoiceEntry == 7) {
                             continue;
@@ -165,15 +107,15 @@ public class QATest {
                     int choice = flexTextChoice.nextInt();
 
                     if (choice == 1){
-                        FlexTextTests.checkJumpToPage();
+                        FlexTextConfig.checkJumpToPage();
                     }
 
                     if (choice == 2){
-                        FlexTextTests.checkExplorerLinks();
+                        FlexTextConfig.checkExplorerLinks();
                     }
 
                     if(choice == 3){
-                        FlexTextTests.search();
+                        FlexTextConfig.checkSearch();
                     }
 
                 }
@@ -186,19 +128,13 @@ public class QATest {
                     }
                     int contentChoice = scanChoice.nextInt();
                     if(contentChoice == 1) {
-                        UINavigation.accessCourse("asd");
-                        UINavigation.clickSkip();
-                        ContentManagerTests.checkContentIcons();
+                        ContentManagerConfig.checkContentManagerIcons();
                     }
                     if(contentChoice == 2) {
-                        UINavigation.accessCourse("asd");
-                        UINavigation.clickSkip();
-                        ContentManagerTests.checkViewAssignGradesAttemptLinks();
+                        ContentManagerConfig.checkSubLinks();
                     }
                     if(contentChoice == 3) {
-                        UINavigation.accessCourse("asd");
-                        UINavigation.clickSkip();
-                        ContentManagerTests.checkAssigning();
+                        ContentManagerConfig.checkAssigning();
                     }
                 }
                 if(choiceEntry == 6){
@@ -210,35 +146,34 @@ public class QATest {
                         num++;
                     }
                     int portfolioChoice = scanChoice.nextInt();
-                    Utility.logout();
-                    Utility.login(CommonResources.usernameStudent,
-                            CommonResources.passwordStudent,
-                            CommonResources.browserDriver);
+
+                    User student = new User(CommonResources.usernameStudent, CommonResources.passwordStudent);
+
+                    Utility.switchUsers(student, CommonResources.browserDriver);
                     if(portfolioChoice == 1) {
-                        LanguagePortfolio.checkViewButton();
+                        LanguagePortfolioConfig.checkViewButton();
                     }
                     if(portfolioChoice == 2) {
-                        LanguagePortfolio.checkAddQuizAttemptButton();
+                        LanguagePortfolioConfig.checkAddQuizAttemptButton();
                     }
                     if(portfolioChoice == 3) {
-                        LanguagePortfolio.checkAddRecordingButton();
+                        LanguagePortfolioConfig.checkAddRecordingButton();
                     }
                     if(portfolioChoice == 4) {
-                        LanguagePortfolio.checkAddVideoRecordingButton();
+                        LanguagePortfolioConfig.checkAddVideoRecordingButton();
                     }
                     if(portfolioChoice == 5) {
-                        LanguagePortfolio.checkChangeProgressLink();
+                        LanguagePortfolioConfig.checkChangeProgressLink();
                     }
                     if(portfolioChoice == 6) {
-                        LanguagePortfolio.checkAddingComment();
+                        LanguagePortfolioConfig.checkAddingComment();
                     }
                     if(portfolioChoice == 7) {
-                        LanguagePortfolio.checkFileUpload();
+                        LanguagePortfolioConfig.checkFileUpload();
                     }
-                    Utility.logout();
-                    Utility.login(CommonResources.usernameTeacher,
-                            CommonResources.passwordTeacher,
-                            CommonResources.browserDriver);
+
+                    User teacher = new User(CommonResources.usernameTeacher, CommonResources.passwordTeacher);
+                    Utility.switchUsers(teacher, CommonResources.browserDriver);
                 }
 
                 if (choiceEntry == 7) {
@@ -251,27 +186,27 @@ public class QATest {
                     int profileSettingsChoice = scanChoice.nextInt();
 
                     if(profileSettingsChoice == 1) {
-                        ProfileSettingsTests.editFirstName();
+                        ProfileSettingsConfig.checkEditFirstName();
                     }
 
                     if(profileSettingsChoice == 2) {
-                        ProfileSettingsTests.editLastName();
+                        ProfileSettingsConfig.checkEditLastName();
                     }
 
                     if(profileSettingsChoice == 3) {
-                        ProfileSettingsTests.editPassword();
+                        ProfileSettingsConfig.checkEditPassword();
                     }
 
                     if(profileSettingsChoice == 4) {
-                        ProfileSettingsTests.editEmail();
+                        ProfileSettingsConfig.checkEditEmail();
                     }
 
                     if(profileSettingsChoice == 5) {
-                        ProfileSettingsTests.editTimezone();
+                        ProfileSettingsConfig.checkEditTimezone();
                     }
 
                     if(profileSettingsChoice == 6) {
-                        ProfileSettingsTests.editImage();
+                        ProfileSettingsConfig.checkEditImage();
                     }
                 }
                 if (choiceEntry == 8){
@@ -284,27 +219,39 @@ public class QATest {
                     int courseSettingsChoice = scanChoice.nextInt();
 
                     if (courseSettingsChoice == 1){
-                        CourseSettings.assignmentPenalty();
+                        CourseSettingsConfig.checkAssignmentPenalty();
                     }
 
                     if(courseSettingsChoice == 2) {
-                        CourseSettings.quizHidePassFailStatus();
+                        CourseSettingsConfig.checkQuizHidePassFailStatus();
                     }
 
                     if(courseSettingsChoice == 3) {
-                        CourseSettings.quizThreshold();
+                        CourseSettingsConfig.checkQuizThreshold();
                     }
 
                     if(courseSettingsChoice == 4) {
-                        CourseSettings.quizMaxAttempts();
+                        CourseSettingsConfig.checkQuizMaxAttempts();
                     }
 
                     if(courseSettingsChoice == 5) {
-                        CourseSettings.showHideContent();
+                        CourseSettingsConfig.checkShowHideContent();
                     }
                 }
                 if(choiceEntry == 9){
-                    QuizTests.quizUICheck();
+                    scanChoice = new Scanner(System.in);
+                    num = 0;
+                    for(String test: CommonResources.getAllQuizTests()){
+                        System.out.println(String.format("\"%s\" - %s", num+1, test));
+                        num++;
+                    }
+                    int quizTestChoice = scanChoice.nextInt();
+                    switch (quizTestChoice){
+                        case 1:
+                            QuizConfig.checkAllQuizTests();
+                            break;
+                    }
+
                 }
                 if (choiceEntry == CommonResources.getAllTests().length) {
                     System.out.println("Now exiting.");

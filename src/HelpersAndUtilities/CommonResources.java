@@ -1,17 +1,24 @@
 package HelpersAndUtilities;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import Objects.Test;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class CommonResources {
     // Site choice
     public static int siteChoiceEntry = 0;
+
+    // Test mode
+    public static String qaTestMode = "";
+
+    // Variable for Test objects
+    public static String na = "N/A";
+    public static String pass = "Pass";
+    public static String fail = "Fail";
+
+    // Global Data Types
+    public static ArrayList<Test> tests = new ArrayList<>();
 
     //Files with relative file paths
     public static final String fileWednesday = System.getProperty("user.dir") + "\\images\\wednesday.jpg";
@@ -45,6 +52,7 @@ public class CommonResources {
     public static String urlDevLS = "https://devlearningsite.waysidepublishing.com/";
 
     //Login Page CSS classes and selectors
+    public static String cssSelectorLogin = "button.Btn_Login";
     public static String cssClassButtonLogin = "Login_Form";
     public static String cssSelectorUsername = "input.ws-input-1:nth-child(1)";
     public static String cssSelectorPassword = "#Main > div.ws-login-container.ws-login-mode-login > " +
@@ -55,7 +63,7 @@ public class CommonResources {
     public static String cssSelectorNewCourse = ".Btn_Textbooks";
     public static String cssSelectorDashboardCourses = "#Dashboard_Courses";
     public static String cssSelectorViewCourse = "#Dashboard_Courses > div > a.ws-courses-item-title.app-navigation";
-    public static String cssLinkTextLogout = "Logout";
+    public static String cssSelectorLogout = "a.Btn_User_Logout.app-logout";
     public static String cssLinkTextCourseName = "asd";
     public static String cssSelectorCourse = "div.Dashboard_Courses > div.ws-courses-item >" +
             "a.ws-courses-item-title.app-navigation";
@@ -273,6 +281,7 @@ public class CommonResources {
             " div.Btn_Upload_File.ws-btn-0 > input";
     public static final String cssSelectorRevertToRobohashButton = "div.Btn_Revert_To_Robohash.ws-btn-0 > " +
             "div.ws-btn-loader";
+    public static final String cssSelectorChangedProfilePicture = "div.Profile_User_Avatar";
 
     //Course Settings CSS Selectors
     public static final String cssSelectorSettings= "div.Content > div.ws-course__settings > " +
@@ -310,8 +319,10 @@ public class CommonResources {
     public static final String cssSelectorInputVirtualKeyboard =
             "div.quiz-component__question__diacritics-container.ui-tabs.ui-widget.ui-widget-content.ui-corner-all";
     public static final String cssSelectorClozeQuestion = "div.quiz-component__type-cloze";
-    public static final String cssSelectorClozeQuestionInput = "div > div.quiz-component__question__answer-input > input";
-    public static final String cssSelectorClozeQuestionSelect = "div > div.quiz-component__question__answer-select > select";
+    public static final String cssSelectorClozeQuestionInput = "div.quiz-component__question__answer-wrapper > " +
+            "div > p > span";
+    public static final String cssSelectorInputTag = "input";
+    public static final String cssSelectorSelectTag = "select";
     public static final String cssSelectorEssayQuestion = "div.quiz-component__type-essay";
     public static final String cssSelectorEssayInput = "div.quiz-component__question__content > " +
             "div.quiz-component__question__wysiwyg.froala-box > div.froala-wrapper.f-basic > " +
@@ -363,6 +374,7 @@ public class CommonResources {
             "div.quiz-component__question__answer-comparative-recording > " +
                     "div.quiz-component__question__answer-video-preview-container > audio";
     public static final String cssSelectorQuizSubmitButton = "div.ws-btn-1.quiz-component__action.quiz-component__action--yellow";
+    public static final String cssSelectorQuizCancelButton = "div.ws-btn-1 quiz-component__action quiz-component__action--red";
     public static final String cssSelectorQuestionsTableQuestions = "div.Questions_Table_Question";
     public static final String cssSelectorQuestionsTableQuestionsFields = "table > tbody > tr > td";
     public static final String cssSelectorSummaryItems = "div.quiz-component__summary__item > " +
@@ -504,10 +516,30 @@ public class CommonResources {
         };
     }
 
+    public static String[] getAllQuizTests() {
+        return new String[] {
+                "Check All Quiz Tests",
+        };
+    }
+
     public static Map<String, String> getIconTypes(){
         Map<String, String> map = new HashMap<>();
         map.put("wsi-icon-quiz", "quiz");
         map.put("wsi-icon-flashcard", "flashcards");
         return map;
+    }
+
+    public static ArrayList<String> getAllCategories(){
+        ArrayList<String> categories = new ArrayList<>();
+        categories.add("Create Course");
+        categories.add("Book Count");
+        categories.add("Assignments");
+        categories.add("FlexText");
+        categories.add("Content Manager");
+        categories.add("Language Portfolio");
+        categories.add("Profile Settings");
+        categories.add("Course Settings");
+        categories.add("Quiz Module");
+        return categories;
     }
 }

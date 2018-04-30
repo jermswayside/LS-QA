@@ -6,15 +6,18 @@ import HelpersAndUtilities.Utility;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import Objects.Test;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class FlexTextTests {
+    private static String currCat = CommonResources.getAllCategories().get(3);
+
     public static void search() throws InterruptedException {
+        Test currTest = new Test(currCat, "Search", "", "");
         long startTime = System.nanoTime();
         List<WebElement> allCourses = getAllCourses();
         ArrayList<String> allBooks = CommonResources.getAllBooks();
@@ -67,7 +70,8 @@ public class FlexTextTests {
                         System.out.println(word);
                         if(Objects.equals("pomme", word) || Objects.equals("notaword", word)){
                             if(results.size() > 0) {
-                                System.out.println("Error");
+                                System.out.println(String.format("\"%s\" did not return results", word));
+                                Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
                                 return;
                             }
                             searchInput.clear();
@@ -85,6 +89,8 @@ public class FlexTextTests {
 
                             if (!getIndexOfWithin(word, textBody, indBeg, indEnd)) {
                                 System.out.println("Did not return correct page.");
+                                Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+                                return;
                             }
                             switchToMain();
                             searchInput.clear();
@@ -94,13 +100,15 @@ public class FlexTextTests {
                     UINavigation.clickFlexTextTab();
                 }
             }
-            else{
-                continue;
-            }
-            UINavigation.navToDash();
         }
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            String time = Utility.readableTime(startTime, endTime);
+            Utility.addTestToTests(currTest, CommonResources.pass, time);
+        }
     }
 
     private static String getTextBody() {
@@ -138,7 +146,8 @@ public class FlexTextTests {
         }
     }
 
-    public static void checkJumpToPage() throws InterruptedException, IOException{
+    public static void jumpToPage() throws InterruptedException, IOException{
+        Test currTest = new Test(currCat, "Check Jump to Page", "", "");
         long startTime = System.nanoTime();
         List<WebElement> allCourses = getAllCourses();
         ArrayList<String> allBooks = CommonResources.getAllBooks();
@@ -196,7 +205,8 @@ public class FlexTextTests {
                                 "%s: The FlexText %s did not redirect to page %s correctly.",
                                 Utility.getCurrDate(), currFT.getText(), randNum);
                         System.out.println(error);
-                        Utility.writeToErrorLog(CommonResources.errorLogFlexText, error);
+                        Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+                        return;
                     }
 
                     Thread.sleep(1000);
@@ -210,8 +220,13 @@ public class FlexTextTests {
             }
         }
         long endTime = System.nanoTime();
-
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if (CommonResources.qaTestMode.equals("n")){
+            String time = Utility.readableTime(startTime, endTime);
+            Utility.addTestToTests(currTest, CommonResources.pass, time);
+        }
     }
 
     private static WebElement getPageNumberInput() {
@@ -224,7 +239,8 @@ public class FlexTextTests {
         }
     }
 
-    public static void checkExplorerLinks() throws InterruptedException, IOException {
+    public static void explorerLinks() throws InterruptedException, IOException {
+        Test currTest = new Test(currCat, "Check Explorer Links", "", "");
         long startTime = System.nanoTime();
         int courseSize = getAllCourses().size();
         int checkedCompassCount = 0;
@@ -325,6 +341,8 @@ public class FlexTextTests {
                                         Utility.writeToErrorLog(
                                                 "FlexTextError.txt", error);
                                         System.out.println(error);
+                                        Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+                                        return;
                                     }
                                     CommonResources.browserDriver.get(currURL);
                                     Thread.sleep(5000);
@@ -355,7 +373,12 @@ public class FlexTextTests {
             UINavigation.navToDash();
         }
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
     }
 
 

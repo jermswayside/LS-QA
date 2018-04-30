@@ -6,11 +6,15 @@ import HelpersAndUtilities.Utility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import Objects.Test;
 
 import java.util.List;
+import java.util.concurrent.CompletionException;
 
-public class CourseSettings {
+public class CourseSettingsTests {
+    private static String currCat = CommonResources.getAllCategories().get(7);
     public static void assignmentPenalty() throws InterruptedException{
+        Test currTest = new Test(currCat, "Check Assignment Penalty", "", "");
         long startTime = System.nanoTime();
         UINavigation.accessCourse("asd");
         UINavigation.clickSkip();
@@ -22,6 +26,7 @@ public class CourseSettings {
         WebElement assignmentsPenaltyInput = getAssignmentsSettingsPenaltyInput();
         if(assignmentsPenaltyInput.isEnabled()) {
             System.out.println("Penalty input is already enabled.");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
@@ -37,11 +42,13 @@ public class CourseSettings {
         String messageBoxText = "Changes were saved";
         if(!messageBox.getText().equals(messageBoxText)) {
             System.out.println(String.format("Message in message box were not correct: %s", messageBox.getText()));
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
         if(!assignmentsPenaltyInput.isEnabled()) {
             System.out.println("Penalty input not enabled after toggling.");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
         messageBox.click();
@@ -56,6 +63,7 @@ public class CourseSettings {
 
         if(!valueValidations.isDisplayed()) {
             System.out.println("Value validations did not appear.");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
@@ -71,6 +79,7 @@ public class CourseSettings {
 
         if(!valueValidations.isDisplayed()) {
             System.out.println("Value validations did not appear.");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
@@ -86,16 +95,23 @@ public class CourseSettings {
         Utility.waitForVisible(messageBox);
         if(!messageBox.getText().equals(messageBoxText)) {
             System.out.println(String.format("Message in message box were not correct: %s", messageBox.getText()));
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
         messageBox.click();
         Thread.sleep(2000);
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if (CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
         assignmentsCleanUp();
     }
 
     public static void quizHidePassFailStatus() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check Quiz Hide Pass Fail Status", "", "");
         long startTime = System.nanoTime();
         UINavigation.accessCourse("asd");
         UINavigation.clickSkip();
@@ -120,16 +136,23 @@ public class CourseSettings {
         Utility.waitForVisible(messageBox);
         if(!messageBox.getText().equals(messageBoxText)) {
             System.out.println(String.format("Message in message box were not correct: %s", messageBox.getText()));
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
         messageBox.click();
 
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")) {
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
         quizHidePassFailCleanup();
     }
 
     public static void quizThreshold() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check Quiz Threshold", "", "");
         long startTime = System.nanoTime();
 
         UINavigation.accessCourse("asd");
@@ -156,6 +179,7 @@ public class CourseSettings {
         WebElement messageBox = Utility.getMessageBox();
         if(messageBox.isDisplayed()) {
             System.out.println("Quiz Threshold saved with -1 as input");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
@@ -171,6 +195,7 @@ public class CourseSettings {
         messageBox = Utility.getMessageBox();
         if(messageBox.isDisplayed()) {
             System.out.println("Quiz Threshold saved with 101 as input");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
@@ -185,16 +210,23 @@ public class CourseSettings {
         Utility.waitForVisible(messageBox);
         if(!messageBox.getText().equals(messageBoxText)) {
             System.out.println(String.format("Message in message box were not correct: %s", messageBox.getText()));
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if (CommonResources.qaTestMode.equals("n")) {
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
 
         quizThresholdCleanup();
     }
 
     public static void quizMaxAttempts() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check Quiz Max Attempts", "", "");
         long startTime = System.nanoTime();
 
         UINavigation.accessCourse("asd");
@@ -218,7 +250,8 @@ public class CourseSettings {
 
         WebElement messageBox = Utility.getMessageBox();
         if(messageBox.isDisplayed()) {
-            System.out.println("Quiz Threshold saved with 101 as input");
+            System.out.println("Quiz Threshold saved with -1 as input");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
@@ -231,7 +264,8 @@ public class CourseSettings {
 
         messageBox = Utility.getMessageBox();
         if(messageBox.isDisplayed()) {
-            System.out.println("Quiz Threshold saved with 101 as input");
+            System.out.println("Quiz Threshold saved with 0 as input");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
@@ -246,15 +280,22 @@ public class CourseSettings {
         Utility.waitForVisible(messageBox);
         if(!messageBox.getText().equals(messageBoxText)) {
             System.out.println(String.format("Message in message box were not correct: %s", messageBox.getText()));
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
 
         quizAttemptsCleanUp();
     }
     public static void showHideContent() throws InterruptedException {
+        Test currTest = new Test(currCat, "Check Show Hide Content", "", "");
         long startTime = System.nanoTime();
 
         UINavigation.accessCourse("asd");
@@ -284,6 +325,7 @@ public class CourseSettings {
         }
         catch (NoSuchElementException n) {
             System.out.println("Checkbox-to-NoCheckBox not working.");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
@@ -298,6 +340,7 @@ public class CourseSettings {
         }
         catch (NoSuchElementException n) {
             System.out.println("Expanding not working.");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
@@ -309,6 +352,7 @@ public class CourseSettings {
         }
         catch (NoSuchElementException n){
             System.out.println("Checkbox-to-NoCbeckBox in subchapter not working");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
@@ -317,11 +361,17 @@ public class CourseSettings {
         }
         catch(NoSuchElementException n) {
             System.out.println("NoCheckBox-to-DashCheckBox in first chapter not working");
+            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
 
         long endTime = System.nanoTime();
-        Utility.nanoToReadableTime(startTime, endTime);
+        if(CommonResources.qaTestMode.equals("d")) {
+            Utility.nanoToReadableTime(startTime, endTime);
+        }
+        else if(CommonResources.qaTestMode.equals("n")){
+            Utility.addTestToTests(currTest, CommonResources.pass, Utility.readableTime(startTime, endTime));
+        }
 
         showHideContentSettingsCleanUp();
     }
