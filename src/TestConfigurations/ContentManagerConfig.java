@@ -21,6 +21,8 @@ public class ContentManagerConfig {
         UINavigation.accessCourse("asd");
         UINavigation.clickSkip();
         ContentManagerTests.assigning();
+        UINavigation.accessAssignments();
+        Utility.simpleDeleteAssignments();
     }
 
     public static void checkAllContentManagerTests() throws InterruptedException {

@@ -162,7 +162,6 @@ public class Utility {
         Thread.sleep(1000);
 
         UINavigation.clickAssign();
-        Thread.sleep(1000);
     }
 
     public static void createAssignmentSelectedStudents() throws InterruptedException {
@@ -537,4 +536,16 @@ public class Utility {
         return Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorQuizCancelButton);
     }
 
+    public static String getSiteVersionFlashcard() {
+        if(CommonResources.siteChoiceEntry == 1) {
+            return "https://stagelearningsite.waysidepublishing.com/explorer/3448380/flashcards/1255357/start";
+        }
+        else if(CommonResources.siteChoiceEntry == 2) {
+            return "https://learningsite.waysidepublishing.com/explorer/3448380/flashcards/1255357/start";
+        }
+        else if(CommonResources.siteChoiceEntry == 3) {
+            return "https://devlearningsite.waysidepublishing.com/explorer/3448380/flashcards/1255357/start";
+        }
+        return "";
+    }
 }

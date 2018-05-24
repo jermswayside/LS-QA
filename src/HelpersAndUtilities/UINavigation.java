@@ -136,6 +136,7 @@ public class UINavigation {
                 .until(ExpectedConditions.elementToBeClickable(By.xpath(CommonResources.cssXpathAssignmentTab)));
 
         System.out.println("Now accessing assignments tab...");
+        scrollTo(assignment);
         assignment.click();
 
         Thread.sleep(5000);
@@ -359,4 +360,16 @@ public class UINavigation {
         Actions actions = new Actions(CommonResources.browserDriver);
         actions.clickAndHold(from).moveToElement(to).moveByOffset(x, y).build().perform();
     }
+
+    public static void browserAlertAction(String res) {
+        switch (res) {
+            case "OK": CommonResources.browserDriver.switchTo().alert().accept();
+            break;
+
+            case "Cancel" : CommonResources.browserDriver.switchTo().alert().dismiss();
+            break;
+        }
+    }
+
+
 }

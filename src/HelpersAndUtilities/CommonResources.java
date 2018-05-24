@@ -387,6 +387,20 @@ public class CommonResources {
     public static final String saveSpinner = "div.quiz-component__top-loader";
 
 
+    //Flashcard
+    public static final String cssSelectorFlashcard = "div.flashcards-component__card";
+    public static final String cssSelectorFlashcardFront = "div.flashcards-component__card-front";
+    public static final String cssSelectorFlashcardBack = "div.flashcards-component__card-back";
+    public static final String cssSelectorFlashcardFrontContent = "div.flashcards-component__card__content > p > strong";
+    public static final String cssSelectorFlashcardNextBtn = "div.flashcards-component__navigation__next-btn";
+    public static final String cssSelectorFlashcardPrevBtn = "div.flashcards-component__navigation__prev-btn";
+    public static final String cssSelectorSlider = "div.flashcards-component__navigation__slider__handle > span";
+    public static final String cssSelectorSliderBar = "div.flashcards-component__navigation__slider";
+    public static final String cssSelectorSliderBarInput = "div.flashcards-component__navigation__slider-wrapper > input";
+    public static final String cssSelectorLearned = "div.flashcards-component__card-done > div.flashcards-component__card-done__title";
+    public static final String cssSelectorFinishedIcon = "div.flashcards-component__all-read__icon";
+
+
     //Error Log Names
     public static final String errorLogFlexText = "logs/FlexTextError.txt";
 
@@ -444,6 +458,7 @@ public class CommonResources {
                 "Profile Settings",
                 "Course Settings",
                 "Quiz",
+                "Flashcards",
                 "Exit program.",
         };
     }
@@ -522,6 +537,16 @@ public class CommonResources {
         };
     }
 
+    public static String[] getAllFlashcardsTests() {
+        return new String[] {
+                "Check Arrow Keys Nav",
+                "Check Arrow Keys Flip",
+                "Check Click Flip",
+                "Check Arrow UI Nav",
+                "Check Slider",
+                "Check \"Learned\"",
+        };
+    }
     public static Map<String, String> getIconTypes(){
         Map<String, String> map = new HashMap<>();
         map.put("wsi-icon-quiz", "quiz");
@@ -540,6 +565,7 @@ public class CommonResources {
         categories.add("Profile Settings");
         categories.add("Course Settings");
         categories.add("Quiz Module");
+        categories.add("Flashcards");
         return categories;
     }
 }

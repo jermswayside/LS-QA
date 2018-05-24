@@ -253,6 +253,34 @@ public class qaTestDebug {
                     }
 
                 }
+                if(choiceEntry == 10) {
+                    scanChoice = new Scanner(System.in);
+                    num = 0;
+                    for(String test: CommonResources.getAllFlashcardsTests()){
+                        System.out.println(String.format("\"%s\" - %s", num+1, test));
+                        num++;
+                    }
+                    int fcTestChoice = scanChoice.nextInt();
+                    switch (fcTestChoice){
+                        case 1: FlashcardConfig.checkArrowKeysNav();
+                        break;
+
+                        case 2: FlashcardConfig.checkArrowKeysFlip();
+                        break;
+
+                        case 3: FlashcardConfig.checkClickFlip();
+                        break;
+
+                        case 4: FlashcardConfig.checkArrowUINav();
+                        break;
+
+                        case 5: FlashcardConfig.checkSlider();
+                        break;
+
+                        case 6: FlashcardConfig.checkLearned();
+                        break;
+                    }
+                }
                 if (choiceEntry == CommonResources.getAllTests().length) {
                     System.out.println("Now exiting.");
                     CommonResources.browserDriver.quit();

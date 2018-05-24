@@ -649,4 +649,8 @@ public class AssignmentTests {
                     "MessageBox appeared, but with different success text: %s", messageBoxText));
         }
     }
+
+    private static void confirmBrowserPrompt() {
+
+    }
 }

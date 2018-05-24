@@ -48,11 +48,11 @@ public class QuizTests {
         }
         Thread.sleep(2000);
         simpleTextQuestionInput.sendKeys("correct");
-        if(!checkForSpinner()){
-            System.out.println("Spinner not working correctly.");
-            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
-            return;
-        }
+//        if(!checkForSpinner()){
+//            System.out.println("Spinner not working correctly.");
+//            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+//            return;
+//        }
 
         long endTime = System.nanoTime();
         if(CommonResources.qaTestMode.equals("d")){
@@ -70,11 +70,11 @@ public class QuizTests {
         WebElement essayQuestionInput = getEssayQuestionInput();
         Thread.sleep(1000);
         essayQuestionInput.sendKeys("correct");
-        if(!checkForSpinner()){
-            System.out.println("Spinner not working correctly.");
-            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
-            return;
-        }
+//        if(!checkForSpinner()){
+//            System.out.println("Spinner not working correctly.");
+//            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+//            return;
+//        }
         long endTime = System.nanoTime();
         if(CommonResources.qaTestMode.equals("d")){
             Utility.nanoToReadableTime(startTime, endTime);
@@ -122,11 +122,11 @@ public class QuizTests {
 
             currFitb.sendKeys("correct");
 
-            if(!checkForSpinner()){
-                System.out.println("Spinner not working correctly.");
-                Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
-                return;
-            }
+//            if(!checkForSpinner()){
+//                System.out.println("Spinner not working correctly.");
+//                Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+//                return;
+//            }
 
             WebElement clozeQuestionTitle = getClozeQuestionTitle();
             UINavigation.scrollTo(clozeQuestionTitle);
@@ -148,11 +148,11 @@ public class QuizTests {
             Thread.sleep(1000);
 
             dropCloze.selectByVisibleText("correct");
-            if(!checkForSpinner()){
-                System.out.println("Spinner not working correctly.");
-                Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
-                return;
-            }
+//            if(!checkForSpinner()){
+//                System.out.println("Spinner not working correctly.");
+//                Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+//                return;
+//            }
         }
 
         long endTime = System.nanoTime();
@@ -174,11 +174,11 @@ public class QuizTests {
             WebElement currOpt = multipleChoiecNoShuffleOptions.get(i);
             if (Objects.equals(currOpt.getText(), "correct")) {
                 currOpt.click();
-                if(!checkForSpinner()){
-                    System.out.println("Spinner not working correctly.");
-                    Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
-                    return;
-                }
+//                if(!checkForSpinner()){
+//                    System.out.println("Spinner not working correctly.");
+//                    Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+//                    return;
+//                }
             }
         }
         long endTime = System.nanoTime();
@@ -201,11 +201,11 @@ public class QuizTests {
             WebElement currOpt = multipleChoiecNoShuffleOptions.get(i);
             if (Objects.equals(currOpt.getText(), "correct")) {
                 currOpt.click();
-                if(!checkForSpinner()){
-                    System.out.println("Spinner not working correctly.");
-                    Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
-                    return;
-                }
+//                if(!checkForSpinner()){
+//                    System.out.println("Spinner not working correctly.");
+//                    Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+//                    return;
+//                }
             }
         }
         long endTime = System.nanoTime();
@@ -230,11 +230,11 @@ public class QuizTests {
 
             }
         }
-        if(!checkForSpinner()){
-            System.out.println("Spinner not working correctly.");
-            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
-            return;
-        }
+//        if(!checkForSpinner()){
+//            System.out.println("Spinner not working correctly.");
+//            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+//            return;
+//        }
         long endTime = System.nanoTime();
         if(CommonResources.qaTestMode.equals("d")){
             Utility.nanoToReadableTime(startTime, endTime);
@@ -285,11 +285,11 @@ public class QuizTests {
                 return;
             }
         }
-        if(!checkForSpinner()){
-            System.out.println("Spinner not working correctly.");
-            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
-            return;
-        }
+//        if(!checkForSpinner()){
+//            System.out.println("Spinner not working correctly.");
+//            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+//            return;
+//        }
 
         long endTime = System.nanoTime();
         if(CommonResources.qaTestMode.equals("d")){
@@ -327,11 +327,11 @@ public class QuizTests {
             }
         }
 
-        if(!checkForSpinner()){
-            System.out.println("Spinner not working correctly.");
-            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
-            return;
-        }
+//        if(!checkForSpinner()){
+//            System.out.println("Spinner not working correctly.");
+//            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+//            return;
+//        }
 
         long endTime = System.nanoTime();
 
@@ -351,28 +351,30 @@ public class QuizTests {
 
         Thread.sleep(1000);
 
-//        WebElement simpleAudioRecordingStartButton = getSimpleRecordingAudioStartButton();
-//        simpleAudioRecordingStartButton.click();
-//
-//        Thread.sleep(3000);
-//        WebElement simpleAudioRecordingStopButton = getSimpleRecordingAudioStopButton();
-//        if(!simpleAudioRecordingStopButton.isDisplayed()){
-//            System.out.println("Simple audio recording stop button did not display.");
-//            System.exit(0);
-//        }
-//
-//        Thread.sleep(10000);
-//        simpleAudioRecordingStopButton.click();
-//
-//        Thread.sleep(2000);
-//        WebElement simpleRecordingAudioRecordingBar = getSimpleRecordingAudioRecordingBar();
-//        if(simpleRecordingAudioRecordingBar == null) {
-//            System.out.println("Audio recording bar did not appear.");
-//            System.exit(0);
-//        }
+        WebElement simpleAudioRecordingStartButton = getSimpleRecordingAudioStartButton();
+        simpleAudioRecordingStartButton.click();
+
+        Thread.sleep(3000);
+        WebElement simpleAudioRecordingStopButton = getSimpleRecordingAudioStopButton();
+        if(!simpleAudioRecordingStopButton.isDisplayed()){
+            System.out.println("Simple audio recording stop button did not display.");
+            System.exit(0);
+        }
+
+        Thread.sleep(10000);
+        simpleAudioRecordingStopButton.click();
+
+        Thread.sleep(2000);
+        WebElement simpleRecordingAudioRecordingBar = getSimpleRecordingAudioRecordingBar();
+        if(simpleRecordingAudioRecordingBar == null) {
+            System.out.println("Audio recording bar did not appear.");
+            System.exit(0);
+        }
 
         WebElement simpleVideoRecordingStartButton = getSimpleVideoRecordingStartButton();
         simpleVideoRecordingStartButton.click();
+
+        UINavigation.browserAlertAction("OK");
 
         Thread.sleep(3000);
         WebElement simpleVideoRecordingStopButton = getSimpleVideoRecordingStopButton();
@@ -395,11 +397,11 @@ public class QuizTests {
             Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
             return;
         }
-        if(!checkForSpinner()){
-            System.out.println("Spinner not working correctly.");
-            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
-            return;
-        }
+//        if(!checkForSpinner()){
+//            System.out.println("Spinner not working correctly.");
+//            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+//            return;
+//        }
 
         long endTime = System.nanoTime();
         if(CommonResources.qaTestMode.equals("d")){
@@ -455,11 +457,11 @@ public class QuizTests {
             }
         }
 
-        if(!checkForSpinner()){
-            System.out.println("Spinner not working correctly.");
-            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
-            return;
-        }
+//        if(!checkForSpinner()){
+//            System.out.println("Spinner not working correctly.");
+//            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+//            return;
+//        }
 
         long endTime = System.nanoTime();
         if(CommonResources.qaTestMode.equals("d")){
