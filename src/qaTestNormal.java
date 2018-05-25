@@ -26,6 +26,8 @@ public class qaTestNormal {
 
         QuizConfig.checkAllQuizTests();
 
+        FlashcardConfig.checkAllFlashcardTests();
+
         Utility.printPretty();
 
         CommonResources.browserDriver.close();

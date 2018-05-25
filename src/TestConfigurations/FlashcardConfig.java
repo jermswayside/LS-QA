@@ -7,8 +7,13 @@ import HelpersAndUtilities.Utility;
 public class FlashcardConfig {
     private static String url = Utility.getSiteVersionFlashcard();
 
-    public static void checkAllFlashcardTests(){
-
+    public static void checkAllFlashcardTests() throws InterruptedException {
+        checkArrowKeysNav();
+        checkArrowKeysFlip();
+        checkClickFlip();
+        checkArrowUINav();
+        checkSlider();
+        checkLearned();
     }
 
     public static void checkArrowKeysNav() throws InterruptedException {

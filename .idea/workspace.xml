@@ -2,27 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="09dd4056-a60c-43f8-aead-3dc341fc3d14" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/TestConfigurations/FlashcardConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Tests/FlashcardTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlexTextError.txt" beforeDir="false" afterPath="$PROJECT_DIR$/FlexTextError.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LS-QA/HelpersAndUtilities/CommonResources.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LS-QA/HelpersAndUtilities/CommonResources.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LS-QA/HelpersAndUtilities/UINavigation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LS-QA/HelpersAndUtilities/UINavigation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LS-QA/HelpersAndUtilities/Utility.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LS-QA/HelpersAndUtilities/Utility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LS-QA/TestConfigurations/ContentManagerConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LS-QA/TestConfigurations/ContentManagerConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LS-QA/Tests/AssignmentTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LS-QA/Tests/AssignmentTests.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LS-QA/Tests/FlexTextTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LS-QA/Tests/FlexTextTests.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LS-QA/Tests/ProfileSettingsTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LS-QA/Tests/ProfileSettingsTests.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LS-QA/Tests/QuizTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LS-QA/Tests/QuizTests.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LS-QA/qaTestDebug.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LS-QA/qaTestDebug.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LS-QA/qaTestNormal.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LS-QA/qaTestNormal.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HelpersAndUtilities/CommonResources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HelpersAndUtilities/CommonResources.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HelpersAndUtilities/UINavigation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HelpersAndUtilities/UINavigation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HelpersAndUtilities/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HelpersAndUtilities/Utility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TestConfigurations/ContentManagerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestConfigurations/ContentManagerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tests/AssignmentTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests/AssignmentTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tests/QuizTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests/QuizTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/qaTestDebug.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/qaTestDebug.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TestConfigurations/FlashcardConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestConfigurations/FlashcardConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/qaTestNormal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/qaTestNormal.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,7 +19,7 @@
         <entry file="file://$PROJECT_DIR$/src/TestConfigurations/FlashcardConfig.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="161">
-              <caret line="35" selection-start-line="35" selection-end-line="35" />
+              <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -46,29 +27,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Utility.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/HelpersAndUtilities/Utility.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="71">
-              <caret line="318" column="43" selection-start-line="318" selection-start-column="29" selection-end-line="318" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="qaTestNormal.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="qaTestNormal.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/qaTestNormal.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="400">
+              <caret line="29" selection-start-line="29" selection-end-line="29" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FlashcardTests.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FlashcardTests.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Tests/FlashcardTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4129">
-              <caret line="291" lean-forward="true" selection-start-line="291" selection-end-line="291" />
+            <state relative-caret-position="240">
+              <caret line="186" column="9" lean-forward="true" selection-start-line="186" selection-start-column="9" selection-end-line="186" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -169,8 +141,8 @@
       <find>alert</find>
       <find>question 9</find>
       <find>getsiteversionquiz</find>
-      <find>waitForElement</find>
       <find>addtest</find>
+      <find>waitForElement</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -205,7 +177,6 @@
         <option value="$PROJECT_DIR$/src/TestConfigurations/CourseSettingsConfig.java" />
         <option value="$PROJECT_DIR$/src/Tests/FlexTextTests.java" />
         <option value="$PROJECT_DIR$/src/Tests/ProfileSettingsTests.java" />
-        <option value="$PROJECT_DIR$/src/qaTestNormal.java" />
         <option value="$PROJECT_DIR$/src/Tests/AssignmentTests.java" />
         <option value="$PROJECT_DIR$/src/TestConfigurations/ContentManagerConfig.java" />
         <option value="$PROJECT_DIR$/src/Tests/QuizTests.java" />
@@ -213,9 +184,10 @@
         <option value="$PROJECT_DIR$/src/qaTestDebug.java" />
         <option value="$PROJECT_DIR$/src/TestConfigurations/AssignmentsConfig.java" />
         <option value="$PROJECT_DIR$/src/HelpersAndUtilities/UINavigation.java" />
-        <option value="$PROJECT_DIR$/src/TestConfigurations/FlashcardConfig.java" />
         <option value="$PROJECT_DIR$/src/HelpersAndUtilities/CommonResources.java" />
         <option value="$PROJECT_DIR$/src/Tests/FlashcardTests.java" />
+        <option value="$PROJECT_DIR$/src/TestConfigurations/FlashcardConfig.java" />
+        <option value="$PROJECT_DIR$/src/qaTestNormal.java" />
       </list>
     </option>
   </component>
@@ -763,30 +735,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TestConfigurations/FlashcardConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/qaTestNormal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/HelpersAndUtilities/Utility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="318" column="43" selection-start-line="318" selection-start-column="29" selection-end-line="318" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Tests/AssignmentTests.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="392">
@@ -813,11 +761,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Tests/FlashcardTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4129">
-          <caret line="291" lean-forward="true" selection-start-line="291" selection-end-line="291" />
+        <state relative-caret-position="240">
+          <caret line="186" column="9" lean-forward="true" selection-start-line="186" selection-start-column="9" selection-end-line="186" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/HelpersAndUtilities/Utility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="527" column="18" lean-forward="true" selection-start-line="527" selection-start-column="18" selection-end-line="527" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TestConfigurations/FlashcardConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/qaTestNormal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
         </state>
       </provider>
     </entry>
