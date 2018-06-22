@@ -12,6 +12,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class FlexTextTests {
     private static String currCat = CommonResources.getAllCategories().get(3);
@@ -63,16 +64,18 @@ public class FlexTextTests {
                         Thread.sleep(1000);
 
                         UINavigation.scrollTo(searchInput);
-                        Thread.sleep(500);
+                        Thread.sleep(2000);
 
                         List<WebElement> results = getResults();
 
                         System.out.println(word);
                         if(Objects.equals("pomme", word) || Objects.equals("notaword", word)){
-                            if(results.size() > 0) {
-                                System.out.println(String.format("\"%s\" did not return results", word));
-                                Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
-                                return;
+                            if(results != null ){
+                                if(results.size() > 0) {
+                                    System.out.println(String.format("\"%s\" did not return results", word));
+                                    Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+                                    return;
+                                }
                             }
                             searchInput.clear();
                         }
@@ -136,10 +139,9 @@ public class FlexTextTests {
         }
     }
 
-    private static List<WebElement> getResults() {
+    private static List<WebElement> getResults() throws InterruptedException {
         try {
-            return CommonResources.browserDriver.findElements(
-                    By.cssSelector(CommonResources.cssSelectorSearchResults));
+            return Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorSearchResults);
         }
         catch (NoSuchElementException n) {
             return null;
@@ -212,7 +214,7 @@ public class FlexTextTests {
                     Thread.sleep(1000);
 
                     switchToMain();
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
 
                     UINavigation.clickFlexTextTab();
                 }
@@ -312,6 +314,7 @@ public class FlexTextTests {
                             Thread.sleep(2000);
 
                             if (hasExplorerBox()) {
+                                Thread.sleep(2000);
                                 if (!hasExplorerLink()) {
                                     System.out.println(String.format(
                                             "Link doesn't exist for explorer compass: #%s", i));
@@ -336,13 +339,21 @@ public class FlexTextTests {
                                     currLink.click();
                                     String newURL = CommonResources.browserDriver.getCurrentUrl();
                                     if (Objects.equals(currURL, newURL)){
-                                        String error = String.format(
-                                                "%s did not redirect correctly.", linkText);
-                                        Utility.writeToErrorLog(
-                                                "FlexTextError.txt", error);
-                                        System.out.println(error);
-                                        Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
-                                        return;
+                                        ArrayList<String> tabs = new ArrayList<>(CommonResources.browserDriver.getWindowHandles());
+                                        if(tabs.size() == 0) {
+                                            String error = String.format(
+                                                    "%s did not redirect correctly.", linkText);
+                                            Utility.writeToErrorLog(
+                                                    "FlexTextError.txt", error);
+                                            System.out.println(error);
+                                            Utility.addTestToTests(currTest, CommonResources.fail, CommonResources.na);
+                                            return;
+                                        }
+                                        else{
+                                            CommonResources.browserDriver.switchTo().window(tabs.get(1));
+                                            CommonResources.browserDriver.close();
+                                            CommonResources.browserDriver.switchTo().window(tabs.get(0));
+                                        }
                                     }
                                     CommonResources.browserDriver.get(currURL);
                                     Thread.sleep(5000);

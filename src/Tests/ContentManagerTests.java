@@ -29,7 +29,12 @@ public class ContentManagerTests {
 
             folder.click();
 
+            allFolders = getFolders();
+
+            folder = allFolders.get(i);
+
             List<WebElement> foldersLvl2 = getSubFolders(folder);
+
             int folderCnt = 0;
             for(WebElement f: foldersLvl2) {
                 allFolders = getFolders();
@@ -38,6 +43,11 @@ public class ContentManagerTests {
                 UINavigation.scrollTo(f);
                 Thread.sleep(1000);
                 f.click();
+
+                allFolders = getFolders();
+                foldersLvl2 = getSubFolders(allFolders.get(i));
+                f = foldersLvl2.get(folderCnt);
+
                 WebElement togglerLvl2 = getToggler(f);
                 Thread.sleep(1000);
                 if(togglerLvl2 == null) {
@@ -99,6 +109,8 @@ public class ContentManagerTests {
 
             folder.click();
 
+            allFolders = getFolders();
+            folder = allFolders.get(i);
             List<WebElement> foldersLvl2 = getSubFolders(folder);
             int folderCnt = 0;
             for(WebElement f: foldersLvl2) {
@@ -108,6 +120,9 @@ public class ContentManagerTests {
                 UINavigation.scrollTo(f);
                 Thread.sleep(1000);
                 f.click();
+                allFolders = getFolders();
+                foldersLvl2 = getSubFolders(allFolders.get(i));
+                f = foldersLvl2.get(folderCnt);
                 WebElement togglerLvl2 = getToggler(f);
                 Thread.sleep(1000);
                 if(togglerLvl2 == null) {
@@ -168,7 +183,8 @@ public class ContentManagerTests {
             Thread.sleep(1000);
 
             folder.click();
-
+            allFolders = getFolders();
+            folder = allFolders.get(i);
             List<WebElement> foldersLvl2 = getSubFolders(folder);
             int folderCnt = 0;
             for(WebElement f: foldersLvl2) {
@@ -178,6 +194,9 @@ public class ContentManagerTests {
                 UINavigation.scrollTo(f);
                 Thread.sleep(1000);
                 f.click();
+                allFolders = getFolders();
+                foldersLvl2 = getSubFolders(allFolders.get(i));
+                f = foldersLvl2.get(folderCnt);
                 WebElement togglerLvl2 = getToggler(f);
                 Thread.sleep(1000);
                 if(togglerLvl2 == null) {

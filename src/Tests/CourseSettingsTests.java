@@ -70,7 +70,7 @@ public class CourseSettingsTests {
         assignmentsPenaltyInput.clear();
 
         assignmentsPenaltyInput.sendKeys("101");
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         saveButton = getSaveButton();
         saveButton.click();
 
@@ -85,7 +85,7 @@ public class CourseSettingsTests {
 
         assignmentsPenaltyInput.clear();
         assignmentsPenaltyInput.sendKeys("100");
-        Thread.sleep(3000);
+        Thread.sleep(2000);
 
         saveButton = getSaveButton();
         saveButton.click();

@@ -14,6 +14,8 @@ public class FlashcardConfig {
         checkArrowUINav();
         checkSlider();
         checkLearned();
+
+        UINavigation.navToDash();
     }
 
     public static void checkArrowKeysNav() throws InterruptedException {

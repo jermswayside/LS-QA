@@ -281,6 +281,40 @@ public class qaTestDebug {
                         break;
                     }
                 }
+                if(choiceEntry == 11) {
+                    scanChoice = new Scanner(System.in);
+                    num = 0;
+                    for(String test: CommonResources.getAllFooterTests()){
+                        System.out.println(String.format("\"%s\" - %s", num+1, test));
+                        num++;
+                    }
+                    int footerTestChoice = scanChoice.nextInt();
+                    switch (footerTestChoice){
+                        case 1: FooterConfig.checkContactUs();
+                        break;
+
+                        case 2: FooterConfig.checkFAQ();
+                        break;
+
+                        case 3: FooterConfig.checkStore();
+                        break;
+
+                        case 4: FooterConfig.checkSamples();
+                        break;
+
+                        case 5: FooterConfig.checkVisitWayside();
+                        break;
+
+                        case 6: FooterConfig.checkPrivacyPolicy();
+                        break;
+
+                        case 7: FooterConfig.checkToC();
+                        break;
+
+                        case 8: FooterConfig.checkReleaseNotes();
+                        break;
+                    }
+                }
                 if (choiceEntry == CommonResources.getAllTests().length) {
                     System.out.println("Now exiting.");
                     CommonResources.browserDriver.quit();

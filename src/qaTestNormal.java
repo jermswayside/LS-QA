@@ -28,6 +28,8 @@ public class qaTestNormal {
 
         FlashcardConfig.checkAllFlashcardTests();
 
+        FooterConfig.checkAllFooterTests();
+
         Utility.printPretty();
 
         CommonResources.browserDriver.close();

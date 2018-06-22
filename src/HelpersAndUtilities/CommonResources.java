@@ -459,6 +459,7 @@ public class CommonResources {
                 "Course Settings",
                 "Quiz",
                 "Flashcards",
+                "Footer",
                 "Exit program.",
         };
     }
@@ -547,6 +548,20 @@ public class CommonResources {
                 "Check \"Learned\"",
         };
     }
+
+    public static String[] getAllFooterTests() {
+        return new String[] {
+                "Contact Us",
+                "FAQ",
+                "Store",
+                "Samples",
+                "Visit Wayside",
+                "Privacy Policy",
+                "Terms and Conditions",
+                "Release Notes",
+        };
+    }
+
     public static Map<String, String> getIconTypes(){
         Map<String, String> map = new HashMap<>();
         map.put("wsi-icon-quiz", "quiz");
@@ -566,6 +581,7 @@ public class CommonResources {
         categories.add("Course Settings");
         categories.add("Quiz Module");
         categories.add("Flashcards");
+        categories.add("Footer");
         return categories;
     }
 }

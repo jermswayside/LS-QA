@@ -6,11 +6,11 @@ import Tests.AssignmentTests;
 
 public class AssignmentsConfig {
     public static void checkAllAssignmentsTests() throws InterruptedException {
-        checkSelectAllAssignments();
-        UINavigation.navToDash();
+//        checkSelectAllAssignments();
+//        UINavigation.navToDash();
 
-        checkSelectEachAssignments();
-        UINavigation.navToDash();
+//        checkSelectEachAssignments();
+//        UINavigation.navToDash();
 
         checkConfirmAssignments();
         UINavigation.navToDash();
@@ -41,6 +41,7 @@ public class AssignmentsConfig {
 
     public static void checkConfirmAssignments() throws InterruptedException {
         AssignmentTests.confirmAssignments();
+        UINavigation.navToAssignment();
         Utility.simpleDeleteAssignments();
     }
 

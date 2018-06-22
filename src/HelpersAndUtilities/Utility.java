@@ -115,6 +115,8 @@ public class Utility {
         Thread.sleep(2000);
 
         UINavigation.clickRemoveConfirm();
+
+        Utility.waitForNotVisible(Utility.getRemoveConfirm());
     }
 
     public static void simpleSelectAssignment() throws InterruptedException {
@@ -135,6 +137,8 @@ public class Utility {
         List<WebElement> folders2 = flvl1.findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl2));
 
         WebElement flvl2 = folders2.get(0);
+        Utility.waitForClickable(flvl2);
+        Thread.sleep(1000);
         flvl2.click();
 
         List<WebElement> folders3 = flvl2.findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl3));

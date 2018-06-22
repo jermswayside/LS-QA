@@ -154,8 +154,8 @@ public class UINavigation {
     }
 
     public static void clickAddAssignments() throws InterruptedException {
-        WebElement addAssignment = (new WebDriverWait(CommonResources.browserDriver, 20))
-                .until(ExpectedConditions.elementToBeClickable(By.cssSelector(CommonResources.cssSelectorAddAssignment)));
+        WebElement addAssignment = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorAddAssignment);
+        Thread.sleep(2000);
         addAssignment.click();
         System.out.println("Clicked \"ADD ASSIGNMENT\"");
     }
@@ -189,7 +189,7 @@ public class UINavigation {
     }
 
     public static void clickStudentCheckBox() throws InterruptedException {
-        WebElement checkbox = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorStudentCheckBox));
+        WebElement checkbox = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorStudentCheckBox);
         checkbox.click();
 
         System.out.println("Clicked checkbox for \"QA User 1\"");
@@ -245,9 +245,9 @@ public class UINavigation {
         System.out.println("Clicked trashcan icon.");
     }
 
-    public static void clickCheckAll() {
-        WebElement checkAll = CommonResources.browserDriver.findElement(By.cssSelector(
-                CommonResources.cssSelectorCheckAllBox));
+    public static void clickCheckAll() throws InterruptedException {
+        WebElement checkAll = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorCheckAllBox);
+        Thread.sleep(500);
         checkAll.click();
 
         System.out.println("Clicked check all box.");
@@ -309,7 +309,7 @@ public class UINavigation {
     public static void clickFlexTextTab() throws InterruptedException{
         WebElement ft = CommonResources.browserDriver.findElement(By.linkText("FlexText"));
         scrollTo(ft);
-        Thread.sleep(500);
+        Thread.sleep(10000);
         ft.click();
         System.out.println("Clicked FlexText tab.");
     }
