@@ -80,7 +80,7 @@ public class UINavigation {
         }
     }
 
-    public static void accessCourse(String course) throws InterruptedException{
+    public static void accessCourse(String course) throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 20);
 
         ExpectedCondition<List<WebElement>> condition = ExpectedConditions.visibilityOfAllElementsLocatedBy(
@@ -88,10 +88,11 @@ public class UINavigation {
 
         List<WebElement> courses = wait.until(condition);
         Thread.sleep(1000);
-        courses.forEach((c) -> {
+        courses.forEach((c) ->{
             if (Objects.equals(c.getText(), course)){
                 scrollTo(c);
                 Utility.waitForClickable(c);
+
                 c.click();
                 System.out.println(String.format("Now accessing course: %s", course));
 
@@ -247,7 +248,7 @@ public class UINavigation {
 
     public static void clickCheckAll() throws InterruptedException {
         WebElement checkAll = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorCheckAllBox);
-        Thread.sleep(500);
+        Thread.sleep(1000);
         checkAll.click();
 
         System.out.println("Clicked check all box.");
