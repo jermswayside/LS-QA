@@ -159,10 +159,14 @@ public class Utility {
         UINavigation.clickActiveNextStep();
         Thread.sleep(1000);
 
-        UINavigation.clickChooseDate();
-        Thread.sleep(1000);
+//        UINavigation.clickChooseDate();
+//        Thread.sleep(1000);
+//
+//        UINavigation.clickCurrDay();
+//        Thread.sleep(1000);
 
-        UINavigation.clickCurrDay();
+        WebElement noDueDate = waitForElementToExistByCssSelector(CommonResources.cssSelectorNoDueDate);
+        noDueDate.click();
         Thread.sleep(1000);
 
         UINavigation.clickAssign();
@@ -180,10 +184,14 @@ public class Utility {
         UINavigation.clickActiveNextStep();
         Thread.sleep(1000);
 
-        UINavigation.clickChooseDate();
-        Thread.sleep(1000);
+//        UINavigation.clickChooseDate();
+//        Thread.sleep(1000);
+//
+//        UINavigation.clickCurrDay();
+//        Thread.sleep(1000);
 
-        UINavigation.clickCurrDay();
+        WebElement noDueDate = waitForElementToExistByCssSelector(CommonResources.cssSelectorNoDueDate);
+        noDueDate.click();
         Thread.sleep(1000);
 
         UINavigation.clickAssign();
@@ -321,7 +329,7 @@ public class Utility {
     }
 
     public static WebElement waitForElementToExistByCssSelector(String cssSelector) throws InterruptedException{
-        int waitTime = 5;
+        int waitTime = 30;
         int waitCount = 0;
         while(waitCount <= 3){
             try {
@@ -337,7 +345,7 @@ public class Utility {
     }
 
     public static Select waitForSelectElementToExistByCssSelector(String cssSelector) throws InterruptedException{
-        int waitTime = 5;
+        int waitTime = 30;
         int waitCount = 0;
         while(waitCount <= 3){
             try {
@@ -353,7 +361,7 @@ public class Utility {
     }
 
     public static List<WebElement> waitForElementsToExistByCssSelector(String cssSelector) throws InterruptedException{
-        int waitTime = 5;
+        int waitTime = 30;
         int waitCount = 0;
         List<WebElement> currList = CommonResources.browserDriver.findElements(By.cssSelector(cssSelector));
         while(waitCount <= 3 && currList.size() == 0){
@@ -386,7 +394,7 @@ public class Utility {
     }
 
     public static List<WebElement> waitForElementsToExistByLinkText(String linkText) throws InterruptedException {
-        int waitTime = 10;
+        int waitTime = 30;
         int waitCount = 0;
         while(waitCount <= 3){
             try {
@@ -402,7 +410,7 @@ public class Utility {
     }
 
     public static WebElement waitForElementToExistByXpath(String xpath) throws InterruptedException {
-        int waitTime = 7;
+        int waitTime = 30;
         int waitCount = 0;
         while(waitCount <= 3){
             try {
@@ -427,22 +435,22 @@ public class Utility {
     }
 
     public static boolean waitForNotVisible(WebElement w){
-        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
+        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 150);
         return wait.until(ExpectedConditions.invisibilityOf(w));
     }
 
     public static void waitForVisible(List<WebElement> w){
-        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
+        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 150);
         wait.until(ExpectedConditions.visibilityOfAllElements(w));
     }
 
     public static void waitForVisible(WebElement w){
-        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
+        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 150);
         wait.until(ExpectedConditions.visibilityOf(w));
     }
 
     public static WebElement waitForClickable(WebElement w){
-        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 60);
+        WebDriverWait wait = new WebDriverWait(CommonResources.browserDriver, 150);
         return wait.until(ExpectedConditions.elementToBeClickable(w));
     }
 
@@ -523,7 +531,7 @@ public class Utility {
 
     public static String getSiteVersionQuiz() {
         if(CommonResources.siteChoiceEntry == 1) {
-            return "https://stagelearningsite.waysidepublishing.com/explorer/5344303/quiz/5238761/start";
+            return "https://stagelearningsite.waysidepublishing.com/explorer/5238731/quiz/5238761/start";
         }
         if(CommonResources.siteChoiceEntry == 2) {
             return "https://learningsite.waysidepublishing.com/explorer/5238731/quiz/5238761/start";

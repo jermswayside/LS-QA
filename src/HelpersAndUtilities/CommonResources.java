@@ -6,6 +6,9 @@ import Objects.Test;
 import java.util.*;
 
 public class CommonResources {
+    // Bannner clicked
+    public static boolean bannerClicked = false;
+
     // Site choice
     public static int siteChoiceEntry = 0;
 
@@ -28,7 +31,7 @@ public class CommonResources {
     public static final String usernameStudent = "qastudent";
     public static final String passwordStudent = "1234567";
 
-    public static final String usernameTeacher = "qateacher";
+    public static final String usernameTeacher = "qateacher@testing.com";
     public static final String passwordTeacher = "1234567";
 
     public static final String usernameFail = "helloworld";
@@ -70,12 +73,15 @@ public class CommonResources {
     public static String cssSelectorCourseStudent = "div.Dashboard_Courses > div.ws-courses-item >" +
             "a.ws-courses-item-title.app-navigation";
     public static String courseForAssignmentTest = "asd";
+    public static String cssSelectorStartingBanner = "div.ws-ftux__button-tutorial.ws-ftux__button-tutorial--fit-screen";
 
     //New Course classes, selectors, xpath, and variables
     public static String cssSelectorCourseContent = ".Content";
-    public static String cssSelectorCreateCourse = "#Textbooks > div.ws-page > div > div >" +
-            " div:nth-child(1) > div.ws-courses-item-bottom > div";
-    public static String cssSelectorCreateCoursePopUp = "button.ws-button__positive.Btn_Save_Course";
+    public static String cssSelectorCreateCourse = "div.ws-courses-item.create-course";
+    public static String cssSelectorFormCreateCourseButton = "form.Create_Course_Form > div.ws-popup-wrapper__footer >" +
+            " button.ws-button__positive.Btn_Save_Course";
+    public static String cssSelectorFormCreateCourseButtonLoading = cssSelectorFormCreateCourseButton + ".loading";
+    public static String cssSelectorCreateCoursePopUp = "form.Create_Course_Form";
     public static String cssSelectorMessageBox = "#Message_Box > div:nth-child(1)";
     public static String cssSelectorCourseTitle = ".content-b > div:nth-child(1) > input:nth-child(2)";
     public static String cssXpathStartDate = "//input[@placeholder='Start date']";
@@ -84,6 +90,8 @@ public class CommonResources {
             " course name. Please choose a different course name";
     public static String cssSelectorCurrDay = "table.ui-datepicker-calendar > tbody > tr > td.ui-datepicker-today > a";
     public static String cssSelectorTermsBox = ".content-b > p:nth-child(3) > input:nth-child(2)";
+    public static String cssSelectorTitleInput = "form.Create_Course_Form > " +
+            "div.ws-popup-content.ws-popup-wrapper__content > div.content-b > div > input";
 
     //Current course classes, selectors, xpath, and variables
     public static String cssSelectorCogWheel = "//*[@id=\"CourseContent\"]/div[2]/div[1]/div/div[1]/div/a[2]";
@@ -96,6 +104,7 @@ public class CommonResources {
             " div.ws-page-navigation-menu > a.ws-page-navigation-menu-item.app-navigation";
 
     //Assignment classes, selectors, xpath, and variables
+    public static String cssSelectorNoDueDate = "span.ws-checkbox.Checkbox_No_Due_Date";
     public static String cssSelectorAddAssignment = ".Btn_Add_Assignment";
     public static String cssSelectorFolders = "div.course-content-tree > ul.jqtree-tree > li.jqtree-folder";
     public static String cssSelectorFoldersCloser = "div.course-content-tree >" +
@@ -199,16 +208,15 @@ public class CommonResources {
             " div.ws-content-navigation > div.ws-content-navigation-item";
     public static final String cssSelectorSubLinks = "div.ws-content-navigation-item-title >" +
             " div.ws-content-navigation-item-title-bottom > a";
-    public static final String cssSelectorAssignmentPopup = "div#Popup_Create_Assignment >" +
-            " div.ws-assignment-popup-wrapper.Popup_Body";
+    public static final String cssSelectorAssignmentPopup = "div.ws-popup.ws-popup__flex.students-assignments-component";
     public static final String cssSelectorAssignmentX = "div.ws-popup-btn-close.fa.fa-remove.white";
     public static final String cssSelectorSelectAll = "div.ws-user-index > span.ws-checkbox.Btn_Check_All";
     public static final String cssSelectorActiveStudents = "div.step-b.active > div.bottom-b >" +
             " div.Btn_Next_Step ws-button__positive";
     public static final String cssSelectorQuizTitle = "article > h1";
     public static final String cssSelectorQuizStartButton = "div.ws-btn-1.quiz-component__action.quiz-component__action--green";
-    public static final String cssSelectorAssignX = "div#Popup_Create_Assignment > " +
-            "div.ws-assignment-popup-wrapper.Popup_Body > div.ws-popup-btn-close.fa.fa-remove.white";
+    public static final String cssSelectorAssignX = "div.ws-popup__flex__wrapper > div.ws-popup__flex__wrapper__title >" +
+            " div.ws-popup-btn-close.fa.fa-remove";
     public static String cssSelectorContentLoadingSaveButton = "#Popup_Create_Assignment > div.ws-assignment-popup-wrapper.Popup_Body >" +
             " div.ws-popup-content > div.step-b.active > div.bottom-b >" +
             " div.Btn_Save_Assignment.ws-button__positive.loading > div";

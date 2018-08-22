@@ -55,11 +55,11 @@ public class UINavigation {
     public static void clickSkip() throws InterruptedException{
         System.out.println("Waiting for tutorial box to appear...");
         try {
-            WebElement skip = (new WebDriverWait(CommonResources.browserDriver, 10))
+            WebElement skip = (new WebDriverWait(CommonResources.browserDriver, 20))
                     .until(ExpectedConditions.elementToBeClickable(
-                            By.cssSelector(CommonResources.cssSelectorPopupSkip)));
+                            By.cssSelector(CommonResources.cssSelectorStartingBanner)));
             skip.click();
-            System.out.println("Clicked \"Skip\".");
+
         }
         catch (org.openqa.selenium.TimeoutException te){
             System.out.println("Tutorial box not found; Continuing script.");
@@ -71,9 +71,9 @@ public class UINavigation {
         try {
             WebElement skip = (new WebDriverWait(driver, 20))
                     .until(ExpectedConditions.elementToBeClickable(
-                            By.cssSelector(CommonResources.cssSelectorPopupSkip)));
+                            By.cssSelector(CommonResources.cssSelectorStartingBanner)));
             skip.click();
-            System.out.println("Clicked \"Skip\".");
+
         }
         catch (org.openqa.selenium.TimeoutException te){
             System.out.println("Tutorial box not found; Continuing script.");
@@ -104,7 +104,7 @@ public class UINavigation {
     public static void clickX() throws InterruptedException{
         Thread.sleep(500);
         WebElement X = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorAssignX);
-        Utility.waitForVisible(X);
+        Thread.sleep(1000);
         X.click();
     }
     public static void accessCourse(String course, WebDriver driver) throws InterruptedException{
@@ -172,6 +172,8 @@ public class UINavigation {
     public static void clickActiveNextStep() throws InterruptedException {
         Thread.sleep(500);
         WebElement nextNextStep = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorNextNextStep);
+        Utility.waitForClickable(nextNextStep);
+        Thread.sleep(500);
         nextNextStep.click();
 
         System.out.println("Clicked \"NEXT STEP\".");
@@ -248,7 +250,7 @@ public class UINavigation {
 
     public static void clickCheckAll() throws InterruptedException {
         WebElement checkAll = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorCheckAllBox);
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         checkAll.click();
 
         System.out.println("Clicked check all box.");

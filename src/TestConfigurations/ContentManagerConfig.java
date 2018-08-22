@@ -32,10 +32,10 @@ public class ContentManagerConfig {
         checkSubLinks();
         UINavigation.navToDash();
 
-        checkAssigning();
-        UINavigation.navToDash();
-        UINavigation.navToAssignment();
-        Utility.simpleDeleteAssignments();
+//        checkAssigning();
+//        UINavigation.navToDash();
+//        UINavigation.navToAssignment();
+//        Utility.simpleDeleteAssignments();
         UINavigation.navToDash();
     }
 }

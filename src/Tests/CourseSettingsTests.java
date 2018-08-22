@@ -120,6 +120,7 @@ public class CourseSettingsTests {
         Utility.waitForClickable(settingsLink);
         settingsLink.click();
 
+
         WebElement quizSettings = getQuizSettings();
         Utility.waitForClickable(quizSettings);
         quizSettings.click();
@@ -389,9 +390,9 @@ public class CourseSettingsTests {
 
         Thread.sleep(5000);
 
-
-        firstChapterBox = getNoCheckBox(firstChapter);
-        firstChapterBox.click();
+//
+//        firstChapterBox = getNoCheckBox(firstChapter);
+//        firstChapterBox.click();
 
         Thread.sleep(5000);
     }

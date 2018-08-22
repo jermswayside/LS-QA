@@ -265,11 +265,17 @@ public class ContentManagerTests {
                             UINavigation.clickActiveNextStep();
                             Thread.sleep(500);
 
-                            UINavigation.clickChooseDate();
-                            Thread.sleep(500);
+//                            UINavigation.clickChooseDate();
+//                            Thread.sleep(500);
+//
+//                            UINavigation.clickCurrDay();
+//                            Thread.sleep(500);
 
-                            UINavigation.clickCurrDay();
-                            Thread.sleep(500);
+                            WebElement noDueDate = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorNoDueDate);
+                            noDueDate.click();
+
+                            Thread.sleep(1000);
+
 
                             try {
                                 UINavigation.clickSave();
@@ -331,6 +337,7 @@ public class ContentManagerTests {
                     if (popUpAppeared()) {
                         Thread.sleep(500);
                         UINavigation.clickX();
+                        CommonResources.browserDriver.switchTo().alert().accept();
                     } else if (!currUrl.equals(newUrl)) {
                         String iconType = CommonResources.getIconTypes().get(iconName);
                         if (!correctRedirect(newUrl, iconType)) {

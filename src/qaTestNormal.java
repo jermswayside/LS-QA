@@ -8,11 +8,11 @@ import java.io.IOException;
 public class qaTestNormal {
     public static void run() throws InterruptedException, IOException {
 
-        CreateCourseConfig.checkAllCreateCourseTests();
+//        CreateCourseConfig.checkAllCreateCourseTests();
 
-        BookCountConfig.checkAllBookCountTests();
+//        BookCountConfig.checkAllBookCountTests();
 
-        AssignmentsConfig.checkAllAssignmentsTests();
+//        AssignmentsConfig.checkAllAssignmentsTests();
 
         FlexTextConfig.checkAllFlexTextTests();
 
