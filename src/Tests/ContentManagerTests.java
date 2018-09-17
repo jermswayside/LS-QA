@@ -16,7 +16,7 @@ public class ContentManagerTests {
     public static void contentIcons() throws InterruptedException{
         Test currTest = new Test(currCat, "Check Content Icons", "", "");
         long start = System.nanoTime();
-        ArrayList<String> icons = CommonResources.getIconsClass();
+        ArrayList<String> icons = CommonResources.getIconsClassContent();
         List<WebElement> allFolders = getFolders();
         search:
         for(int i = 1; i<allFolders.size(); i++){
@@ -76,6 +76,7 @@ public class ContentManagerTests {
                 }
                 folderCnt++;
             }
+            folder = allFolders.get(i);
             WebElement togglerLvl1 = getToggler(folder);
             UINavigation.scrollTo(togglerLvl1);
             Thread.sleep(1000);
@@ -96,7 +97,7 @@ public class ContentManagerTests {
         Test currTest = new Test(currCat, "Check Sublinks", "", "");
         long start = System.nanoTime();
         Thread.sleep(2000);
-        ArrayList<String> icons = CommonResources.getIconsClass();
+        ArrayList<String> icons = CommonResources.getIconsClassContent();
         List<WebElement> allFolders = getFolders();
         search:
         for(int i = 1; i<allFolders.size(); i++){
@@ -171,7 +172,7 @@ public class ContentManagerTests {
     public static void assigning() throws InterruptedException{
         Test currTest = new Test(currCat, "Check Assigning from Content", "", "");
         long start = System.nanoTime();
-        ArrayList<String> icons = CommonResources.getIconsClass();
+        ArrayList<String> icons = CommonResources.getIconsClassContent();
         List<WebElement> allFolders = getFolders();
         search:
         for(int i = 1; i<allFolders.size(); i++) {
@@ -392,7 +393,7 @@ public class ContentManagerTests {
     }
 
     private static boolean correctRedirect(String newUrl, String type){
-        if(newUrl.indexOf(type) > 0){
+        if(newUrl.contains(type)){
             return true;
         }
         return false;
@@ -438,7 +439,7 @@ public class ContentManagerTests {
     private static String getIconString(WebElement i, ArrayList<String> list) {
         String s = i.getAttribute("class");
         for (String icon : list) {
-            if (s.indexOf(icon) > 0) {
+            if (s.contains(icon)) {
                 return icon;
             }
         }

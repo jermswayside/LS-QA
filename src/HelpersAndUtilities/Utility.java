@@ -134,14 +134,14 @@ public class Utility {
         WebElement flvl1 = folders.get(1);
         flvl1.click();
 
-        List<WebElement> folders2 = flvl1.findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl2));
+        List<WebElement> folders2 = Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorFoldersLvl2);
 
         WebElement flvl2 = folders2.get(0);
         Utility.waitForClickable(flvl2);
         Thread.sleep(1000);
         flvl2.click();
 
-        List<WebElement> folders3 = flvl2.findElements(By.cssSelector(CommonResources.cssSelectorFoldersLvl3));
+        List<WebElement> folders3 = Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorFoldersLvl3);
 
         Thread.sleep(1000);
         Actions actions = new Actions(CommonResources.browserDriver);
@@ -156,20 +156,26 @@ public class Utility {
         UINavigation.clickNextStep();
         Thread.sleep(1000);
 
-        UINavigation.clickActiveNextStep();
+        List<WebElement> allCourses = Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorAllCourses);
+        for(int i = 0; i < allCourses.size(); i++){
+            WebElement currCourse = allCourses.get(i);
+            if(currCourse.getText().contains("asd")){
+                WebElement checkBox = currCourse.findElement(By.cssSelector(CommonResources.cssSelectorCurrCourseCheckBox));
+                checkBox.click();
+            }
+        }
+
+        List<WebElement> footerButtons = Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorFooterButtons);
+        footerButtons.get(1).click();
+
         Thread.sleep(1000);
 
-//        UINavigation.clickChooseDate();
-//        Thread.sleep(1000);
-//
-//        UINavigation.clickCurrDay();
-//        Thread.sleep(1000);
+        WebElement assignmentPopup = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorPopupFlexWrapper);
 
-        WebElement noDueDate = waitForElementToExistByCssSelector(CommonResources.cssSelectorNoDueDate);
-        noDueDate.click();
-        Thread.sleep(1000);
+        footerButtons = Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorFooterButtons);
+        footerButtons.get(1).click();
 
-        UINavigation.clickAssign();
+        Utility.waitForNotVisible(assignmentPopup);
     }
 
     public static void createAssignmentSelectedStudents() throws InterruptedException {
@@ -178,24 +184,31 @@ public class Utility {
         UINavigation.clickNextStep();
         Thread.sleep(1000);
 
-        UINavigation.clickStudentCheckBox();
-        Thread.sleep(1000);
+        List<WebElement> allCourses = Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorAllCourses);
+        for(int i = 0; i < allCourses.size(); i++){
+            WebElement currCourse = allCourses.get(i);
+            if(currCourse.getText().contains("asd")){
+                currCourse.click();
+                Thread.sleep(2000);
+                List<WebElement> students = currCourse.findElements(By.cssSelector(CommonResources.cssSelectorAssignmentStudents));
+                for (WebElement student:students) {
+                    if(student.getText().toLowerCase().contains("qa student 1")){
+                        WebElement currStudentCheckbox = student.findElement(By.cssSelector(CommonResources.cssSelectorCurrStudentCheckBox));
+                        currStudentCheckbox.click();
+                    }
+                }
+            }
+        }
 
-        UINavigation.clickActiveNextStep();
-        Thread.sleep(1000);
+        List<WebElement> footerButtons = Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorFooterButtons);
+        footerButtons.get(1).click();
 
-//        UINavigation.clickChooseDate();
-//        Thread.sleep(1000);
-//
-//        UINavigation.clickCurrDay();
-//        Thread.sleep(1000);
+        WebElement assignmentPopup = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorPopupFlexWrapper);
 
-        WebElement noDueDate = waitForElementToExistByCssSelector(CommonResources.cssSelectorNoDueDate);
-        noDueDate.click();
-        Thread.sleep(1000);
+        footerButtons = Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorFooterButtons);
+        footerButtons.get(1).click();
 
-        UINavigation.clickAssign();
-        Thread.sleep(1000);
+        Utility.waitForNotVisible(assignmentPopup);
     }
 
     public static boolean confirmAssignmentSelectedStudents(Test ct) throws InterruptedException {

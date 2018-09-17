@@ -6,9 +6,6 @@ import Objects.Test;
 import java.util.*;
 
 public class CommonResources {
-    // Bannner clicked
-    public static boolean bannerClicked = false;
-
     // Site choice
     public static int siteChoiceEntry = 0;
 
@@ -106,25 +103,25 @@ public class CommonResources {
     //Assignment classes, selectors, xpath, and variables
     public static String cssSelectorNoDueDate = "span.ws-checkbox.Checkbox_No_Due_Date";
     public static String cssSelectorAddAssignment = ".Btn_Add_Assignment";
-    public static String cssSelectorFolders = "div.course-content-tree > ul.jqtree-tree > li.jqtree-folder";
-    public static String cssSelectorFoldersCloser = "div.course-content-tree >" +
-            " ul.jqtree-tree > li.jqtree-folder > div.jqtree_common";
-    public static String cssSelectorFoldersLvl2 = "div.course-content-tree > ul.jqtree-tree >" +
-            " li.jqtree-folder > ul.jqtree_common > li.jqtree-folder";
-    public static String cssSelectorFoldersLvl2Closer = "div.course-content-tree >" +
-            " ul.jqtree-tree > li.jqtree-folder > ul.jqtree_common > li.jqtree-folder > div.jqtree_common";
+    public static String cssSelectorFolders = "div.ws-course-tree.ws-course-tree__root > div";
+    public static String cssSelectorFoldersOpener = "div.ws-course-tree.ws-course-tree__root > div > i.fa.fa-plus-circle.ws-course-tree__plus-icon";
+    public static String cssSelectorFoldersCloser = "div.ws-course-tree.ws-course-tree__root > div > i.fa.fa-minus-circle.ws-course-tree__minus-icon";
+    public static String cssSelectorFoldersLvl2 = "div.ws-course-tree.ws-course-tree__root > div.ws-course-tree__root.ws-course-tree__root--visible > div.ws-course-tree__node.ws-course-tree__node--has-children.ws-course-tree__node--collapsed";
+    public static String cssSelectorFoldersLvl2Opener = "div.ws-course-tree.ws-course-tree__root > div.ws-course-tree__root.ws-course-tree__root--visible > div > i.fa.fa-plus-circle.ws-course-tree__plus-icon";
+    public static String cssSelectorFoldersLvl2Closer = "div.ws-course-tree.ws-course-tree__root > div.ws-course-tree__root.ws-course-tree__root--visible > div > i.fa.fa-minus-circle.ws-course-tree__minus-icon";
     public static String cssSelectorX = "div.ws-popup-btn-close:nth-child(2)";
-    public static String cssSelectorFoldersLvl3 = "div.course-content-tree > ul.jqtree-tree >" +
-            " li.jqtree-folder > ul.jqtree_common > li.jqtree-folder > ul.jqtree_common > li.jqtree_common";
-    public static String cssSelectorIcons = "div.course-content-tree > ul.jqtree-tree >" +
-            " li.jqtree-folder > ul.jqtree_common > li.jqtree-folder > ul.jqtree_common >" +
-            " li.jqtree_common > div.jqtree_common > span.jqtree_common > i.item-icon";
-    public static String cssSelectorDropContainer = "div.Selected_Assignments";
-    public static String cssSelectorNextStep = "div.bottom-b > div.Btn_Next_Step";
+    public static String cssSelectorFoldersLvl3 = "div.ws-course-tree__root.ws-course-tree__root--visible > div.ws-course-tree__root.ws-course-tree__root--visible > div";
+    public static String cssSelectorIcons = "i";
+    public static String cssSelectorDropContainer = "div.students-assignments-component__selected-objects.ui-droppable";
+    public static String cssSelectorFooterButtons = "div.ws-popup__flex__wrapper__footer__actions > div";
+    public static String cssSelectorAllCourses = "div.ws-collapsible.select-students-step > div > div";
+    public static String cssSelectorCurrCourseCheckBox = "div.ws-collapsible__block__header > span.ws-checkbox";
+    public static String cssSelectorAssignmentStudents = "div > div.ws-collapsible__block__content > div > div";
+    public static String cssSelectorCurrStudentCheckBox = "div.select-students-step__student__checkbox";
+    public static String cssSelectorEditAllStudents = "div.ws-popup__flex__wrapper__content__wrapper > div > div:nth-child(2) > div > div";
     public static String cssSelectorNextNextStep = "div.step-b.active > div.bottom-b >  div.Btn_Next_Step";
-    public static String cssSelectorEditNextStep = "#Popup_Create_Assignment > " +
-            "div.ws-assignment-popup-wrapper.Popup_Body > div.ws-popup-content >" +
-            " div.step-b.active > div.bottom-b > div.Btn_Next_Step.ws-button__positive";
+    public static String cssSelectorPopupFlexWrapper = "div.ws-popup__flex__wrapper";
+    public static String cssSelectorEditNextStep = "div.ws-popup__flex__wrapper__footer__actions > div";
     public static String cssSelectorAssign = "div.step-b.active > div.bottom-b > div.Btn_Assign";
     public static String cssSelectorAssignLoading = "div.step-b.active > div.bottom-b > div.Btn_Assign.loading";
     public static String cssXpathChooseDate = "//input[@placeholder='Choose date']";
@@ -425,15 +422,27 @@ public class CommonResources {
         return icons;
     }
 
-    public static ArrayList<String> getIconsClass(){
+    public static ArrayList<String> getIconsCssClass(){
         ArrayList<String> icons = new ArrayList<>();
-        icons.add("fa fa-file-text-o");
-        icons.add("fa fa-file-audio-o");
-        icons.add("wsi-icon-quiz");
-        icons.add("fa fa-file-video-o");
-        icons.add("wsi-icon-flashcard");
-        icons.add("fa fa-file-code-o");
-        icons.add("fa fa-comments-o");
+        icons.add("wsi-icon-file-text-o ws-course-tree__type-icon");
+        icons.add("wsi-icon-file-audio-o ws-course-tree__type-icon");
+        icons.add("wsi-icon-quiz ws-course-tree__type-icon");
+        icons.add("wsi-icon-file-video-o ws-course-tree__type-icon");
+        icons.add("wsi-icon-flashcard ws-course-tree__type-icon");
+        icons.add("wsi-icon-file-code-o ws-course-tree__type-icon");
+        icons.add("wsi-icon-comments-o ws-course-tree__type-icon");
+        return icons;
+    }
+
+    public static ArrayList<String> getIconsClassContent() {
+        ArrayList<String> icons = new ArrayList<>();
+        icons.add("ws-content-navigation-item-img fa fa-file-audio-o course-navigation");
+        icons.add("ws-content-navigation-item-img fa fa-file-text-o Document_Content_Link");
+        icons.add("ws-content-navigation-item-img wsi-icon-quiz course-navigation");
+        icons.add("ws-content-navigation-item-img fa fa-comments-o course-navigation");
+        icons.add("ws-content-navigation-item-img wsi-icon-flashcard app-navigation");
+        icons.add("ws-content-navigation-item-img fa fa-file-video-o course-navigation");
+        icons.add("ws-content-navigation-item-img fa fa-file-code-o URL_Content_Link");
         return icons;
     }
     public static ArrayList<String> getAllBooks() {
@@ -572,8 +581,8 @@ public class CommonResources {
 
     public static Map<String, String> getIconTypes(){
         Map<String, String> map = new HashMap<>();
-        map.put("wsi-icon-quiz", "quiz");
-        map.put("wsi-icon-flashcard", "flashcards");
+        map.put("ws-content-navigation-item-img wsi-icon-quiz course-navigation", "quiz");
+        map.put("ws-content-navigation-item-img wsi-icon-flashcard app-navigation", "flashcards");
         return map;
     }
 

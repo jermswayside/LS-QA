@@ -331,6 +331,7 @@ public class FlexTextTests {
                                         currCompass.click();
                                         Thread.sleep(1000);
                                     }
+                                    Thread.sleep(1000);
                                     List<WebElement> currLinkList = getExplorerLink();
                                     WebElement currLink = currLinkList.get(j);
                                     UINavigation.scrollTo(getExplorerBox());

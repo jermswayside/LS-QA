@@ -31,12 +31,8 @@ public class UINavigation {
         accessCourse(CommonResources.courseForAssignmentTest);
 
         Thread.sleep(5000);
-        clickSkip();
-
-        Thread.sleep(1000);
 
         accessAssignments();
-        clickSkip();
     }
 
     public static void navToAssignment(WebDriver driver) throws InterruptedException{
@@ -162,7 +158,9 @@ public class UINavigation {
     }
 
     public static void clickNextStep() throws InterruptedException {
-        WebElement nextStep = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorNextStep));
+        Thread.sleep(2000);
+
+        WebElement nextStep = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorFooterButtons));
         nextStep.click();
 
         System.out.println("Clicked \"NEXT STEP\".");
@@ -185,17 +183,21 @@ public class UINavigation {
     }
 
     public static void clickAssign() throws InterruptedException {
-        WebElement assign = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorAssign));
+        WebElement assign = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorFooterButtons);
+        Utility.waitForClickable(assign);
         assign.click();
 
         System.out.println("Clicked \"Assign\".");
     }
 
     public static void clickStudentCheckBox() throws InterruptedException {
-        WebElement checkbox = Utility.waitForElementToExistByCssSelector(CommonResources.cssSelectorStudentCheckBox);
-        checkbox.click();
-
-        System.out.println("Clicked checkbox for \"QA User 1\"");
+        List<WebElement> students = Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorEditAllStudents);
+        for(WebElement student:students){
+            if(student.getText().toLowerCase().contains("fake@email.com")){
+                WebElement checkBox = student.findElement(By.cssSelector("div > " + CommonResources.cssSelectorCurrStudentCheckBox));
+                checkBox.click();
+            }
+        }
     }
 
     public static void clickCurrDay() throws InterruptedException{
@@ -213,10 +215,8 @@ public class UINavigation {
     }
 
     public static void clickSave() throws  InterruptedException {
-        WebElement save = CommonResources.browserDriver.findElement(By.cssSelector(CommonResources.cssSelectorSave));
-        save.click();
-
-        System.out.println("Clicked \"SAVE\".");
+        List<WebElement> footerButtons = Utility.waitForElementsToExistByCssSelector(CommonResources.cssSelectorFooterButtons);
+        footerButtons.get(1).click();
     }
 
     public static void clickCompletedAssigned() throws InterruptedException {
